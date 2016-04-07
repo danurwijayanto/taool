@@ -30,7 +30,7 @@
 	        if($result->num_rows() == 1){
 	            $query_result = array();
 			foreach ($result->result_array() as $row){
-				$query_result['id'] = $row['id'];
+				$query_result['id_user'] = $row['id_user'];
 				$query_result['username'] = $row['username'];
 				$query_result['email'] = $row['email'];
 				// $query_result['password'] = $row['password'];
@@ -42,6 +42,16 @@
 				return FALSE;
 			}	
 		}
+
+		public function get_all_user(){
+			$query = "SELECT * FROM user";
+			$result = $this->db->query($query);
+
+	        return $result->result_array();
+
+
+		}
+
 		public function cek_email(){
 			$email = $this->input->post('email');
 			$query = "SELECT email FROM user

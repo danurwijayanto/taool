@@ -45,7 +45,9 @@ class Welcome extends CI_Controller {
 		$data=array(
 			'title'=>'Network Management System UPPTI FSM UNDIP',
 			'isi' =>'admin/isi/log_squid',
-			'log_squid' => $this->squid_model->get_log()
+			'log_squid' => $this->squid_model->get_log(),
+			'session' => $this->data_sesi
+
 		);
 		$this->load->view('admin/wrapper', $data);
 	}
@@ -55,7 +57,8 @@ class Welcome extends CI_Controller {
 			'title'=>'Network Management System UPPTI FSM UNDIP',
 			'isi' =>'admin/isi/popular_site',
 			'pop_site' => $this->squid_model->popular_site(),
-			'stats' => $this->squid_model->get_namaif() 
+			'stats' => $this->squid_model->get_namaif() ,
+			'session' => $this->data_sesi
 			// 'stats' => $this->squid_model->count_domaintuj() 
 		);
 		 $this->load->view('admin/wrapper', $data);
@@ -65,7 +68,8 @@ class Welcome extends CI_Controller {
 		$data=array(
 			'title'=>'Network Management System UPPTI FSM UNDIP',
 			'isi' =>'admin/isi/data_perangkat',
-			'data_perangkat' => $this->snmp_model->get_alldev()
+			'data_perangkat' => $this->snmp_model->get_alldev(),
+			'session' => $this->data_sesi
 		);
 		$this->load->view('admin/wrapper', $data);
 	}
@@ -135,7 +139,8 @@ class Welcome extends CI_Controller {
 				'title'=>'Network Management System UPPTI FSM UNDIP',
 				'isi' =>'admin/isi/detail_perangkat',
 				'detail' => $this->snmp_model->get_perangkat($id),
-				'data_id' => $this->snmp_model->get_data_if($id)
+				'data_id' => $this->snmp_model->get_data_if($id),
+				'session' => $this->data_sesi
 					
 		);
 		foreach ($data['detail'] as $det) {
@@ -169,7 +174,8 @@ class Welcome extends CI_Controller {
 		$data = array(
 				'title'=>'Network Management System UPPTI FSM UNDIP',
 				'isi' =>'admin/isi/statistik',
-				'interface' => $this->snmp_model->get_interface_active()
+				'interface' => $this->snmp_model->get_interface_active(),
+				'session' => $this->data_sesi
 		);
 		$this->load->view('admin/wrapper', $data);
 	}
@@ -186,7 +192,8 @@ class Welcome extends CI_Controller {
 				'title'=>'Network Management System UPPTI FSM UNDIP',
 				'isi' =>'admin/isi/statistik',
 				'interface' => $this->snmp_model->get_interface_active(),
-				'statistik' => $this->squid_model->cari_statistik($post_data)
+				'statistik' => $this->squid_model->cari_statistik($post_data),
+				'session' => $this->data_sesi
 		);
 		$this->load->view('admin/wrapper', $data);
 	}
@@ -201,7 +208,18 @@ class Welcome extends CI_Controller {
 				'title'=>'Network Management System UPPTI FSM UNDIP',
 				'isi' =>'admin/isi/detail_interface',
 				'det_if' => $this->snmp_model->get_detail_if($id),
+				'session' => $this->data_sesi
 				#'statistik' => $this->squid_model->cari_statistik($id_if)
+		);
+		$this->load->view('admin/wrapper', $data);
+	}
+
+	public function data_user(){
+		$data = array(
+				'title'=>'Network Management System UPPTI FSM UNDIP',
+				'isi' =>'admin/isi/data_user',
+				'user' => $this->auth->get_all_user(),
+				'session' => $this->data_sesi
 		);
 		$this->load->view('admin/wrapper', $data);
 	}

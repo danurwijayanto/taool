@@ -102,7 +102,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Daftar User</a></li>
+                <li><a href="<?php echo base_url();?>index.php/welcome/data_user"><i class="fa fa-circle-o"></i> Daftar User</a></li>
               </ul>
             </li>
           </ul>

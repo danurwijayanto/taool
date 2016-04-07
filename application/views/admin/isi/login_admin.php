@@ -30,7 +30,7 @@
 					<input type="password" name="password" placeholder="Password" required class="form-control input-lg" value="<?php echo set_value('password'); ?>" />
 					<button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Sign in</button>
 					<div>
-						<a href="#">reset password</a>
+						<!-- <a href="#">reset password</a> -->
 					</div>
 				</form>
 				<div class="form-links">
