@@ -19,17 +19,18 @@
 
 	<section class="container">
 			<section class="login-form">
-				<form method="post" action="" role="login">
+				<form method="post" action="<?php echo base_url();?>index.php/auth/user_login_process" role="login">
 					<p>Login NMS FSM Undip</p>
 					<img src="<?php echo base_url();?>etc/login/styles.css" class="img-responsive" alt="" />
-					<input type="email" name="email" placeholder="Email" required class="form-control input-lg" />
-					<input type="password" name="password" placeholder="Password" required class="form-control input-lg" />
+			<input type="email" name="email" placeholder="Email" required class="form-control input-lg" value="<?php echo set_value('email'); ?>" />
+					<input type="password" name="password" placeholder="Password" required class="form-control input-lg" value="<?php echo set_value('password'); ?>" />
 					<button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Sign in</button>
 					<div>
 						<a href="#">reset password</a>
 					</div>
 				</form>
 				<div class="form-links">
+					<?php echo validation_errors(); ?>
 					<!-- <a href="#">www.website.com</a> -->
 				</div>
 			</section>
