@@ -193,6 +193,10 @@ class Welcome extends CI_Controller {
 		$this->load->view('admin/wrapper', $data);
 	}
 
+	public function login(){
+		$this->load->view('admin/isi/login_admin');
+	}
+
 	//Fungsi ajax auto refresh
 	public function uptime(){
 		$sess = $this->session->userdata('sess');
@@ -215,6 +219,8 @@ class Welcome extends CI_Controller {
 		echo json_encode($data);
 	}
 	//End Fungsi Ajax auto refresh
+
+
 }
 
 /* End of file welcome.php */
