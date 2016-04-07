@@ -25,6 +25,8 @@ class Login_admin extends CI_Controller {
 		
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|required|max_length[30]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|required|max_length[30]');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
 			if ($this->form_validation->run() == FALSE) {
 				//Jika validasi gagal user akan diarahkan kembali ke halaman login
 				// redirect('masukadmin', 'refresh');
@@ -36,7 +38,7 @@ class Login_admin extends CI_Controller {
 					'password' => $this->input->post('password')
 				);
 				$result = $this->auth->auth_login($data);
-				print_r($result);
+				// print_r($result);
 				if($result == TRUE){
 					$sess_array = array(
 						'email' => $this->input->post('email')
@@ -47,8 +49,9 @@ class Login_admin extends CI_Controller {
 					
 				}else{
 					$data = array(
-						'message' => 'Email dan Password Tidak Ditemukan'
+						'message' => '<div class="alert alert-danger">Email dan Password Tidak Ditemukan.</div>'
 					);
+					// $this->form_validation->set_message('Email dan Password Tidak ');
 					$this->load->view('admin/isi/login_admin', $data);
 					//redirect('kelbar', 'refresh');
 				}
@@ -61,8 +64,8 @@ class Login_admin extends CI_Controller {
 			'email' => ''
 		);
 		$this->session->unset_userdata('logged_in', $sess_array);
-		$data['message'] = 'Successfully Logout';
-		$this->load->view('admin_konten/login', $data);
+		$data['message'] = '<div class="alert alert-danger">Logout Berhasil !</div>';
+		$this->load->view('admin/isi/login_admin', $data);
 	}
 
 	//function request password

@@ -19,6 +19,10 @@
 
 	<section class="container">
 			<section class="login-form">
+			<?php 
+			if (isset($message)) echo $message;
+			echo validation_errors(); 
+			?> 
 				<form method="post" action="<?php echo base_url();?>index.php/login_admin/user_login_process" role="login">
 					<p>Login NMS FSM Undip</p>
 					<img src="<?php echo base_url();?>etc/login/styles.css" class="img-responsive" alt="" />
@@ -30,7 +34,7 @@
 					</div>
 				</form>
 				<div class="form-links">
-					<?php echo validation_errors(); ?>
+					<!-- <?php echo validation_errors(); ?> -->
 					<!-- <a href="#">www.website.com</a> -->
 				</div>
 			</section>

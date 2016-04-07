@@ -25,7 +25,7 @@ class Welcome extends CI_Controller {
 				redirect(base_url('index.php/login_admin'));
 			}else{
 				$this->session_data = $this->session->userdata('logged_in');
-				// $this->data_sesi = $this->user_auth->read_user_information($this->session_data);
+				$this->data_sesi = $this->auth->read_user_information($this->session_data);
 			}
 	}
 
@@ -35,7 +35,8 @@ class Welcome extends CI_Controller {
 		
 		$data=array(
 			'title'=>'Network Management System UPPTI FSM UNDIP',
-			'isi' =>'admin/isi/home'
+			'isi' =>'admin/isi/home',
+			'session' => $this->data_sesi
 		);
 		$this->load->view('admin/wrapper', $data);
 	}
