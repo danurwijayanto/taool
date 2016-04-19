@@ -203,6 +203,20 @@ class Welcome extends CI_Controller {
 				'id_if' => $this->input->get('id_if'),
 				'id_per' => $this->input->get('id_per')
 		);
+		// Membuat rrd database
+		$options = array(
+			 "--step", "60",            // Use a step-size of 1 minutes
+			 "--start", "N",     // this rrd started now
+			 "DS:in:COUNTER:600:U:U",
+			 "DS:out:COUNTER:600:U:U",
+			 "RRA:AVERAGE:0.5:1:1440",
+		);
+		$nama = $id['id_if']."_".$id['id_per'];
+		$ret = rrd_create($nama.".rrd", $options);
+		// if (! $ret) {
+		//  echo "<b>Creation error: </b>".rrd_error()."\n";
+		// }
+
 		
 		$data = array(
 				'title'=>'Network Management System UPPTI FSM UNDIP',
