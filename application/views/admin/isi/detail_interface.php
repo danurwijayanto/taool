@@ -19,11 +19,17 @@
           <div class="box-body">
 
             <?php 
-              print_r($id['id_per']."<br>");
               if ($cek_rrd==1){
-                echo "<br><a href='".base_url()."index.php/welcome/add_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-danger'>Reset</a>";
+                // Generate grafik RRDTOOLS
+                $nama_gambar = $id['id_if']."_".$id['id_per'];
+                create_graph("etc/rrdtools/gambar/".$nama_gambar.".gif", "-1d", "Bandwith Harian", $nama_gambar);
+                echo "<img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar.".gif' alt='Generated RRD image'><br>";
+
+                //Tombol untuk Reset Database RRD Tools
+                echo "<br><a href='".base_url()."index.php/welcome/create_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-danger'>Reset Database</a>";
               } else {
-                echo "<br><a href='".base_url()."index.php/welcome/add_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-primary'>Add Database</a>";
+                //Tombol untuk Membuat Database RRD Tools
+                echo "<br><a href='".base_url()."index.php/welcome/create_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-primary'>Create Database</a>";
               }
             ?>
             <!-- -->
@@ -71,3 +77,51 @@
       //   });
       // }, 1000);
     </script>
+
+    <?php 
+// create_graph("login-hour.gif", "-1h", "Hourly login attempts");
+  
+  // create_graph("login-week.gif", "-1w", "Weekly login attempts");
+  // create_graph("login-month.gif", "-1m", "Monthly login attempts");
+  // create_graph("login-year.gif", "-1y", "Yearly login attempts");
+
+  // echo "<table>";
+  // echo "<tr><td>";
+  
+  // echo "</td><td>";
+  // echo "<img src='login-week.gif' alt='Generated RRD image'>";
+  // echo "</td></tr>";
+  // echo "<tr><td>";
+  // echo "<img src='login-month.gif' alt='Generated RRD image'>";
+  // echo "</td><td>";
+  // echo "<img src='login-year.gif' alt='Generated RRD image'>";
+  // echo "</td></tr>";
+  // echo "</table>";
+  // exit;
+
+  function create_graph($output, $start, $title, $name) {
+    $options = array(
+      "--slope-mode",
+      "--start", $start,
+      "--title=$title",
+      "--vertical-label=Speed",
+      "--lower=0",
+      "DEF:in=etc/rrdtools/rra/".$name.".rrd:in:AVERAGE",
+      "DEF:out=etc/rrdtools/rra/".$name.".rrd:out:AVERAGE",
+      "CDEF:kbin=in,1024,/",
+      "CDEF:kbout=out,1024,/",
+      "AREA:in#00FF00:Bandwith In",
+      "LINE1:out#0000FF:Bandwidth Out\j",
+      "GPRINT:kbin:LAST:Last Bandwidth In\:    %3.2lf KBps",
+      "GPRINT:kbout:LAST:Last Bandwidth Out\:   %3.2lf KBps",
+      "GPRINT:kbin:AVERAGE:Average Bandwidth In\: %3.2lf KBps",
+      "GPRINT:kbin:AVERAGE:Average Bandwidth In\: %3.2lf KBps",
+    );
+
+    $ret = rrd_graph($output, $options);
+    if (! $ret) {
+      echo "<b>Graph error: </b>".rrd_error()."\n";
+    }
+  }
+
+    ?>

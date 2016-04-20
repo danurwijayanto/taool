@@ -209,6 +209,22 @@
 				return 0;
 			} 
 		}
+
+		function simpan_rrd($data){
+			$id_if = $data['id_if'];
+			$id_per = $data['id_per'];
+			$id_rrd_name = $id_if."_".$id_per;
+			//Simpan ke database
+			
+			$query = "UPDATE data_interface SET id_rrd = '$id_rrd_name'
+				WHERE interface_index=$id_if AND id_perangkat=$id_per";
+			$result = $this->db->query($query);
+			// if($this->db->affected_rows() > 0){
+	  //           return "Data Interface Berhasil ditambahkan";
+	  //       } else {
+   //          	return $this->db->error;
+   //     	 	}	
+		}
 	}	
 	/* End of file snmp_model.php */
 	/* Location: ./application/models/squid_model.php */

@@ -212,18 +212,25 @@ class Welcome extends CI_Controller {
 				'id' => $id
 				#'statistik' => $this->squid_model->cari_statistik($id_if)
 		);
+		
 		// print_r($data['cek_rrd']);
 		$this->load->view('admin/wrapper', $data);
+		
 	}
 
 	/*
 		*Fungsi untuk membuat database rrd pertama kali
 	*/
 	public function create_rrd(){
+		$referred_from = $this->session->userdata('referred_from');
 		$id = array(
 				'id_if' => $this->input->get('id_if'),
 				'id_per' => $this->input->get('id_per')
 		);
+		$nama = $id['id_if']."_".$id['id_per'];
+
+		// Simpan nama database rrd dalam mysql database
+		$this->snmp_model->simpan_rrd($id);
 
 		// Membuat rrd database
 		$options = array(
@@ -233,13 +240,17 @@ class Welcome extends CI_Controller {
 			 "DS:out:COUNTER:600:U:U",
 			 "RRA:AVERAGE:0.5:1:1440",
 		);
-		$nama = $id['id_if']."_".$id['id_per'];
+
 		$ret = rrd_create("etc/rrdtools/rra/".$nama.".rrd", $options);
+
+		// 
 		// if (! $ret) {
-		//  echo "<b>Creation error: </b>".rrd_error()."\n";
+		// 	echo "<script type='text/javascript'>alert('Gagal Membuat Database ".rrd_error()."')</script>";
+		// }else{
+		// 	echo "<script type='text/javascript'>alert('Sukses Membuat Database ".$nama.".rrd')</script>";
 		// }
 		// echo getcwd()."<br>";
-		redirect('welcome/detail_if', 'refresh');
+		redirect($this->agent->referrer());
 	}
 
 	public function data_user(){
