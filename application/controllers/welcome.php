@@ -200,9 +200,30 @@ class Welcome extends CI_Controller {
 
 	public function detail_if(){
 		$id = array(
+			'id_if' => $this->input->get('id_if'),
+			'id_per' => $this->input->get('id_per')
+		);				
+		$data = array(
+				'title'=>'Network Management System UPPTI FSM UNDIP',
+				'isi' =>'admin/isi/detail_interface',
+				'det_if' => $this->snmp_model->get_detail_if($id),
+				'session' => $this->data_sesi,
+				'cek_rrd' => $this->snmp_model->cek_rrd($id)
+				#'statistik' => $this->squid_model->cari_statistik($id_if)
+		);
+		// print_r($data['cek_rrd']);
+		$this->load->view('admin/wrapper', $data);
+	}
+
+	/*
+		*Fungsi untuk membuat database rrd pertama kali
+	*/
+	public function create_rrd(){
+		$id = array(
 				'id_if' => $this->input->get('id_if'),
 				'id_per' => $this->input->get('id_per')
 		);
+
 		// Membuat rrd database
 		$options = array(
 			 "--step", "60",            // Use a step-size of 1 minutes
@@ -212,20 +233,12 @@ class Welcome extends CI_Controller {
 			 "RRA:AVERAGE:0.5:1:1440",
 		);
 		$nama = $id['id_if']."_".$id['id_per'];
-		$ret = rrd_create($nama.".rrd", $options);
+		$ret = rrd_create("etc/rrdtools/rra/".$nama.".rrd", $options);
 		// if (! $ret) {
 		//  echo "<b>Creation error: </b>".rrd_error()."\n";
 		// }
-
-		
-		$data = array(
-				'title'=>'Network Management System UPPTI FSM UNDIP',
-				'isi' =>'admin/isi/detail_interface',
-				'det_if' => $this->snmp_model->get_detail_if($id),
-				'session' => $this->data_sesi
-				#'statistik' => $this->squid_model->cari_statistik($id_if)
-		);
-		$this->load->view('admin/wrapper', $data);
+		// echo getcwd()."<br>";
+		redirect('welcome/detail_if', 'refresh');
 	}
 
 	public function data_user(){

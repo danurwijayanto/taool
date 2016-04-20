@@ -192,6 +192,23 @@
 	        	}
 			}
 		}
+
+		public  function cek_rrd($data){
+			$id_if = $data['id_if'];
+			$id_per = $data['id_per'];
+			$id_rrd_name = $id_if."_".$id_per;
+			$query = "SELECT id_rrd FROM data_interface 
+				WHERE interface_index=$id_if AND id_perangkat=$id_per";
+
+			$result = $this->db->query($query);	
+			$result = $result->result_array();
+			// print_r($result[0]['id_rrd']);
+			if ($result[0]['id_rrd']==$id_rrd_name) {
+				return 1;
+			}else {
+				return 0;
+			} 
+		}
 	}	
 	/* End of file snmp_model.php */
 	/* Location: ./application/models/squid_model.php */

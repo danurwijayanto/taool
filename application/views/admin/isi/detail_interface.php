@@ -3,7 +3,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Detail Interface 
+        Detail Interface <?php echo $det_if[0]['nama_interface']; ?>
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -17,10 +17,15 @@
       <div class="row">
         <div class="col-lg-12 col-xs-12">
           <div class="box-body">
-            <?php foreach ($det_if as $det) {
-              echo "Nama Interface : ".$det['nama_interface'];
-              # code...
-            }?>
+
+            <?php 
+
+              if ($cek_rrd==1){
+                echo "<br><a href='' class='btn btn-danger'>Reset</a>";
+              } else {
+                echo "<br><a href='' class='btn btn-primary'>Add Database</a>";
+              }
+            ?>
             <!-- -->
             <!-- <div id="chartContainer" style="height: 300px; width:100%;"></div> -->
             <!-- -->
