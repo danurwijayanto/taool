@@ -208,7 +208,8 @@ class Welcome extends CI_Controller {
 				'isi' =>'admin/isi/detail_interface',
 				'det_if' => $this->snmp_model->get_detail_if($id),
 				'session' => $this->data_sesi,
-				'cek_rrd' => $this->snmp_model->cek_rrd($id)
+				'cek_rrd' => $this->snmp_model->cek_rrd($id),
+				'id' => $id
 				#'statistik' => $this->squid_model->cari_statistik($id_if)
 		);
 		// print_r($data['cek_rrd']);

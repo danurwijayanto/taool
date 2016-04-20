@@ -19,11 +19,11 @@
           <div class="box-body">
 
             <?php 
-
+              print_r($id['id_per']."<br>");
               if ($cek_rrd==1){
-                echo "<br><a href='' class='btn btn-danger'>Reset</a>";
+                echo "<br><a href='".base_url()."index.php/welcome/add_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-danger'>Reset</a>";
               } else {
-                echo "<br><a href='' class='btn btn-primary'>Add Database</a>";
+                echo "<br><a href='".base_url()."index.php/welcome/add_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-primary'>Add Database</a>";
               }
             ?>
             <!-- -->
