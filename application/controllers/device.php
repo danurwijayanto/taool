@@ -34,7 +34,10 @@ class Device extends CI_Controller {
 		$data=array(
 			'title'=>'Network Management System UPPTI FSM UNDIP',
 			'isi' =>'admin/isi/home',
-			'session' => $this->data_sesi
+			'session' => $this->data_sesi,
+			'top_site' => $this->squid_model->get_namaif(),
+			'total_user' => $this->auth->get_all_user(),
+			'total_device' => $this->snmp_model->get_alldev()
 		);
 		$this->load->view('admin/wrapper', $data);
 	}
