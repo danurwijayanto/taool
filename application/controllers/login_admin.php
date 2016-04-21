@@ -45,7 +45,7 @@ class Login_admin extends CI_Controller {
 					);
 					// Add user data in session
 					$this->session->set_userdata('logged_in', $sess_array);
-					redirect('welcome', 'refresh');
+					redirect('device', 'refresh');
 					
 				}else{
 					$data = array(

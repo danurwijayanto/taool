@@ -1,3 +1,4 @@
+ 
  <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -50,17 +51,7 @@
             <section class="col-lg-7 connectedSortable">
               <!-- Custom tabs (Charts with tabs)-->
               <div class="nav-tabs-custom">
-                <!-- Tabs within a box -->
-                <ul class="nav nav-tabs pull-right">
-                  <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
-                  <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
-                  <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
-                </ul>
-                <div class="tab-content no-padding">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
-                </div>
+                <div id="highchart"></div>
               </div><!-- /.nav-tabs-custom -->
 
               <!-- Chat box -->
@@ -412,3 +403,75 @@
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
+
+<script>
+  $(function () {
+    $('#highchart').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Situs Terpopuler'
+        },
+        // subtitle: {
+        //     text: 'Source: WorldClimate.com'
+        // },
+        xAxis: {
+            categories: [
+                
+                <?php foreach ($top_site as $dom) {
+                    echo "'".$dom['domain']."',";
+                }?>
+              
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Hit (kali)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0"> </td>' +
+                '<td style="padding:0"><b>{point.y: 1f} hit</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [
+        {
+            data: [
+            <?php 
+              foreach ($top_site as $dom1) {
+                echo "
+                  {
+                    name: '".$dom1['domain']."',
+                    // color: '',
+                    y: ".$dom1['hit']."
+                  },
+                ";
+              }
+            ?>
+            // {
+            //     name: 'Point 1',
+            //     color: '',
+            //     y: 1
+            // }, {
+            //     name: 'Point 2',
+            //     color: '',
+            //     y: 5
+            // }
+            ]
+
+        }]
+    });
+});
+</script>

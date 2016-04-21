@@ -33,6 +33,9 @@
     <script src="<?php echo base_url();?>etc/plugins/c3/c3.min.js"></script>
     <!-- Load d3.js and c3.js -->
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!-- Load HighChart -->
+    <script src="<?php echo base_url();?>etc/plugins/highchart/highcharts.js"></script>
+
     
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
