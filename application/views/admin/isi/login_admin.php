@@ -23,7 +23,7 @@
 			if (isset($message)) echo $message;
 			echo validation_errors(); 
 			?> 
-				<form method="post" action="<?php echo base_url();?>index.php/login_admin/user_login_process" role="login">
+				<form method="post" action="<?php echo base_url();?>login_admin/user_login_process" role="login">
 					<p>Login NMS FSM Undip</p>
 					<img src="<?php echo base_url();?>etc/login/styles.css" class="img-responsive" alt="" />
 			<input type="email" name="email" placeholder="Email" required class="form-control input-lg" value="<?php echo set_value('email'); ?>" />

@@ -22,8 +22,32 @@
               if ($cek_rrd==1){
                 // Generate grafik RRDTOOLS
                 $nama_gambar = $id['id_if']."_".$id['id_per'];
-                create_graph("etc/rrdtools/gambar/".$nama_gambar.".gif", "-1d", "Bandwith Harian", $nama_gambar);
-                echo "<img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar.".gif' alt='Generated RRD image'><br>";
+                create_graph("etc/rrdtools/gambar/".$nama_gambar."_1d.gif", "-1d", "Bandwith Harian", $nama_gambar);
+                create_graph("etc/rrdtools/gambar/".$nama_gambar."_7w.gif", "-1w", "Bandwith Mingguan", $nama_gambar);
+                create_graph("etc/rrdtools/gambar/".$nama_gambar."_1m.gif", "-1m", "Bandwith Bulanan", $nama_gambar);
+                create_graph("etc/rrdtools/gambar/".$nama_gambar."_1y.gif", "-1y", "Bandwith Tahunan", $nama_gambar);
+                echo "<table>";
+                echo "<tr>
+                          <td>
+                            <img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_1d.gif' alt='Generated RRD image'>
+                          </td>
+                          <td>
+                            <img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_7w.gif' alt='Generated RRD image'><br>
+                          </td>
+                      </tr>";
+                echo "<tr>
+                          <td>
+                           <img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_1m.gif' alt='Generated RRD image'>
+                          </td>
+                          <td>
+                            <img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_1y.gif' alt='Generated RRD image'>
+                          </td>
+                      </tr>";
+                echo "</table>";
+                // echo "<img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_1d.gif' alt='Generated RRD image'><br>";
+                // echo "<img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_7w.gif' alt='Generated RRD image'><br>";
+                // echo "<img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_1m.gif' alt='Generated RRD image'><br>";
+                // echo "<img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_1y.gif' alt='Generated RRD image'><br>";
 
                 //Tombol untuk Reset Database RRD Tools
                 echo "<br><a href='".base_url()."index.php/welcome/create_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-danger'>Reset Database</a>";
@@ -112,10 +136,10 @@
       "CDEF:kbout=out,1024,/",
       "AREA:in#00FF00:Bandwith In",
       "LINE1:out#0000FF:Bandwidth Out\j",
-      "GPRINT:kbin:LAST:Last Bandwidth In\:    %3.2lf KBps",
-      "GPRINT:kbout:LAST:Last Bandwidth Out\:   %3.2lf KBps",
-      "GPRINT:kbin:AVERAGE:Average Bandwidth In\: %3.2lf KBps",
-      "GPRINT:kbin:AVERAGE:Average Bandwidth In\: %3.2lf KBps",
+      "GPRINT:kbin:LAST:Last Bandwidth In\:    %3.2lf KBps\j",
+      "GPRINT:kbout:LAST:Last Bandwidth Out\:   %3.2lf KBps\j",
+      "GPRINT:kbin:AVERAGE:Average Bandwidth In\: %3.2lf KBps\j",
+      "GPRINT:kbin:AVERAGE:Average Bandwidth Out\: %3.2lf KBps",
     );
 
     $ret = rrd_graph($output, $options);

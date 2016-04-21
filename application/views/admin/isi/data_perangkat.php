@@ -51,8 +51,8 @@ function ping($host){
                     <td><?php echo ping($a['ip_address']); ?></td>
                     <td>
                       <a class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $a['id_perangkat']; ?>">Edit</a>
-                      <a href="<?php echo base_url();?>index.php/welcome/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>
-                      <a href="<?php echo base_url();?>index.php/welcome/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger">Hapus</a>
+                      <a href="<?php echo base_url();?>device/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>
+                      <a href="<?php echo base_url();?>device/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger">Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} ?>
@@ -207,7 +207,7 @@ function ping($host){
       id = element.attr("id");
      
       $.ajax({
-        url:"../welcome/get_perangkat?id="+id,              
+        url:"../device/get_perangkat?id="+id,              
         dataType : "json",
         type: "POST",
 
@@ -232,7 +232,7 @@ function ping($host){
                     + '&os=' + document.getElementById("os1").value ;
       
       $.ajax({
-        url:"../welcome/simpan_edit_perangkat?id="+id,              
+        url:"../device/simpan_edit_perangkat?id="+id,              
         dataType : "json",
         data : myData,
         type: "POST",
@@ -243,7 +243,7 @@ function ping($host){
     // on success...
     function success(){
       alert('Perubahan Berhasil');
-      redirect(site_url("welcome/data_perangkat"));
+      redirect(site_url("device/data_perangkat"));
       //location.reload(); 
     }
   });

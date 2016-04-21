@@ -37,8 +37,8 @@
                     <td><?php if ($user['role']=0){echo "Admin";}else{echo "User";};?></td>
                     <td>
                       <a class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $user['id_user']; ?>">Edit</a>
-                      <a href="<?php echo base_url();?>index.php/welcome/detail_perangkat?id=<?php echo $user['id_user']; ?>" class="btn btn-success">Detail</a>
-                      <a href="<?php echo base_url();?>index.php/welcome/hapus_perangkat?id=<?php echo $user['id_user']; ?>" class="btn btn-danger">Hapus</a>
+                      <a href="<?php echo base_url();?>user/detail_perangkat?id=<?php echo $user['id_user']; ?>" class="btn btn-success">Detail</a>
+                      <a href="<?php echo base_url();?>user/hapus_perangkat?id=<?php echo $user['id_user']; ?>" class="btn btn-danger">Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} ?>

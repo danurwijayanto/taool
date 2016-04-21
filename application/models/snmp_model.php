@@ -225,6 +225,17 @@
    //          	return $this->db->error;
    //     	 	}	
 		}
+
+		function get_rrd_details(){
+			$query = "SELECT * FROM data_interface as a
+				 INNER JOIN data_ipaddress as b
+				ON b.id_perangkat=a.id_perangkat AND id_rrd !='' AND b.ip_addressindex=a.interface_index INNER JOIN data_perangkat as c
+				ON b.id_perangkat=c.id_perangkat";
+
+			$result = $this->db->query($query);
+			return $result->result_array();
+			
+		}
 	}	
 	/* End of file snmp_model.php */
 	/* Location: ./application/models/squid_model.php */

@@ -238,7 +238,14 @@ class Welcome extends CI_Controller {
 			 "--start", "N",     // this rrd started now
 			 "DS:in:COUNTER:600:U:U",
 			 "DS:out:COUNTER:600:U:U",
+			 // Update RRA setiap 1 menit sekali selama 1 hari
 			 "RRA:AVERAGE:0.5:1:1440",
+			 // Update RRA setiap 1 jam sekali selama 1 minggu
+			 "RRA:AVERAGE:0.5:60:168",
+			 // Update RRA setiap 1 hari sekali selama 1 bulan
+			 "RRA:AVERAGE:0.5:1440:30",
+			 // Update RRA setiap 1 hari sekali selama 1 tahun
+			 "RRA:AVERAGE:0.5:1440:365",
 		);
 
 		$ret = rrd_create("etc/rrdtools/rra/".$nama.".rrd", $options);

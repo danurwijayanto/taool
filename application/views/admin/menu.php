@@ -68,7 +68,7 @@
           <ul class="sidebar-menu">
             <li class="header">Menu Navigasi</li>
             <li class="active treeview">
-              <a href="<?php echo base_url();?>index.php/welcome">
+              <a href="<?php echo base_url();?>">
                 <i class="fa fa-dashboard"></i> 
                 <span>Home</span>
               </a>
@@ -80,7 +80,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>index.php/welcome/data_perangkat"><i class="fa fa-circle-o"></i> Data Perangkat</a></li>
+                <li><a href="<?php echo base_url();?>device/data_perangkat"><i class="fa fa-circle-o"></i> Data Perangkat</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -90,9 +90,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>index.php/welcome/log_squid"><i class="fa fa-circle-o"></i> Log</a></li>
-                <li><a href="<?php echo base_url();?>index.php/welcome/popular_site"><i class="fa fa-circle-o"></i> Popular Site</a></li>
-                <li><a href="<?php echo base_url();?>index.php/welcome/statistik"><i class="fa fa-circle-o"></i> Statistik</a></li>
+                <li><a href="<?php echo base_url();?>squid/log_squid"><i class="fa fa-circle-o"></i> Log</a></li>
+                <li><a href="<?php echo base_url();?>squid/popular_site"><i class="fa fa-circle-o"></i> Popular Site</a></li>
+                <li><a href="<?php echo base_url();?>squid/statistik"><i class="fa fa-circle-o"></i> Statistik</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -102,7 +102,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>index.php/welcome/data_user"><i class="fa fa-circle-o"></i> Daftar User</a></li>
+                <li><a href="<?php echo base_url();?>user/data_user"><i class="fa fa-circle-o"></i> Daftar User</a></li>
               </ul>
             </li>
           </ul>
