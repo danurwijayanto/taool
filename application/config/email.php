@@ -17,7 +17,7 @@ $config['smtp_user']	= 'mobinity.fx@gmail.com';
 /**
  * SMTP Password.
  */
-$config['smtp_pass']    = '02717017652';
+$config['smtp_pass']    = '';
 $config['mailtype']		= 'html';
 $config['smtp_port']	= '465';
 $config['charset']    = 'utf-8';
