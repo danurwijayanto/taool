@@ -21,6 +21,37 @@ class Operation extends CI_Controller {
 		$this->load->view('admin/isi/login_admin');
 	}
 
+	public function kirim_email(){
+		$this->load->library('email');
+
+		$this->email->from('it@carakafest.org', 'UPPTI UNDIP');
+		$this->email->to('mobinity.fx@gmail.com'); 
+
+		$this->email->subject('Notifikasi Status Perangkat');
+		$this->email->message('Hai');	
+
+
+		$berhasil = $this->email->send();
+
+		$reportToLog = "\r\n[".date('j F Y, H:i:s')."]\t\t: ";
+					
+				if (!$berhasil) {
+					$reportToLog .= "Mailer Error!";
+					// $data['submitErrors'] = "Maaf, gagal mengirim email";
+					print_r( "Maaf, gagal mengirim email");
+				} else {
+					$reportToLog .= "Message sent...";
+					$dateChunk = date("Ymd-His");
+					$reportToLog .= "\t[MSDNAA FSM] | [".$dateChunk.".html]";
+						
+					file_put_contents(APPPATH."/logs/email.log", $reportToLog, FILE_APPEND);
+					file_put_contents(APPPATH."/logs/emails/".$dateChunk.".html", $kontenEmail);
+						
+					// $data['submitSukses'] = "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya";
+					print_r( "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya");
+				} 
+	}
+
 	//Fungsi untuk update berkala rrd database
 	public function update_rrd(){
 		$data_rrd = $this->snmp_model->get_rrd_details();
