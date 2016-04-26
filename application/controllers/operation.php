@@ -24,32 +24,64 @@ class Operation extends CI_Controller {
 	public function kirim_email(){
 		$this->load->library('email');
 
-		$this->email->from('it@carakafest.org', 'UPPTI UNDIP');
-		$this->email->to('mobinity.fx@gmail.com'); 
+		$data_perubahan = $this->snmp_model->cek_perubahan();
 
-		$this->email->subject('Notifikasi Status Perangkat');
-		$this->email->message('Hai');	
+		if ($data_perubahan == 0){
+			print_r("database_kosong");
+		}else{
+			$konten = " 	
+					Terjadi Perubahan Status Perangkat Pada : <br><br>
+					<table border='1'>
+						<tr>
+							<th>No</th>
+							<th>Perangkat</th>
+							<th>Status Lama</th>
+							<th>Status Baru</th>
+							<th>Waktu</th>
+						</tr>
+			";
+
+			foreach ($data_perubahan as $a) {
+				$konten .= '<tr>
+								<td>'.$a['id_pa'].'</td>
+								<td>'.$a['id_perangkat'].'</td>
+								<td>'.$a['status_lama'].'</td>
+								<td>'.$a['status_baru'].'</td>
+								<td>'.$a['waktu'].'</td>
+							</tr>';
+			};
+			$konten .= '</table>';
 
 
-		$berhasil = $this->email->send();
+			$this->email->from('mobinity.fx@gmail.com', 'NMS FSM UNDIP');
+			$this->email->to('mobinity.fx@gmail.com'); 
+			$this->email->subject('Notifikasi Status Perangkat');
+			$this->email->message($konten);	
 
-		$reportToLog = "\r\n[".date('j F Y, H:i:s')."]\t\t: ";
+
+			
+			$berhasil = $this->email->send();
+
+			$reportToLog = "\r\n[".date('j F Y, H:i:s')."]\t\t: ";
 					
-				if (!$berhasil) {
-					$reportToLog .= "Mailer Error!";
-					// $data['submitErrors'] = "Maaf, gagal mengirim email";
-					print_r( "Maaf, gagal mengirim email");
-				} else {
-					$reportToLog .= "Message sent...";
-					$dateChunk = date("Ymd-His");
-					$reportToLog .= "\t[MSDNAA FSM] | [".$dateChunk.".html]";
-						
-					file_put_contents(APPPATH."/logs/email.log", $reportToLog, FILE_APPEND);
-					file_put_contents(APPPATH."/logs/emails/".$dateChunk.".html", $kontenEmail);
-						
-					// $data['submitSukses'] = "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya";
-					print_r( "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya");
-				} 
+			if (!$berhasil) {
+				$reportToLog .= "Mailer Error!";
+				// $data['submitErrors'] = "Maaf, gagal mengirim email";
+				print_r( "Maaf, gagal mengirim email");
+			} else {
+				$reportToLog .= "Message sent...";
+				$dateChunk = date("Ymd-His");
+				$reportToLog .= "\t[MSDNAA FSM] | [".$dateChunk.".html]";
+					
+				file_put_contents(APPPATH."/logs/email.log", $reportToLog, FILE_APPEND);
+				// file_put_contents(APPPATH."/logs/emails/".$dateChunk.".html", $kontenEmail);
+					
+				// $data['submitSukses'] = "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya";
+				print_r( "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya");
+				$this->snmp_model->drop_perubahan();
+
+			} 
+		}
 	}
 
 	//Fungsi untuk update berkala rrd database

@@ -12,12 +12,12 @@ $config['smtp_host'] = 'ssl://smtp.googlemail.com';
 /**
  * SMTP Username.
  */
-$config['smtp_user']	= 'it@carakafest.org';
+$config['smtp_user']	= 'mobinity.fx@gmail.com';
 // $config['smtp_user']	= 'danurwijayanto@gmail.com';
 /**
  * SMTP Password.
  */
-$config['smtp_pass']    = 'itdariGue';
+$config['smtp_pass']    = '02717017652';
 $config['mailtype']		= 'html';
 $config['smtp_port']	= '465';
 $config['charset']    = 'utf-8';

@@ -236,6 +236,25 @@
 			return $result->result_array();
 			
 		}
+
+		function cek_perubahan(){
+			$query = "SELECT * FROM perangkat_audit";
+			$result = $this->db->query($query);
+			if ($result->num_rows() > 0){
+				return $result->result_array();
+			}else{
+				return 0;
+			}
+			
+		}
+
+		function drop_perubahan(){
+			$this->db->truncate('perangkat_audit'); 
+
+
+			return ;
+		}
+
 	}	
 	/* End of file snmp_model.php */
 	/* Location: ./application/models/squid_model.php */
