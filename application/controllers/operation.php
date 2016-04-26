@@ -23,6 +23,28 @@ class Operation extends CI_Controller {
 
 	public function kirim_email(){
 		$this->load->library('email');
+		$this->load->library('fungsiku');
+		
+
+		$semua_perangkat = $this->snmp_model->get_alldev();
+		foreach ($semua_perangkat as $a) {
+			# code...
+			$status = $this->fungsiku->ping($a['ip_address']);
+			// echo $a['status']." || ".$status."<br>";
+			if ($a['status'] == $status){
+				// echo "sama <br>";
+
+			}else{
+				$data = array(
+						'id' => $a['id_perangkat'],
+						'status_baru' => $status
+					);
+				// print_r($data['id']."<br>");
+				// echo "beda <br>";
+				$this->snmp_model->rubah_statperangkat($data);
+			}
+			
+		}
 
 		$data_perubahan = $this->snmp_model->cek_perubahan();
 
@@ -55,7 +77,7 @@ class Operation extends CI_Controller {
 
 			$this->email->from('mobinity.fx@gmail.com', 'NMS FSM UNDIP');
 			$this->email->to('mobinity.fx@gmail.com'); 
-			$this->email->subject('Notifikasi Status Perangkat');
+			$this->email->subject('Notifikasi Status Perangkat dan Interface ');
 			$this->email->message($konten);	
 
 
@@ -71,13 +93,13 @@ class Operation extends CI_Controller {
 			} else {
 				$reportToLog .= "Message sent...";
 				$dateChunk = date("Ymd-His");
-				$reportToLog .= "\t[MSDNAA FSM] | [".$dateChunk.".html]";
+				$reportToLog .= "\t[NMS FSM UNDIP] | [".$dateChunk.".html]";
 					
 				file_put_contents(APPPATH."/logs/email.log", $reportToLog, FILE_APPEND);
 				// file_put_contents(APPPATH."/logs/emails/".$dateChunk.".html", $kontenEmail);
 					
 				// $data['submitSukses'] = "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya";
-				print_r( "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya");
+				print_r( "Terjadi perubahan status Perangkat dan Interface. <br>Silahkan periksa email Anda");
 				$this->snmp_model->drop_perubahan();
 
 			} 

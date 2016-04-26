@@ -46,6 +46,19 @@
 	        }
 		}
 
+		function rubah_statperangkat($data){
+			$value = array(
+               'status' => $data['status_baru']
+            );
+
+			// print_r($data." || ".$status_baru);
+			$this->db->where('id_perangkat', $data['id']);
+			$this->db->update('data_perangkat', $value); 
+			return;
+		}
+
+
+
 		function get_interface_active(){
 			$query = "SELECT nama_interface, interface_index
 				FROM  data_interface, data_ipaddress

@@ -1,12 +1,4 @@
-<?php
-function ping($host){
-    exec("ping -c 2 " . $host, $output, $result);
-    if ($result == 0)
-      return "Up";
-    else
-      return "Down";
-  }
-?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -31,9 +23,9 @@ function ping($host){
                   <th>No</th>
                   <th>Nama Perangkat</th>
                   <th>Alamat IP</th>
-                  <th>Lokasi</th>
-                  <th>Community</th>
-                  <th>Versi SNMP</th>
+                  <!-- <th>Lokasi</th> -->
+                  <!-- <th>Community</th> -->
+                  <!-- <th>Versi SNMP</th> -->
                   <th>Status</th>
                   <th>Aksi</th>
                 </tr>
@@ -45,10 +37,10 @@ function ping($host){
                     <td><?php echo $i;?></td>
                     <td><?php echo $a['nama_perangkat'];?></td>
                     <td><?php echo $a['ip_address'];?></td>
-                    <td><?php echo $a['lokasi'];?></td>
-                    <td><?php echo $a['community'];?></td>
-                    <td><?php echo $a['ver_snmp'];?></td>
-                    <td><?php echo ping($a['ip_address']); ?></td>
+                    <!-- <td><?php //echo $a['lokasi'];?></td> -->
+                    <!-- <td><?php //echo $a['community'];?></td> -->
+                    <!-- <td><?php //echo $a['ver_snmp'];?></td> -->
+                    <td><?php echo $a['status']; ?></td>
                     <td>
                       <a class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $a['id_perangkat']; ?>">Edit</a>
                       <a href="<?php echo base_url();?>device/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>

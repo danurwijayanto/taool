@@ -43,6 +43,7 @@ class Device extends CI_Controller {
 	}
 	
 	public function data_perangkat(){
+		$this->load->library('fungsiku');
 		$data=array(
 			'title'=>'Network Management System UPPTI FSM UNDIP',
 			'isi' =>'admin/isi/data_perangkat',
