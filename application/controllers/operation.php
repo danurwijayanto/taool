@@ -29,20 +29,77 @@ class Operation extends CI_Controller {
 		$semua_perangkat = $this->snmp_model->get_alldev();
 		foreach ($semua_perangkat as $a) {
 			# code...
-			$status = $this->fungsiku->ping($a['ip_address']);
+			$status_per = $this->fungsiku->ping($a['ip_address']);
 			// echo $a['status']." || ".$status."<br>";
-			if ($a['status'] == $status){
-				// echo "sama <br>";
+			// if ($a['status'] == $status){
+			// 	// echo "sama <br>";
 
-			}else{
+			// }else{
+			// 	$data = array(
+			// 			'id' => $a['id_perangkat'],
+			// 			'status_baru' => $status
+			// 		);
+			// 	// print_r($data['id']."<br>");
+			// 	// echo "beda <br>";
+			// 	$this->snmp_model->rubah_statperangkat($data);
+			// }
+
+			if (($a['status'] == "Up") && ($status_per == "Up")){
+				$data_if = $this->snmp_model->cek_interface($a['id_perangkat']);
+				if ($data_if != 0){
+					foreach ($data_if as $if) {
+						// echo $if['interface_index']."<br>";
+						$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.'.$if['interface_index'].'');
+						// echo $status_baru. "||" .$if['status']."<br>";
+
+						$data = array(
+							'id' => $a['id_perangkat'],
+							'status_if_baru' => $status_if,
+							'if_index' => $if['interface_index']
+						);
+						if ($status_if != $if['status']){
+							$this->snmp_model->rubah_statperangkat($data, 0);
+						}
+					}
+				}
+
+		
+			}else if (($a['status'] == "Up") && ($status_per == "Down")){
 				$data = array(
 						'id' => $a['id_perangkat'],
-						'status_baru' => $status
+						'status_per_baru' => $status_per
 					);
 				// print_r($data['id']."<br>");
 				// echo "beda <br>";
 				$this->snmp_model->rubah_statperangkat($data);
+
+			}else if (($a['status'] == "Down") && ($status_per == "Up")){
+				$data_if = $this->snmp_model->cek_interface($a['id_perangkat']);
+				if ($data_if != 0){
+					foreach ($data_if as $if) {
+						// echo $if['interface_index']."<br>";
+						$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.'.$if['interface_index'].'');
+						// echo $status_baru. "||" .$if['status']."<br>";
+
+						$data = array(
+							'id' => $a['id_perangkat'],
+							'status_if_baru' => $status_if,
+							'status_per_baru' => $status_per,
+							'if_index' => $if['interface_index']
+						);
+						if ($status_if != $if['status']){
+							$this->snmp_model->rubah_statperangkat($data, 1);
+						}
+					}
+				}
+				// print_r($data['id']."<br>");
+				// echo "beda <br>";
+				$this->snmp_model->rubah_statperangkat($data, 1);
+			}else if (($a['status'] == "Down") && ($status_per == "Down")){
+				// print_r("sesudah");
 			}
+
+
 			
 		}
 

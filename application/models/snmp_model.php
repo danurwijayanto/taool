@@ -46,18 +46,47 @@
 	        }
 		}
 
-		function rubah_statperangkat($data){
-			$value = array(
-               'status' => $data['status_baru']
-            );
+		function rubah_statperangkat($data, $mode){
+			
 
-			// print_r($data." || ".$status_baru);
-			$this->db->where('id_perangkat', $data['id']);
-			$this->db->update('data_perangkat', $value); 
+			if ($mode == 0){
+				$value = array(
+	               'status' => $data['status_if_baru']
+	            );
+				$where = "id_perangkat = $data[id] AND interface_index = $data[if_index]";
+				$this->db->where($where);
+				// $this->db->where('id_perangkat', $data['id'], 'interface_index', $data['if_index']);
+				$this->db->update('data_interface', $value); 
+			}else{
+				//update status perangkat
+				$status_per_baru = array(
+	               'status' => $data['status_per_baru']
+	            );
+				$this->db->where('id_perangkat', $data['id']);
+				$this->db->update('data_perangkat', $status_per_baru); 
+
+				//update status interface
+				$status_if_baru = array(
+	               'status' => $data['status_if_baru']
+	            );
+				$where = "id_perangkat = $data[id] AND interface_index = $data[if_index]";
+				$this->db->where($where);
+				// $this->db->where('id_perangkat', $data['id'], 'interface_index', $data['if_index']);
+				$this->db->update('data_interface', $status_if_baru); 
+				
+			}
 			return;
 		}
 
-
+		function cek_interface($data){
+			$query = "SELECT * FROM data_interface WHERE id_perangkat=$data";
+			$result = $this->db->query($query);
+			if ($result->num_rows() > 0){
+				return $result->result_array();
+			}else{
+				return 0;
+			}
+		}
 
 		function get_interface_active(){
 			$query = "SELECT nama_interface, interface_index
@@ -109,7 +138,7 @@
 					$if_name =  trim(str_replace("STRING: ","",$db['nama_if'][$i]));
 					$if_status = trim(str_replace("INTEGER: ","",$db['status_if'][$i]));
 
-					//Simpan ke database
+					//Edit ke database
 					$query_add = "INSERT INTO data_interface (interface_index, nama_interface, status, id_perangkat)
 			    				  VALUES ($if_index, '$if_name', '$if_status', $db[id])";
 
