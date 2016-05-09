@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2016 at 02:49 PM
+-- Generation Time: May 09, 2016 at 09:53 AM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -34,73 +34,13 @@ CREATE TABLE IF NOT EXISTS `data_interface` (
   `id_perangkat` int(255) NOT NULL,
   `id_rrd` varchar(10) NOT NULL,
   PRIMARY KEY (`id_interface`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=193 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=289 ;
 
 --
 -- Dumping data for table `data_interface`
 --
 
 INSERT INTO `data_interface` (`id_interface`, `interface_index`, `nama_interface`, `status`, `id_perangkat`, `id_rrd`) VALUES
-(1, 1, 'ether9', 'down(2)', 1, ''),
-(2, 2, 'ether10', 'down(2)', 1, ''),
-(3, 3, 'ether11', 'down(2)', 1, ''),
-(4, 4, 'ether12', 'down(2)', 1, ''),
-(5, 5, 'ether13', 'down(2)', 1, ''),
-(6, 6, 'eth1/PUB', 'up(1)', 1, ''),
-(7, 7, 'eth2/LAN/DEKANAT', 'up(1)', 1, ''),
-(8, 8, 'eth3/NOC', 'up(1)', 1, ''),
-(9, 9, 'eth4/IFE', 'up(1)', 1, ''),
-(10, 10, 'eth5/VPS', 'up(1)', 1, ''),
-(11, 11, 'eth6/VPS', 'up(1)', 1, ''),
-(12, 12, 'eth7/DIS', 'up(1)', 1, ''),
-(13, 13, 'eth8/Geothermal', 'up(1)', 1, ''),
-(14, 14, 'ether6', 'down(2)', 1, ''),
-(15, 15, 'ether7', 'down(2)', 1, ''),
-(16, 16, 'ether8', 'down(2)', 1, ''),
-(17, 17, 'vlan920', 'up(1)', 1, ''),
-(18, 18, 'vlan85', 'down(2)', 1, ''),
-(19, 19, 'brd85', 'up(1)', 1, ''),
-(20, 20, 'brd920', 'up(1)', 1, ''),
-(21, 21, 'vlan111', 'up(1)', 1, ''),
-(22, 22, 'vlan10', 'up(1)', 1, ''),
-(23, 23, 'vlan20', 'up(1)', 1, ''),
-(24, 24, 'vlan30', 'up(1)', 1, ''),
-(25, 25, 'vlan40', 'up(1)', 1, ''),
-(26, 26, 'vlan50', 'up(1)', 1, ''),
-(27, 27, 'vlan60', 'up(1)', 1, ''),
-(28, 28, 'vlan70', 'up(1)', 1, ''),
-(29, 29, 'vlan101', 'up(1)', 1, ''),
-(30, 30, 'vlan102', 'up(1)', 1, ''),
-(31, 31, 'vlan120', 'up(1)', 1, ''),
-(32, 32, 'vlan130', 'up(1)', 1, ''),
-(33, 33, 'vlan140', 'up(1)', 1, ''),
-(34, 34, 'brd10', 'up(1)', 1, '34_1'),
-(35, 35, 'brd50', 'up(1)', 1, ''),
-(36, 36, 'vlan21/D3', 'up(1)', 1, ''),
-(37, 37, 'vlan50/IFE', 'up(1)', 1, ''),
-(38, 41, 'vlan90', 'up(1)', 1, ''),
-(39, 42, 'brd90', 'up(1)', 1, '42_1'),
-(40, 43, 'vlan10/DIS', 'up(1)', 1, ''),
-(41, 44, 'eoip-to-45', 'down(2)', 1, ''),
-(42, 45, 'vlan112/noc', 'up(1)', 1, ''),
-(43, 46, 'brd111', 'up(1)', 1, ''),
-(44, 47, 'vlan921/VPS1', 'up(1)', 1, ''),
-(45, 49, 'brd921', 'up(1)', 1, ''),
-(46, 80, 'pptp-fk', 'down(2)', 1, ''),
-(47, 136329, 'pptp-out1', 'down(2)', 1, ''),
-(48, 136330, 'vlan85/dknt', 'up(1)', 1, ''),
-(49, 136335, 'vlan920/IFE', 'up(1)', 1, ''),
-(50, 136336, 'vlan85/IFE', 'down(2)', 1, ''),
-(51, 136337, 'vlan920/dknt', 'up(1)', 1, ''),
-(52, 136341, 'vlan100', 'up(1)', 1, ''),
-(53, 136342, 'test', 'down(2)', 1, ''),
-(54, 136348, 'vlan190', 'down(2)', 1, ''),
-(55, 136361, 'vlan999', 'up(1)', 1, ''),
-(56, 136367, 'vlan85/DIS', 'down(2)', 1, ''),
-(57, 136369, 'vlan80', 'up(1)', 1, ''),
-(58, 136370, 'vlan80/DIS', 'up(1)', 1, ''),
-(59, 136372, 'brd80', 'up(1)', 1, ''),
-(60, 136373, 'vlan11', 'up(1)', 1, ''),
 (61, 1, 'ether10', 'up(1)', 2, ''),
 (62, 2, 'ether9-labE II', 'up(1)', 2, ''),
 (63, 3, 'ether7-ruang-pakaris', 'up(1)', 2, ''),
@@ -128,12 +68,95 @@ INSERT INTO `data_interface` (`id_interface`, `interface_index`, `nama_interface
 (178, 7, 'vlan80/toCCTV', 'down(2)', 12, ''),
 (179, 8, 'bridge80', 'up(1)', 12, ''),
 (180, 9, 'vlan70', 'up(1)', 12, ''),
-(187, 1, 'lo', 'up(1)', 13, ''),
-(188, 2, 'eth0', 'up(1)', 13, ''),
-(189, 3, 'eth0.0', 'up(1)', 13, ''),
-(190, 4, 'eth0.1', 'up(1)', 13, ''),
-(191, 5, 'br-lan', 'up(1)', 13, ''),
-(192, 6, 'wl0', 'up(1)', 13, '');
+(193, 1, 'ether9', 'down', 1, ''),
+(194, 2, 'ether10', 'down', 1, ''),
+(195, 3, 'ether11', 'down', 1, ''),
+(196, 4, 'ether12', 'down', 1, ''),
+(197, 5, 'ether13', 'down', 1, ''),
+(198, 6, 'eth1/PUB', 'up', 1, ''),
+(199, 7, 'eth2/LAN/DEKANAT', 'up', 1, ''),
+(200, 8, 'eth3/NOC', 'up', 1, ''),
+(201, 9, 'eth4/IFE', 'up', 1, ''),
+(202, 10, 'eth5/VPS', 'up', 1, ''),
+(203, 11, 'eth6/VPS', 'up', 1, ''),
+(204, 12, 'eth7/DIS', 'up', 1, ''),
+(205, 13, 'eth8/Geothermal', 'up', 1, ''),
+(206, 14, 'ether6', 'down', 1, ''),
+(207, 15, 'ether7', 'down', 1, ''),
+(208, 16, 'ether8', 'down', 1, ''),
+(209, 17, 'vlan920', 'up', 1, ''),
+(210, 18, 'vlan85', 'up', 1, ''),
+(211, 19, 'brd85', 'up', 1, ''),
+(212, 20, 'brd920', 'up', 1, ''),
+(213, 21, 'vlan111', 'up', 1, ''),
+(214, 22, 'vlan10', 'up', 1, ''),
+(215, 23, 'vlan20', 'up', 1, ''),
+(216, 24, 'vlan30', 'up', 1, ''),
+(217, 25, 'vlan40', 'up', 1, ''),
+(218, 26, 'vlan50', 'up', 1, ''),
+(219, 27, 'vlan60', 'up', 1, ''),
+(220, 28, 'vlan70', 'up', 1, ''),
+(221, 29, 'vlan101', 'up', 1, ''),
+(222, 30, 'vlan102', 'up', 1, ''),
+(223, 31, 'vlan120', 'up', 1, ''),
+(224, 32, 'vlan130', 'up', 1, ''),
+(225, 33, 'vlan140', 'up', 1, ''),
+(226, 34, 'brd10', 'up', 1, '34_1'),
+(227, 35, 'brd50', 'up', 1, ''),
+(228, 36, 'vlan21/D3', 'up', 1, ''),
+(229, 37, 'vlan50/IFE', 'up', 1, ''),
+(230, 41, 'vlan90', 'up', 1, ''),
+(231, 42, 'brd90', 'up', 1, ''),
+(232, 43, 'vlan10/DIS', 'up', 1, ''),
+(233, 44, 'eoip-to-45', 'down', 1, ''),
+(234, 45, 'vlan112/noc', 'up', 1, ''),
+(235, 46, 'brd111', 'up', 1, ''),
+(236, 47, 'vlan921/VPS1', 'up', 1, ''),
+(237, 49, 'brd921', 'up', 1, ''),
+(238, 80, 'pptp-fk', 'down', 1, ''),
+(239, 136329, 'pptp-out1', 'down', 1, ''),
+(240, 136330, 'vlan85/dknt', 'up', 1, ''),
+(241, 136335, 'vlan920/IFE', 'up', 1, ''),
+(242, 136336, 'vlan85/IFE', 'up', 1, ''),
+(243, 136337, 'vlan920/dknt', 'up', 1, ''),
+(244, 136341, 'vlan100', 'up', 1, ''),
+(245, 136342, 'test', 'down', 1, ''),
+(246, 136348, 'vlan190', 'down', 1, ''),
+(247, 136361, 'vlan999', 'up', 1, ''),
+(248, 136367, 'vlan85/DIS', 'up', 1, ''),
+(249, 136369, 'vlan80', 'up', 1, ''),
+(250, 136370, 'vlan80/DIS', 'up', 1, ''),
+(251, 136372, 'brd80', 'up', 1, ''),
+(252, 136373, 'vlan11', 'up', 1, ''),
+(283, 1, 'lo', 'up', 13, ''),
+(284, 2, 'eth0', 'up', 13, ''),
+(285, 3, 'eth0.0', 'up', 13, ''),
+(286, 4, 'eth0.1', 'up', 13, ''),
+(287, 5, 'br-lan', 'up', 13, ''),
+(288, 6, 'wl0', 'up', 13, '');
+
+--
+-- Triggers `data_interface`
+--
+DROP TRIGGER IF EXISTS `interface_audit`;
+DELIMITER //
+CREATE TRIGGER `interface_audit` BEFORE UPDATE ON `data_interface`
+ FOR EACH ROW BEGIN
+	IF NEW.status <> OLD.status
+then
+	INSERT INTO perangkat_audit
+    SET 
+     	id_perangkat = OLD.id_perangkat,
+		id_interface = OLD.interface_index,
+        status_lama = OLD.status,
+		status_baru = NEW.status,
+        waktu = NOW(); 
+
+END IF;
+    
+END
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -147,42 +170,13 @@ CREATE TABLE IF NOT EXISTS `data_ipaddress` (
   `ip_address` varchar(15) NOT NULL,
   `ip_addressindex` int(10) NOT NULL,
   PRIMARY KEY (`id_ipaddress`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=94 ;
 
 --
 -- Dumping data for table `data_ipaddress`
 --
 
 INSERT INTO `data_ipaddress` (`id_ipaddress`, `id_perangkat`, `ip_address`, `ip_addressindex`) VALUES
-(1, 1, '10.10.8.1', 34),
-(2, 1, '172.20.2.1', 23),
-(3, 1, '172.20.3.1', 24),
-(4, 1, '172.20.4.1', 25),
-(5, 1, '172.20.5.1', 35),
-(6, 1, '172.20.6.1', 27),
-(7, 1, '172.20.7.1', 28),
-(8, 1, '172.20.8.1', 136372),
-(9, 1, '172.20.20.1', 49),
-(10, 1, '172.20.21.1', 49),
-(11, 1, '172.20.22.1', 49),
-(12, 1, '172.20.23.1', 49),
-(13, 1, '172.20.55.1', 35),
-(14, 1, '172.20.80.1', 49),
-(15, 1, '172.20.100.1', 13),
-(16, 1, '172.20.111.1', 46),
-(17, 1, '172.20.112.1', 46),
-(18, 1, '182.255.0.34', 20),
-(19, 1, '192.168.19.1', 42),
-(20, 1, '192.168.33.1', 32),
-(21, 1, '192.168.100.1', 34),
-(22, 1, '192.168.101.1', 34),
-(23, 1, '192.168.107.1', 34),
-(24, 1, '192.168.108.1', 34),
-(25, 1, '192.168.110.1', 30),
-(26, 1, '192.168.112.1', 31),
-(27, 1, '192.168.115.1', 31),
-(28, 1, '192.168.140.1', 33),
-(29, 1, '192.168.156.1', 36),
 (30, 2, '172.20.5.3', 55),
 (31, 2, '192.168.8.60', 6),
 (32, 2, '192.168.9.60', 2),
@@ -194,8 +188,37 @@ INSERT INTO `data_ipaddress` (`id_ipaddress`, `id_perangkat`, `ip_address`, `ip_
 (46, 12, '192.168.0.253', 2),
 (47, 12, '192.168.2.253', 2),
 (48, 12, '192.168.135.253', 2),
-(51, 13, '127.0.0.1', 1),
-(52, 13, '192.168.7.70', 5);
+(53, 1, '10.10.8.1', 34),
+(54, 1, '172.20.2.1', 23),
+(55, 1, '172.20.3.1', 24),
+(56, 1, '172.20.4.1', 25),
+(57, 1, '172.20.5.1', 35),
+(58, 1, '172.20.6.1', 27),
+(59, 1, '172.20.7.1', 28),
+(60, 1, '172.20.8.1', 136372),
+(61, 1, '172.20.20.1', 49),
+(62, 1, '172.20.21.1', 49),
+(63, 1, '172.20.22.1', 49),
+(64, 1, '172.20.23.1', 49),
+(65, 1, '172.20.55.1', 35),
+(66, 1, '172.20.80.1', 49),
+(67, 1, '172.20.100.1', 13),
+(68, 1, '172.20.111.1', 46),
+(69, 1, '172.20.112.1', 46),
+(70, 1, '182.255.0.34', 20),
+(71, 1, '182.255.2.34', 19),
+(72, 1, '192.168.33.1', 32),
+(73, 1, '192.168.100.1', 34),
+(74, 1, '192.168.101.1', 34),
+(75, 1, '192.168.107.1', 34),
+(76, 1, '192.168.108.1', 34),
+(77, 1, '192.168.110.1', 30),
+(78, 1, '192.168.112.1', 31),
+(79, 1, '192.168.115.1', 31),
+(80, 1, '192.168.140.1', 33),
+(81, 1, '192.168.156.1', 36),
+(92, 13, '127.0.0.1', 1),
+(93, 13, '192.168.7.70', 5);
 
 -- --------------------------------------------------------
 
@@ -220,10 +243,10 @@ CREATE TABLE IF NOT EXISTS `data_perangkat` (
 --
 
 INSERT INTO `data_perangkat` (`id_perangkat`, `nama_perangkat`, `ip_address`, `lokasi`, `community`, `ver_snmp`, `os`, `status`) VALUES
-(1, 'Mikrotik Dinara', '182.255.0.34', 'UP2TI', 'public', 'v1', 'mikrotik', 'up'),
-(2, 'Mikrotik IF Gedung E', '172.20.5.3', 'Lab Informatika Gedung E', 'public', 'v1', 'mikrotik', 'down'),
-(12, 'Mikrotik Rb 1200', '172.20.7.2', 'Lab Statistik', 'public', 'v1', 'mikrotik', 'up'),
-(13, 'Hotspot Lab B IF', '192.168.7.70', 'Lab B IF', 'public', 'v1', 'linux', 'up');
+(1, 'Mikrotik Dinara', '182.255.0.34', 'UP2TI', 'public', 'v1', 'mikrotik', 'Up'),
+(2, 'Mikrotik IF Gedung E', '172.20.5.3', 'Lab Informatika Gedung E', 'public', 'v1', 'mikrotik', 'Down'),
+(12, 'Mikrotik Rb 1200', '172.20.7.2', 'Lab Statistik', 'public', 'v1', 'mikrotik', 'Down'),
+(13, 'Hotspot Lab B IF', '192.168.7.70', 'Lab B IF', 'public', 'v1', 'linux', 'Up');
 
 --
 -- Triggers `data_perangkat`
@@ -232,12 +255,15 @@ DROP TRIGGER IF EXISTS `perangkat_audit`;
 DELIMITER //
 CREATE TRIGGER `perangkat_audit` BEFORE UPDATE ON `data_perangkat`
  FOR EACH ROW BEGIN
-    INSERT INTO perangkat_audit
+IF (NEW.status <> OLD.status)
+THEN
+	INSERT INTO perangkat_audit
     SET 
-     id_perangkat = OLD.nama_perangkat,
+     	id_perangkat = OLD.id_perangkat,
         status_lama = OLD.status,
 		status_baru = NEW.status,
-        waktu = NOW(); 
+        waktu = NOW();
+END IF;
 END
 //
 DELIMITER ;
@@ -251,6 +277,7 @@ DELIMITER ;
 CREATE TABLE IF NOT EXISTS `perangkat_audit` (
   `id_pa` int(11) NOT NULL AUTO_INCREMENT,
   `id_perangkat` varchar(100) NOT NULL,
+  `id_interface` int(3) NOT NULL,
   `status_lama` varchar(5) NOT NULL,
   `status_baru` varchar(5) NOT NULL,
   `waktu` datetime NOT NULL,

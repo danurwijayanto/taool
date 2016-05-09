@@ -126,6 +126,7 @@
 			// Melakukan cek ke database
 			// Apabila interface id tersebut sudah ada maka akan dilakukan delete dan insert kembali
 			// Jika tidak ada akan langsung dilakukan insert
+			$ganti = array("INTEGER: ", "STRING: ", "(1)", "(2)");
 			$query_cek = "SELECT * FROM data_interface
 							WHERE id_perangkat='$db[id]'";
 			$result_cek = $this->db->query($query_cek);
@@ -139,10 +140,11 @@
 	            $panjang_if = count($db['id_if']);
 				$a = array();
 				for ($i=0; $i<$panjang_if; $i++){
-			
-					$if_index =  trim(str_replace("INTEGER: ","",$db['id_if'][$i]));
-					$if_name =  trim(str_replace("STRING: ","",$db['nama_if'][$i]));
-					$if_status = trim(str_replace("INTEGER: ","",$db['status_if'][$i]));
+					
+					$if_index =  trim(str_replace($ganti,"",$db['id_if'][$i]));
+					$if_name =  trim(str_replace($ganti,"",$db['nama_if'][$i]));
+					$if_status = trim(str_replace($ganti,"",$db['status_if'][$i]));
+					// $if_status = $db['status_if'][$i];
 
 					//Edit ke database
 					$query_add = "INSERT INTO data_interface (interface_index, nama_interface, status, id_perangkat)
@@ -166,6 +168,7 @@
 					$if_index =  trim(str_replace("INTEGER: ","",$db['id_if'][$i]));
 					$if_name =  trim(str_replace("STRING: ","",$db['nama_if'][$i]));
 					$if_status = trim(str_replace("INTEGER: ","",$db['status_if'][$i]));
+					// $if_status = $db['status_if'][$i];
 
 					//Simpan ke database
 					$query = "INSERT INTO data_interface (interface_index, nama_interface, status, id_perangkat)

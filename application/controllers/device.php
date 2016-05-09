@@ -101,13 +101,16 @@ class Device extends CI_Controller {
 				'id_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.1"),
 				'nama_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.2"),
 				'status_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.7"),
+				// 'status_if' => explode(' ',exec('/usr/local/bin/snmpwalk -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus')),
 				'list_ip' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.1"),
 				'ip_index' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.2")
 			);
+		// print_r($db['status_if']);
+		$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus');
 		$result=$this->snmp_model->simpan_scan_if($db);
 		$result1=$this->snmp_model->simpan_scan_ip($db);
 		echo "<script type='text/javascript'>alert('Perubahan Berhasil')</script>";
-		redirect('welcome/data_perangkat', 'refresh');
+		redirect($this->agent->referrer());
 	}
 
 
