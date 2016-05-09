@@ -50,14 +50,20 @@
 			
 
 			if ($mode == 0){
-				$value = array(
+				$status_if_baru = array(
 	               'status' => $data['status_if_baru']
 	            );
 				$where = "id_perangkat = $data[id] AND interface_index = $data[if_index]";
 				$this->db->where($where);
 				// $this->db->where('id_perangkat', $data['id'], 'interface_index', $data['if_index']);
-				$this->db->update('data_interface', $value); 
-			}else{
+				$this->db->update('data_interface', $status_if_baru); 
+			}else if ($mode == 1){
+				$status_per_baru = array(
+	               'status' => $data['status_per_baru']
+	            );
+				$this->db->where('id_perangkat', $data['id']);
+				$this->db->update('data_perangkat', $status_per_baru); 
+			}else {
 				//update status perangkat
 				$status_per_baru = array(
 	               'status' => $data['status_per_baru']
@@ -280,7 +286,10 @@
 		}
 
 		function cek_perubahan(){
-			$query = "SELECT * FROM perangkat_audit";
+			$query = "SELECT *
+						FROM perangkat_audit AS a
+						LEFT JOIN data_perangkat AS b ON a.id_perangkat = b.id_perangkat
+						LEFT JOIN data_interface AS c ON a.id_interface = c.interface_index";
 			$result = $this->db->query($query);
 			if ($result->num_rows() > 0){
 				return $result->result_array();

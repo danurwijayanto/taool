@@ -71,7 +71,7 @@ class Operation extends CI_Controller {
 					);
 				// print_r($data['id']."<br>");
 				// echo "beda <br>";
-				$this->snmp_model->rubah_statperangkat($data);
+				$this->snmp_model->rubah_statperangkat($data,1);
 
 			}else if (($a['status'] == "Down") && ($status_per == "Up")){
 				$data_if = $this->snmp_model->cek_interface($a['id_perangkat']);
@@ -88,7 +88,7 @@ class Operation extends CI_Controller {
 							'if_index' => $if['interface_index']
 						);
 						if ($status_if != $if['status']){
-							$this->snmp_model->rubah_statperangkat($data, 1);
+							$this->snmp_model->rubah_statperangkat($data, 2);
 						}
 					}
 				}
@@ -121,15 +121,44 @@ class Operation extends CI_Controller {
 			";
 
 			foreach ($data_perubahan as $a) {
-				$konten .= '<tr>
+				if ($a['nama_interface'] == NULL){
+					$konten .= '<tr>
 								<td>'.$a['id_pa'].'</td>
-								<td>'.$a['id_perangkat'].'</td>
+								<td>'.$a['nama_perangkat'].'</td>
 								<td>'.$a['status_lama'].'</td>
 								<td>'.$a['status_baru'].'</td>
 								<td>'.$a['waktu'].'</td>
 							</tr>';
+				}
+				
+			};
+			$konten .= "</table><br><br><br>Terjadi Perubahan Status Interface Pada : <br><br>
+						<table border='1'>
+									<tr>
+										<th>No</th>
+										<th>Perangkat</th>
+										<th>Interface</th>
+										<th>Status Lama</th>
+										<th>Status Baru</th>
+										<th>Waktu</th>
+									</tr>
+						";
+			foreach ($data_perubahan as $b) {
+				if ($b['nama_interface'] != NULL){
+					$konten .= '<tr>
+								<td>'.$b['id_pa'].'</td>
+								<td>'.$b['nama_perangkat'].'</td>
+								<td>'.$b['nama_interface'].'</td>
+								<td>'.$b['status_lama'].'</td>
+								<td>'.$b['status_baru'].'</td>
+								<td>'.$b['waktu'].'</td>
+							</tr>';
+				}
+				
 			};
 			$konten .= '</table>';
+
+
 
 
 			$this->email->from('mobinity.fx@gmail.com', 'NMS FSM UNDIP');
