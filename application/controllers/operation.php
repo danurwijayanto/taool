@@ -216,14 +216,16 @@ class Operation extends CI_Controller {
 		if ($sess['os']=="mikrotik") {
 			$data = array(
 				//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
-				'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+				// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+				'uptime' => exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
 				'usedmem' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.2.3.1.6.65536"),
 				'cpuload' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.3.3.1.2.1")
 			);
 		}else{
 			$data = array(
 				//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
-				'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+				// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+				'uptime' => exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
 				'usedmem' => snmpget($sess['ip'], "public", ".1.3.6.1.4.1.2021.4.6.0"),
 				'cpuload' => snmpget($sess['ip'], "public", ".1.3.6.1.4.1.2021.11.9.0")
 			);

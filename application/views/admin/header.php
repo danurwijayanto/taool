@@ -24,19 +24,16 @@
     <link href="<?php echo base_url();?>etc/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- Morris charts -->
     <link href="<?php echo base_url();?>etc/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
     <!-- Canvas -->
     <script type="text/javascript" src="<?php echo base_url();?>etc/plugins/canvas/canvasjs.min.js"></script>
-    <!-- Load c3.css -->
-    <link href="<?php echo base_url();?>etc/plugins/c3/c3.css" rel="stylesheet" type="text/css">
-    <!-- Load c3.js -->
-    <script src="<?php echo base_url();?>etc/plugins/c3/c3.min.js"></script>
-    <!-- Load d3.js and c3.js -->
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <!-- Load HighChart -->
     <script src="<?php echo base_url();?>etc/plugins/highchart/highcharts.js"></script>
-
-    
+    <!-- Date Picker -->
+    <link href="<?php echo base_url();?>etc/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker -->
+    <link href="<?php echo base_url();?>etc/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+        
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

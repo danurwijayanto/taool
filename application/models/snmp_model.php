@@ -309,6 +309,14 @@
 			return ;
 		}
 
+		function getbandwith($id){
+			$query = "SELECT * 
+						FROM data_interface WHERE interface_index=$id AND id_perangkat=1";
+			$result = $this->db->query($query);
+			return $result->result_array();
+
+		}
+
 	}	
 	/* End of file snmp_model.php */
 	/* Location: ./application/models/squid_model.php */

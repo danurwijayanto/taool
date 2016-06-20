@@ -37,9 +37,12 @@ class Device extends CI_Controller {
 			'session' => $this->data_sesi,
 			'top_site' => $this->squid_model->get_namaif(),
 			'total_user' => $this->auth->get_all_user(),
-			'total_device' => $this->snmp_model->get_alldev()
+			'total_device' => $this->snmp_model->get_alldev(),
+			'bandbrd1' => $this->snmp_model->getbandwith(19),
+			'bandbrd2' => $this->snmp_model->getbandwith(20),
 		);
 		$this->load->view('admin/wrapper', $data);
+		// print_r($data['bandbrd1']);
 	}
 	
 	public function data_perangkat(){

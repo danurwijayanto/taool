@@ -17,25 +17,42 @@
       <div class="row">
         <div class="col-lg-12 col-xs-12">
           <div class="box-body">
-            <?php 
-
-              foreach ($detail as $detail) {
-              $id = $detail['id_perangkat']; ?>
-              Nama Perangkat : <?php echo $detail['nama_perangkat'];?><br>
-              <?php    
-             }
-            ?>
-            Uptime : <span id="uptime"></span>
-
+            <div class="col-lg-4 col-xs-4">
+              <table>
+                <tr>
+                  <td>Nama Perangkat</td>
+                  <td>:
+                    <?php 
+                    foreach ($detail as $detail) {
+                        $id = $detail['id_perangkat']; ?>
+                        <?php echo $detail['nama_perangkat'];?><br>
+                    <?php    
+                    }
+                    ?>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Uptime</td>
+                  <td>: <span id="uptime"></span></td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-lg-4 col-xs-4">
+              <div class="knob-label">Memmory Usage</div><br>
+                  <input type="text" id="knob" class="knob" value="30" data-width="90" data-height="90" data-max=<?php echo $snmp['totmem'];?> data-fgColor="#3c8dbc" data-readonly="true"/>              
+                  <div class="knob-label">Total <?php echo $snmp['totmem']." Kb";?></div>
+              </div>
+            <div class="col-lg-4 col-xs-4">
+              <div class="knob-label">CPU Load</div><br>
+                  <input type="text" id="knob1" class="knob1" value="30" data-width="90" data-height="90" data-max="100" data-fgColor="#3c8dbc" data-readonly="true"/>  
+              </div>
+            
             <!-- Knob Graph-->
             <br><br>
-            <div class="knob-label">Memmory Usage</div><br>
-            <input type="text" id="knob" class="knob" value="30" data-width="90" data-height="90" data-max=<?php echo $snmp['totmem'];?> data-fgColor="#3c8dbc" data-readonly="true"/>              
-            <div class="knob-label">Total Memmory : <?php echo $snmp['totmem']." Kb";?></div>
+            
             <br><br>
             <br><br>
-            <div class="knob-label">CPU Load</div><br>
-            <input type="text" id="knob1" class="knob1" value="30" data-width="90" data-height="90" data-max="100" data-fgColor="#3c8dbc" data-readonly="true"/>              
+                     
             <br><br>
             <!-- End Knob Graph-->
 
