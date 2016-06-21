@@ -188,6 +188,7 @@
 			// Melakukan cek ke database
 			// Apabila IP id tersebut sudah ada maka akan dilakukan delete dan insert kembali
 			// Jika tidak ada akan langsung dilakukan insert
+
 			$query_cek = "SELECT * FROM data_ipaddress
 							WHERE id_perangkat='$db[id]'";
 			$result_cek = $this->db->query($query_cek);
@@ -201,14 +202,14 @@
 	            $panjang_ip = count($db['list_ip']);
 				$a = array();
 				for ($i=0; $i<$panjang_ip; $i++){
-
+						$netmask = trim(str_replace("IpAddress: ","",$db['netmask'][$i]));
 						//echo trim_er("IpAddress: ",$scan_ip['list_ip'][$i]).'||'.trim_er("INTEGER: ",$scan_ip['ip_index'][$i]).'<br>';
 						$list_ipp = trim(str_replace("IpAddress: ","",$db['list_ip'][$i]));
 						$ip_indexx = trim(str_replace("INTEGER: ","",$db['ip_index'][$i]));
-					
+						$cidr = $this->fungsiku->maskToCIDR($netmask);
 						//Simpan ke database
-						$query_add = "INSERT INTO data_ipaddress (id_perangkat, ip_address, ip_addressindex)
-			    				VALUES ($db[id], '$list_ipp', $ip_indexx)";
+						$query_add = "INSERT INTO data_ipaddress (id_perangkat, ip_address, ip_addressindex, cidrr)
+			    				VALUES ($db[id], '$list_ipp', $ip_indexx, $cidr)";
 						
 			    	$result_add = $this->db->query($query_add);			
 				}
@@ -228,10 +229,10 @@
 						//echo trim_er("IpAddress: ",$scan_ip['list_ip'][$i]).'||'.trim_er("INTEGER: ",$scan_ip['ip_index'][$i]).'<br>';
 						$list_ipp = trim(str_replace("IpAddress: ","",$db['list_ip'][$i]));
 						$ip_indexx = trim(str_replace("INTEGER: ","",$db['ip_index'][$i]));
-					
+						$cidr = $this->fungsiku->maskToCIDR($netmask);
 						//Simpan ke database
-						$query_add = "INSERT INTO data_ipaddress (id_perangkat, ip_address, ip_addressindex)
-			    				VALUES ('$db[id]', '$list_ipp', '$ip_indexx')";
+						$query_add = "INSERT INTO data_ipaddress (id_perangkat, ip_address, ip_addressindex, cidrr)
+			    				VALUES ('$db[id]', '$list_ipp', '$ip_indexx', $cidr)";
 						
 			    	$result_add = $this->db->query($query_add);			
 				}

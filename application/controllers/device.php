@@ -98,7 +98,7 @@ class Device extends CI_Controller {
 	public function scan_interface(){
 		$id = $_GET['id'];
 		$sess1 = $this->session->userdata('sess');
-
+		$this->load->library('fungsiku');
 		$db = array(
 				'id' => $id,
 				'id_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.1"),
@@ -106,14 +106,17 @@ class Device extends CI_Controller {
 				'status_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.7"),
 				// 'status_if' => explode(' ',exec('/usr/local/bin/snmpwalk -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus')),
 				'list_ip' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.1"),
-				'ip_index' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.2")
+				'ip_index' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.2"),
+				'netmask' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.3"),
 			);
-		// print_r($db['status_if']);
+		print_r($db['status_if']);
 		$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus');
 		$result=$this->snmp_model->simpan_scan_if($db);
 		$result1=$this->snmp_model->simpan_scan_ip($db);
 		echo "<script type='text/javascript'>alert('Perubahan Berhasil')</script>";
 		redirect($this->agent->referrer());
+
+		// print_r($db['netmask']);
 	}
 
 

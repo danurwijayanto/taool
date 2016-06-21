@@ -69,6 +69,7 @@
                   <th>Nama Interface</th>
                   <th>Status</th>
                   <th>IP Address</th>
+                  <th>CIDR</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -80,6 +81,7 @@
                     <td><?php echo $data['nama_interface']; ?></td>
                     <td><?php echo $data['status'];?></td>
                     <td><?php echo $data['ip_address'];?></td>
+                    <td><?php echo $data['cidrr'];?></td>
                     <td>
                       <a href="<?php echo base_url();?>device/detail_if?id_if=<?php echo $data['interface_index']; ?>&id_per=<?php echo $data['id_perangkat'];?>" class="btn btn-success">Detail</a>
                     </td>
