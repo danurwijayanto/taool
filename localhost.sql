@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 09, 2016 at 09:53 AM
+-- Generation Time: Jun 22, 2016 at 11:11 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -34,106 +34,106 @@ CREATE TABLE IF NOT EXISTS `data_interface` (
   `id_perangkat` int(255) NOT NULL,
   `id_rrd` varchar(10) NOT NULL,
   PRIMARY KEY (`id_interface`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=289 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=406 ;
 
 --
 -- Dumping data for table `data_interface`
 --
 
 INSERT INTO `data_interface` (`id_interface`, `interface_index`, `nama_interface`, `status`, `id_perangkat`, `id_rrd`) VALUES
-(61, 1, 'ether10', 'up(1)', 2, ''),
-(62, 2, 'ether9-labE II', 'up(1)', 2, ''),
-(63, 3, 'ether7-ruang-pakaris', 'up(1)', 2, ''),
-(64, 4, 'ether8-pakeko', 'up(1)', 2, ''),
-(65, 5, 'ether6-ruang-pakjalal', 'up(1)', 2, ''),
-(66, 6, 'eth5-if-labE', 'up(1)', 2, ''),
-(67, 7, 'eth4-d3insel', 'up(1)', 2, ''),
-(68, 8, 'eth3-if-dosen', 'up(1)', 2, ''),
-(69, 9, 'eth2-if-sidang-lt3', 'up(1)', 2, ''),
-(70, 10, 'eth1-pub', 'up(1)', 2, ''),
-(71, 55, 'vlan50', 'up(1)', 2, ''),
-(72, 56, 'vlan21', 'up(1)', 2, ''),
-(73, 57, 'brd-d3', 'up(1)', 2, ''),
-(74, 58, 'brd_dosen', 'up(1)', 2, ''),
-(75, 59, 'vlan920', 'up(1)', 2, ''),
-(76, 60, 'vlan85', 'up(1)', 2, ''),
-(77, 63, 'bridge85', 'up(1)', 2, ''),
-(78, 64, 'bridge920', 'up(1)', 2, ''),
-(172, 1, 'ether1-gateway', 'up(1)', 12, ''),
-(173, 2, 'ether2-local', 'up(1)', 12, ''),
-(174, 3, 'ether3-config', 'up(1)', 12, ''),
-(175, 4, 'ether4-gateway', 'up(1)', 12, ''),
-(176, 5, 'ether5-slave-local', 'down(2)', 12, ''),
-(177, 6, 'vlan80', 'up(1)', 12, ''),
-(178, 7, 'vlan80/toCCTV', 'down(2)', 12, ''),
-(179, 8, 'bridge80', 'up(1)', 12, ''),
-(180, 9, 'vlan70', 'up(1)', 12, ''),
-(193, 1, 'ether9', 'down', 1, ''),
-(194, 2, 'ether10', 'down', 1, ''),
-(195, 3, 'ether11', 'down', 1, ''),
-(196, 4, 'ether12', 'down', 1, ''),
-(197, 5, 'ether13', 'down', 1, ''),
-(198, 6, 'eth1/PUB', 'up', 1, ''),
-(199, 7, 'eth2/LAN/DEKANAT', 'up', 1, ''),
-(200, 8, 'eth3/NOC', 'up', 1, ''),
-(201, 9, 'eth4/IFE', 'up', 1, ''),
-(202, 10, 'eth5/VPS', 'up', 1, ''),
-(203, 11, 'eth6/VPS', 'up', 1, ''),
-(204, 12, 'eth7/DIS', 'up', 1, ''),
-(205, 13, 'eth8/Geothermal', 'up', 1, ''),
-(206, 14, 'ether6', 'down', 1, ''),
-(207, 15, 'ether7', 'down', 1, ''),
-(208, 16, 'ether8', 'down', 1, ''),
-(209, 17, 'vlan920', 'up', 1, ''),
-(210, 18, 'vlan85', 'up', 1, ''),
-(211, 19, 'brd85', 'up', 1, ''),
-(212, 20, 'brd920', 'up', 1, ''),
-(213, 21, 'vlan111', 'up', 1, ''),
-(214, 22, 'vlan10', 'up', 1, ''),
-(215, 23, 'vlan20', 'up', 1, ''),
-(216, 24, 'vlan30', 'up', 1, ''),
-(217, 25, 'vlan40', 'up', 1, ''),
-(218, 26, 'vlan50', 'up', 1, ''),
-(219, 27, 'vlan60', 'up', 1, ''),
-(220, 28, 'vlan70', 'up', 1, ''),
-(221, 29, 'vlan101', 'up', 1, ''),
-(222, 30, 'vlan102', 'up', 1, ''),
-(223, 31, 'vlan120', 'up', 1, ''),
-(224, 32, 'vlan130', 'up', 1, ''),
-(225, 33, 'vlan140', 'up', 1, ''),
-(226, 34, 'brd10', 'up', 1, '34_1'),
-(227, 35, 'brd50', 'up', 1, ''),
-(228, 36, 'vlan21/D3', 'up', 1, ''),
-(229, 37, 'vlan50/IFE', 'up', 1, ''),
-(230, 41, 'vlan90', 'up', 1, ''),
-(231, 42, 'brd90', 'up', 1, ''),
-(232, 43, 'vlan10/DIS', 'up', 1, ''),
-(233, 44, 'eoip-to-45', 'down', 1, ''),
-(234, 45, 'vlan112/noc', 'up', 1, ''),
-(235, 46, 'brd111', 'up', 1, ''),
-(236, 47, 'vlan921/VPS1', 'up', 1, ''),
-(237, 49, 'brd921', 'up', 1, ''),
-(238, 80, 'pptp-fk', 'down', 1, ''),
-(239, 136329, 'pptp-out1', 'down', 1, ''),
-(240, 136330, 'vlan85/dknt', 'up', 1, ''),
-(241, 136335, 'vlan920/IFE', 'up', 1, ''),
-(242, 136336, 'vlan85/IFE', 'up', 1, ''),
-(243, 136337, 'vlan920/dknt', 'up', 1, ''),
-(244, 136341, 'vlan100', 'up', 1, ''),
-(245, 136342, 'test', 'down', 1, ''),
-(246, 136348, 'vlan190', 'down', 1, ''),
-(247, 136361, 'vlan999', 'up', 1, ''),
-(248, 136367, 'vlan85/DIS', 'up', 1, ''),
-(249, 136369, 'vlan80', 'up', 1, ''),
-(250, 136370, 'vlan80/DIS', 'up', 1, ''),
-(251, 136372, 'brd80', 'up', 1, ''),
-(252, 136373, 'vlan11', 'up', 1, ''),
-(283, 1, 'lo', 'up', 13, ''),
-(284, 2, 'eth0', 'up', 13, ''),
-(285, 3, 'eth0.0', 'up', 13, ''),
-(286, 4, 'eth0.1', 'up', 13, ''),
-(287, 5, 'br-lan', 'up', 13, ''),
-(288, 6, 'wl0', 'up', 13, '');
+(313, 1, 'lo', 'up', 13, ''),
+(314, 2, 'eth0', 'up', 13, ''),
+(315, 3, 'eth0.0', 'up', 13, ''),
+(316, 4, 'eth0.1', 'up', 13, ''),
+(317, 5, 'br-lan', 'up', 13, ''),
+(318, 6, 'wl0', 'up', 13, ''),
+(319, 1, 'ether9', 'down', 1, ''),
+(320, 2, 'ether10', 'down', 1, ''),
+(321, 3, 'ether11', 'down', 1, ''),
+(322, 4, 'ether12', 'down', 1, ''),
+(323, 5, 'ether13', 'down', 1, ''),
+(324, 6, 'eth1/PUB', 'up', 1, ''),
+(325, 7, 'eth2/LAN/DEKANAT', 'up', 1, ''),
+(326, 8, 'eth3/NOC', 'up', 1, ''),
+(327, 9, 'eth4/IFE', 'up', 1, ''),
+(328, 10, 'eth5/VPS', 'up', 1, ''),
+(329, 11, 'eth6/VPS', 'up', 1, ''),
+(330, 12, 'eth7/DIS', 'up', 1, ''),
+(331, 13, 'eth8/Geothermal', 'up', 1, ''),
+(332, 14, 'ether6', 'down', 1, ''),
+(333, 15, 'ether7', 'down', 1, ''),
+(334, 16, 'ether8', 'down', 1, ''),
+(335, 17, 'vlan920', 'up', 1, ''),
+(336, 18, 'vlan85', 'up', 1, ''),
+(337, 19, 'brd85', 'up', 1, ''),
+(338, 20, 'brd920', 'up', 1, ''),
+(339, 21, 'vlan111', 'up', 1, ''),
+(340, 22, 'vlan10', 'up', 1, ''),
+(341, 23, 'vlan20', 'up', 1, ''),
+(342, 24, 'vlan30', 'up', 1, ''),
+(343, 25, 'vlan40', 'up', 1, ''),
+(344, 26, 'vlan50', 'up', 1, ''),
+(345, 27, 'vlan60', 'up', 1, ''),
+(346, 28, 'vlan70', 'up', 1, ''),
+(347, 29, 'vlan101', 'up', 1, ''),
+(348, 30, 'vlan102', 'up', 1, ''),
+(349, 31, 'vlan120', 'up', 1, ''),
+(350, 32, 'vlan130', 'up', 1, ''),
+(351, 33, 'vlan140', 'up', 1, ''),
+(352, 34, 'brd10', 'up', 1, ''),
+(353, 35, 'brd50', 'up', 1, ''),
+(354, 36, 'vlan21/D3', 'up', 1, ''),
+(355, 37, 'vlan50/IFE', 'up', 1, ''),
+(356, 41, 'vlan90', 'up', 1, ''),
+(357, 42, 'brd90', 'up', 1, ''),
+(358, 43, 'vlan10/DIS', 'up', 1, ''),
+(359, 44, 'eoip-to-45', 'down', 1, ''),
+(360, 45, 'vlan112/noc', 'up', 1, ''),
+(361, 46, 'brd111', 'up', 1, ''),
+(362, 47, 'vlan921/VPS1', 'up', 1, ''),
+(363, 49, 'brd921', 'up', 1, ''),
+(364, 80, 'pptp-fk', 'down', 1, ''),
+(365, 136329, 'pptp-out1', 'down', 1, ''),
+(366, 136330, 'vlan85/dknt', 'up', 1, ''),
+(367, 136335, 'vlan920/IFE', 'up', 1, ''),
+(368, 136336, 'vlan85/IFE', 'up', 1, ''),
+(369, 136337, 'vlan920/dknt', 'up', 1, ''),
+(370, 136341, 'vlan100', 'up', 1, ''),
+(371, 136342, 'test', 'down', 1, ''),
+(372, 136348, 'vlan190', 'down', 1, ''),
+(373, 136361, 'vlan999', 'up', 1, ''),
+(374, 136367, 'vlan85/DIS', 'up', 1, ''),
+(375, 136369, 'vlan80', 'up', 1, ''),
+(376, 136370, 'vlan80/DIS', 'up', 1, ''),
+(377, 136372, 'brd80', 'up', 1, ''),
+(378, 136373, 'vlan11', 'up', 1, ''),
+(379, 1, 'ether10', 'up', 2, ''),
+(380, 2, 'ether9-labE II', 'up', 2, ''),
+(381, 3, 'ether7-ruang-pakaris', 'up', 2, ''),
+(382, 4, 'ether8-pakeko', 'up', 2, ''),
+(383, 5, 'ether6-ruang-pakjalal', 'up', 2, ''),
+(384, 6, 'eth5-if-labE', 'up', 2, ''),
+(385, 7, 'eth4-d3insel', 'up', 2, ''),
+(386, 8, 'eth3-if-dosen', 'up', 2, ''),
+(387, 9, 'eth2-if-sidang-lt3', 'up', 2, ''),
+(388, 10, 'eth1-pub', 'up', 2, ''),
+(389, 55, 'vlan50', 'up', 2, ''),
+(390, 56, 'vlan21', 'up', 2, ''),
+(391, 57, 'brd-d3', 'up', 2, ''),
+(392, 58, 'brd_dosen', 'up', 2, ''),
+(393, 59, 'vlan920', 'up', 2, ''),
+(394, 60, 'vlan85', 'up', 2, ''),
+(395, 63, 'bridge85', 'up', 2, ''),
+(396, 64, 'bridge920', 'up', 2, ''),
+(397, 1, 'ether1-gateway', 'up', 12, ''),
+(398, 2, 'ether2-local', 'up', 12, ''),
+(399, 3, 'ether3-config', 'up', 12, ''),
+(400, 4, 'ether4-gateway', 'up', 12, ''),
+(401, 5, 'ether5-slave-local', 'down', 12, ''),
+(402, 6, 'vlan80', 'up', 12, ''),
+(403, 7, 'vlan80/toCCTV', 'down', 12, ''),
+(404, 8, 'bridge80', 'up', 12, ''),
+(405, 9, 'vlan70', 'up', 12, '');
 
 --
 -- Triggers `data_interface`
@@ -169,56 +169,57 @@ CREATE TABLE IF NOT EXISTS `data_ipaddress` (
   `id_perangkat` int(10) NOT NULL,
   `ip_address` varchar(15) NOT NULL,
   `ip_addressindex` int(10) NOT NULL,
+  `cidrr` int(2) NOT NULL,
   PRIMARY KEY (`id_ipaddress`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=94 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=138 ;
 
 --
 -- Dumping data for table `data_ipaddress`
 --
 
-INSERT INTO `data_ipaddress` (`id_ipaddress`, `id_perangkat`, `ip_address`, `ip_addressindex`) VALUES
-(30, 2, '172.20.5.3', 55),
-(31, 2, '192.168.8.60', 6),
-(32, 2, '192.168.9.60', 2),
-(33, 2, '192.168.11.1', 58),
-(34, 2, '192.168.12.1', 9),
-(35, 2, '192.168.13.1', 5),
-(36, 2, '192.168.156.1', 57),
-(45, 12, '172.20.7.2', 9),
-(46, 12, '192.168.0.253', 2),
-(47, 12, '192.168.2.253', 2),
-(48, 12, '192.168.135.253', 2),
-(53, 1, '10.10.8.1', 34),
-(54, 1, '172.20.2.1', 23),
-(55, 1, '172.20.3.1', 24),
-(56, 1, '172.20.4.1', 25),
-(57, 1, '172.20.5.1', 35),
-(58, 1, '172.20.6.1', 27),
-(59, 1, '172.20.7.1', 28),
-(60, 1, '172.20.8.1', 136372),
-(61, 1, '172.20.20.1', 49),
-(62, 1, '172.20.21.1', 49),
-(63, 1, '172.20.22.1', 49),
-(64, 1, '172.20.23.1', 49),
-(65, 1, '172.20.55.1', 35),
-(66, 1, '172.20.80.1', 49),
-(67, 1, '172.20.100.1', 13),
-(68, 1, '172.20.111.1', 46),
-(69, 1, '172.20.112.1', 46),
-(70, 1, '182.255.0.34', 20),
-(71, 1, '182.255.2.34', 19),
-(72, 1, '192.168.33.1', 32),
-(73, 1, '192.168.100.1', 34),
-(74, 1, '192.168.101.1', 34),
-(75, 1, '192.168.107.1', 34),
-(76, 1, '192.168.108.1', 34),
-(77, 1, '192.168.110.1', 30),
-(78, 1, '192.168.112.1', 31),
-(79, 1, '192.168.115.1', 31),
-(80, 1, '192.168.140.1', 33),
-(81, 1, '192.168.156.1', 36),
-(92, 13, '127.0.0.1', 1),
-(93, 13, '192.168.7.70', 5);
+INSERT INTO `data_ipaddress` (`id_ipaddress`, `id_perangkat`, `ip_address`, `ip_addressindex`, `cidrr`) VALUES
+(96, 13, '127.0.0.1', 1, 8),
+(97, 13, '192.168.7.70', 5, 24),
+(98, 1, '10.10.8.1', 34, 22),
+(99, 1, '172.20.2.1', 23, 30),
+(100, 1, '172.20.3.1', 24, 30),
+(101, 1, '172.20.4.1', 25, 30),
+(102, 1, '172.20.5.1', 35, 29),
+(103, 1, '172.20.6.1', 27, 30),
+(104, 1, '172.20.7.1', 28, 30),
+(105, 1, '172.20.8.1', 136372, 28),
+(106, 1, '172.20.20.1', 49, 24),
+(107, 1, '172.20.21.1', 49, 28),
+(108, 1, '172.20.22.1', 49, 28),
+(109, 1, '172.20.23.1', 49, 28),
+(110, 1, '172.20.55.1', 35, 29),
+(111, 1, '172.20.80.1', 49, 28),
+(112, 1, '172.20.100.1', 13, 29),
+(113, 1, '172.20.111.1', 46, 28),
+(114, 1, '172.20.112.1', 46, 29),
+(115, 1, '182.255.0.34', 20, 28),
+(116, 1, '182.255.2.34', 19, 28),
+(117, 1, '192.168.33.1', 32, 24),
+(118, 1, '192.168.100.1', 34, 24),
+(119, 1, '192.168.101.1', 34, 24),
+(120, 1, '192.168.107.1', 34, 24),
+(121, 1, '192.168.108.1', 34, 24),
+(122, 1, '192.168.110.1', 30, 24),
+(123, 1, '192.168.112.1', 31, 24),
+(124, 1, '192.168.115.1', 31, 24),
+(125, 1, '192.168.140.1', 33, 24),
+(126, 1, '192.168.156.1', 36, 24),
+(127, 2, '172.20.5.3', 55, 29),
+(128, 2, '192.168.8.60', 6, 24),
+(129, 2, '192.168.9.60', 2, 24),
+(130, 2, '192.168.11.1', 58, 24),
+(131, 2, '192.168.12.1', 9, 24),
+(132, 2, '192.168.13.1', 5, 24),
+(133, 2, '192.168.156.1', 57, 24),
+(134, 12, '172.20.7.2', 9, 30),
+(135, 12, '192.168.0.253', 2, 24),
+(136, 12, '192.168.2.253', 2, 24),
+(137, 12, '192.168.135.253', 2, 24);
 
 -- --------------------------------------------------------
 
@@ -246,7 +247,7 @@ INSERT INTO `data_perangkat` (`id_perangkat`, `nama_perangkat`, `ip_address`, `l
 (1, 'Mikrotik Dinara', '182.255.0.34', 'UP2TI', 'public', 'v1', 'mikrotik', 'Up'),
 (2, 'Mikrotik IF Gedung E', '172.20.5.3', 'Lab Informatika Gedung E', 'public', 'v1', 'mikrotik', 'Down'),
 (12, 'Mikrotik Rb 1200', '172.20.7.2', 'Lab Statistik', 'public', 'v1', 'mikrotik', 'Down'),
-(13, 'Hotspot Lab B IF', '192.168.7.70', 'Lab B IF', 'public', 'v1', 'linux', 'Up');
+(13, 'Hotspot Lab B IF', '192.168.7.70', 'Lab B IF', 'public', 'v1', 'linux', 'Down');
 
 --
 -- Triggers `data_perangkat`
@@ -267,6 +268,26 @@ END IF;
 END
 //
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list_ip`
+--
+
+CREATE TABLE IF NOT EXISTS `list_ip` (
+  `ip_squid` varchar(15) NOT NULL,
+  `ip_interface` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `list_ip`
+--
+
+INSERT INTO `list_ip` (`ip_squid`, `ip_interface`) VALUES
+('10.10.8.67', '10.10.8.1'),
+('192.168.112.65', '192.168.112.1'),
+('192.168.9.23', '192.168.9.60');
 
 -- --------------------------------------------------------
 
@@ -414,10 +435,10 @@ INSERT INTO `squid_history` (`no`, `waktu`, `user_ip`, `domain_tujuan`, `ip_tuju
 (108, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/assets/dist/img/header_graphics/nyr-logo.svg', '103.245.222.239'),
 (109, '2007-08-21 16:52:51', '192.168.19.86', 'condenast.demdex.net/firstevent?', '52.76.177.172'),
 (110, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/assets/img/promotions/tny-goat.jpg', '103.245.222.239'),
-(111, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/assets/dist/img/header_graphics/drawn-rule-horiz-Nav.png', '103.245.222.239'),
-(112, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/uploads/2016/02/StackelbergandKnoll-TheBeatles-320x240-1456529217.jpg?', '103.245.222.239'),
+(111, '2007-08-21 16:52:51', '192.168.112.65', 'newyorker.com/wp-content/assets/dist/img/header_graphics/drawn-rule-horiz-Nav.png', '103.245.222.239'),
+(112, '2007-08-21 16:52:51', ' 	172.20.5.3', 'newyorker.com/wp-content/uploads/2016/02/StackelbergandKnoll-TheBeatles-320x240-1456529217.jpg?', '103.245.222.239'),
 (113, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/uploads/2016/02/Frank-GoldwatertoTrump-320x240-1456778113.jpg?', '103.245.222.239'),
-(114, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/assets/img/header_graphics/index/festival-2015.jpg', '103.245.222.239'),
+(114, '2007-08-21 16:52:51', '192.168.9.23', 'newyorker.com/wp-content/assets/img/header_graphics/index/festival-2015.jpg', '103.245.222.239'),
 (115, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/assets/dist/img/NYR_Nav-sprite.png?', '103.245.222.239'),
 (116, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/assets/dist/img/tny-social-share-sprite.png?', '103.245.222.239'),
 (117, '2007-08-21 16:52:51', '192.168.19.86', 'newyorker.com/wp-content/assets/dist/img/sprites/TNY_lineart_sprite.png?', '103.245.222.239'),
@@ -492,14 +513,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(35) NOT NULL,
   `role` int(1) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `role`) VALUES
-(1, 'danoer', 'danurwijayanto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 0);
+(1, 'Danur', 'danurwijayanto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 1),
+(6, 'Baguss', 'baguss@yahoo.com', '47bce5c74f589f4867dbd57e9ca9f808', 2);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
