@@ -233,6 +233,13 @@ class Operation extends CI_Controller {
 		
 		echo json_encode($data);
 	}
+
+
+	public function sinkron_ip(){
+		$this->load->library('fungsiku');
+
+		$this->squid_model->sinkron_ip();
+	}
 	//End Fungsi Ajax auto refresh
 	
 }

@@ -5,12 +5,17 @@
 			* Get Semua Log Squid 
 		*/
 		function get_log(){
-			#$query = "SELECT * FROM squid_history";
+			// $query = "SELECT * FROM squid_history";
 			$query = "SELECT a.*, b.*, d.nama_perangkat, c.nama_interface 
 						FROM data_ipaddress as a RIGHT JOIN squid_history as b 
 						on SUBSTRING_INDEX(a.ip_address, '.', 3) = SUBSTRING_INDEX(b.user_ip, '.', 3) 
 						LEFT JOIN data_interface as c on a.ip_addressindex = c.interface_index 
 						LEFT JOIN data_perangkat as d on c.id_perangkat = d.id_perangkat";
+			// $query = "SELECT a.*, b.*, d.nama_perangkat, c.nama_interface 
+			//  			FROM data_ipaddress as a RIGHT JOIN squid_history as b 
+			//  			on ".$this->fungsiku->IPisWithinCIDR(."'b.userip'".,."'192.168.19.1/24'".)."
+			//  			LEFT JOIN data_interface as c on a.ip_addressindex = c.interface_index 
+			//  			LEFT JOIN data_perangkat as d on c.id_perangkat = d.id_perangkat";
 	        $result = $this->db->query($query);
 			return $result->result_array();
 		}
@@ -149,6 +154,33 @@
 
 			$result = $this->db->query($query);
 			return $result->result_array();
+		}
+
+
+		function sinkron_ip(){
+			$query1 = "SELECT *
+				FROM `data_ipaddress`
+				GROUP BY ip_address";
+			$query2 = "SELECT * 
+				FROM `squid_history` 
+				GROUP BY user_ip";
+
+			$result1 = $this->db->query($query1);
+			$result2 = $this->db->query($query2);
+			$dataip = $result1->result_array();
+			$squid = $result2->result_array();
+			// print_r($dataip);
+			echo $this->fungsiku->IPisWithinCIDR('10.10.13.1','10.10.8.1/22');
+			foreach ($squid as $squid) {
+				foreach ($dataip as $dataip1) {
+					if ($this->fungsiku->IPisWithinCIDR($squid['user_ip'],$dataip1['ip_address']."/".$dataip1['cidrr']) == TRUE){
+						echo $squid['user_ip']."  ||   ".$dataip1['ip_address']."<br>";
+					}
+					// echo $squid['user_ip']." || ".$dataip1['ip_address']."<br>";
+				}
+				# code...
+			}
+
 		}
 	}	
 	/* End of file squid_model.php */

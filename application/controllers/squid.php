@@ -27,7 +27,9 @@ class Squid extends CI_Controller {
 			}
 	}
 
-	public function log_squid(){
+	public function log_squid(){	
+		$this->load->library('fungsiku');
+
 		$data=array(
 			'title'=>'Network Management System UPPTI FSM UNDIP',
 			'isi' =>'admin/isi/log_squid',
