@@ -85,6 +85,42 @@
 				return FALSE;
 			}	
 		}
+
+		public function tambah_user($data){
+			$query = $this->db->insert('user',$data);
+			if ($this->db->affected_rows() > 0) {
+				return "Data Berhasil Ditambahkan";
+			}else {
+				return $this->db->error;
+			}
+		}
+
+		public function hapus_user($data){
+			$query = "DELETE FROM user WHERE id_user=$data";
+	        $result = $this->db->query($query);
+	        if($this->db->affected_rows() > 0){
+	            return "User Berhasil dihapus";
+	        } else {
+	            return $this->db->error;
+	        }
+		}
+
+		public function get_user($data){
+			$query = "SELECT * FROM user WHERE id_user=$data";
+	        $result = $this->db->query($query);
+	        return $result->result_array();
+		}
+
+		function simpan_edit_user($data){
+			$query = "UPDATE user SET username='$data[username]', email='$data[email]', password='$data[password]', role='$data[role]'
+				WHERE id_user=$data[id]";
+	        $result = $this->db->query($query);
+	        if($this->db->affected_rows() > 0){
+	            return "Data Berhasil dipdate";
+	        } else {
+	            return $this->db->error;
+	        }
+		}
 	}
 	/* End of file sma_sltg.php */
 	/* Location: ./application/models/sma_sltg.php */

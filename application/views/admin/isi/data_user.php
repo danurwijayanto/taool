@@ -34,18 +34,220 @@
                     <td><?php echo $i;?></td>
                     <td><?php echo $user['username'];?></td>
                     <td><?php echo $user['email'];?></td>
-                    <td><?php if ($user['role']=0){echo "Admin";}else{echo "User";};?></td>
+                    <td><?php if ($user['role']==1){echo "Administrator";}else{echo "Manager";};?></td>
                     <td>
-                      <a class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $user['id_user']; ?>">Edit</a>
-                      <a href="<?php echo base_url();?>user/detail_perangkat?id=<?php echo $user['id_user']; ?>" class="btn btn-success">Detail</a>
-                      <a href="<?php echo base_url();?>user/hapus_perangkat?id=<?php echo $user['id_user']; ?>" class="btn btn-danger">Hapus</a>
+                      <a class="btn btn-primary edit_user" data-toggle="modal" data-target="#edit_user" id="<?php echo $user['id_user']; ?>">Edit</a>
+                      <a href="<?php echo base_url();?>user/hapus_user?id=<?php echo $user['id_user']; ?>" class="btn btn-danger">Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} ?>
               </tbody>
             </table>
         </div>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#tambah_user">Tambah</button>
       </div>
     </section>
+
+<!-- Modal Tambah Device -->
+<div class="modal fade" id="tambah_user" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambah Pengguna</h4>
+      </div>
+      <div class="col-sm-12">
+                  <div class="alert alert-warning" id="peringatan">
+                    <Strong>Peringatan !</Strong>  Cek Kembali Password dan Konfirmasi Password
+                  </div>
+                </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>index.php/user/tambah_user">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="username">Username</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Alamat Email</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" name="email" id="email" placeholder="Alamat Email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="role">Role</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" name="role" id="role" required>
+                <option value="0">-- Pilih Role --</option>
+                <option value="1">Administrator</option>
+                <option value="2">Manager</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="password">Password</label>
+            <div class="col-sm-10"> 
+              <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="cpassword">Confirm Password</label>
+            <div class="col-sm-10"> 
+              <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="Confirm Password" required>
+            </div>
+          </div>
+          <div class="form-group"> 
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Simpan</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Tambah Device -->
+
+<!-- Modal Edit Device -->
+<div class="modal fade" id="edit_user" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Pengguna</h4>
+      </div>
+      <div class="col-sm-12">
+                  <div class="alert alert-warning" id="peringatan">
+                    <Strong>Peringatan !</Strong>  Cek Kembali Password dan Konfirmasi Password
+                  </div>
+                </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form" method="post" >
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="username">Username</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="username" id="username1" placeholder="Username" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Alamat Email</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" name="email" id="email1" placeholder="Alamat Email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="role">Role</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" name="role" id="role1" required>
+                <option value="0">-- Pilih Role --</option>
+                <option value="1">Administrator</option>
+                <option value="2">Manager</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="password">Password</label>
+            <div class="col-sm-10"> 
+              <input type="password" class="form-control" name="password" id="password1" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="cpassword">Confirm Password</label>
+            <div class="col-sm-10"> 
+              <input type="password" class="form-control" name="cpassword" id="cpassword1" placeholder="Confirm Password" required>
+            </div>
+          </div>
+          <div class="form-group"> 
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default simpan_edit_user" >Rubah</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Tambah Device -->
+
 </div><!-- /.content-wrapper -->
 
+<script type="text/javascript">
+//Datatables
+$(document).ready(function(){
+    
+    //Validasi password
+    $(".alert").hide();  
+    $("#password, #cpassword").change(function(){
+           var password   = $("#password").val();
+           var cpassword    = $("#cpassword").val();
+           if(password!=cpassword){
+            //alert('Password Didnt Match');
+            $(".alert").show();            
+           }else{
+             $(".alert").hide(); 
+           }
+    });
+
+    $("#password1, #cpassword1").change(function(){
+           var password   = $("#password1").val();
+           var cpassword    = $("#cpassword1").val();
+           if(password!=cpassword){
+            //alert('Password Didnt Match');
+            $(".alert").show();            
+           }else{
+             $(".alert").hide(); 
+           }
+    });
+
+    //Menampilkan form edit user
+    var id;
+    $(".edit_user").click(function(){
+      var element = $(this);
+      id = element.attr("id");
+     
+      $.ajax({
+        url:"../user/get_user?id="+id,              
+        dataType : "json",
+        type: "POST",
+
+        success: function(data){
+          document.getElementById("username1").value = data[0].username;
+          document.getElementById("email1").value = data[0].email;
+          document.getElementById("role1").value = data[0].role;
+       }
+      });                        
+    });
+
+    //Menyimpan user
+    $(".simpan_edit_user").click(function(){
+      var myData = 'username=' + document.getElementById("username1").value 
+                    + '&email=' + document.getElementById("email1").value
+                    + '&role=' + document.getElementById("role1").value
+                    + '&password=' + document.getElementById("password1").value ;
+      
+      $.ajax({
+        url:"../user/simpan_edit_user?id="+id,              
+        dataType : "json",
+        data : myData,
+        type: "POST",
+        // success: success()       
+      });                        
+    });
+
+    // on success...
+    function success(){
+      alert('Perubahan Berhasil');
+      redirect(site_url("device/data_user"));
+      //location.reload(); 
+    }    
+});
+</script>>

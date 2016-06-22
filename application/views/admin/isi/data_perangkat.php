@@ -175,7 +175,7 @@
           </div>
           <div class="form-group"> 
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default simpan_edit_device">Simpan</button>
+              <button type="submit" class="btn btn-default simpan_edit_device">Rubah</button>
             </div>
           </div>
         </form>
@@ -228,7 +228,7 @@
         dataType : "json",
         data : myData,
         type: "POST",
-        //success: success()       
+        // success: success()       
       });                        
     });
 

@@ -12,9 +12,9 @@
     <!-- Bootstrap 3.3.4 -->
     <link href="<?php echo base_url();?>etc/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
-    <link href="<?php echo base_url();?>etc/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url();?>etc/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
-    <link href="<?php echo base_url();?>etc/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url();?>etc/plugins/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- DATA TABLES -->
     <link href="<?php echo base_url();?>etc/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->

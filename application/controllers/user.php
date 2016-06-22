@@ -36,7 +36,44 @@ class User extends CI_Controller {
 		);
 		$this->load->view('admin/wrapper', $data);
 	}
+
+	public function tambah_user(){
+		$data = array(
+				'username' => $this->input->post('username'),
+				'email' => $this->input->post('email'),
+				'password' => md5($this->input->post('password')),
+				'role' => $this->input->post('role')
+		);
+
+		$result = $this->auth->tambah_user($data);
+		echo "<script type='text/javascript'>alert('".$result."')</script>";
+		redirect('welcome/data_user', 'refresh');
+	}
+
+	public function hapus_user(){
+		$data = $_GET['id'];
+		$result=$this->auth->hapus_user($data);
+		echo "<script type='text/javascript'>alert('".$result."')</script>";
+		#redirect($this->agent->referrer(), 'refresh');
+		redirect('welcome/data_user', 'refresh');
+	}
+
+	public function get_user(){
+		$data = $_GET['id'];
+		$result=$this->auth->get_user($data);
+		echo json_encode($result);
+	}
 	
+	public function simpan_edit_user(){
+		$data = array(
+				'id' => $_GET['id'],
+				'username' => $_POST['username'],
+				'email' => $_POST['email'],
+				'password' => md5($_POST['password']),
+				'role' => $_POST['role'],
+			);
+		$result=$this->auth->simpan_edit_user($data);
+	}
 }
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
