@@ -23,7 +23,7 @@ class Device extends CI_Controller {
 				redirect(base_url('index.php/login_admin'));
 			}else{
 				$this->session_data = $this->session->userdata('logged_in');
-				// $this->data_sesi = $this->auth->read_user_information($this->session_data);
+				$this->data_sesi = $this->auth->read_user_information($this->session_data);
 			}
 	}
 
