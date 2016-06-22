@@ -37,7 +37,7 @@
                     <td><?php if ($user['role']==1){echo "Administrator";}else{echo "Manager";};?></td>
                     <td>
                       <a class="btn btn-primary edit_user" data-toggle="modal" data-target="#edit_user" id="<?php echo $user['id_user']; ?>">Edit</a>
-                      <a href="<?php echo base_url();?>user/hapus_user?id=<?php echo $user['id_user']; ?>" class="btn btn-danger">Hapus</a>
+                      <a href="<?php echo base_url();?>user/hapus_user?id=<?php echo $user['id_user']; ?>" class="btn btn-danger" <?php if($user['id_user'] == 1)echo "disabled"; ?> >Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} ?>
@@ -176,7 +176,7 @@
     </div>
   </div>
 </div>
-<!-- End Modal Tambah Device -->
+<!-- End Modal Edit User-->
 
 </div><!-- /.content-wrapper -->
 
@@ -224,7 +224,12 @@ $(document).ready(function(){
           document.getElementById("email1").value = data[0].email;
           document.getElementById("role1").value = data[0].role;
        }
-      });                        
+      });
+      if(id == 1){
+         document.getElementById("role1").disabled = true;
+      } else {
+        document.getElementById("role1").disabled = false;
+      }                       
     });
 
     //Menyimpan user

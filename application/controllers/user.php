@@ -72,7 +72,30 @@ class User extends CI_Controller {
 				'password' => md5($_POST['password']),
 				'role' => $_POST['role'],
 			);
+		$sess_array = array(
+			'email' => $data['email']
+		);
+		// Add user data in session
+		$this->session->set_userdata('logged_in', $sess_array);
 		$result=$this->auth->simpan_edit_user($data);
+	}
+
+	public function simpan_profile(){
+		$data = array(
+				'id' => $_POST['id2'],
+				'username' => $_POST['username'],
+				'email' => $_POST['email'],
+				'password' => md5($_POST['password']),
+				'role' => $_POST['role'],
+			);
+		$result=$this->auth->simpan_edit_user($data);
+		$sess_array = array(
+			'email' => $_POST['email']
+		);
+		// Add user data in session
+		$this->session->set_userdata('logged_in', $sess_array);
+		redirect($this->agent->referrer());
+
 	}
 }
 /* End of file welcome.php */

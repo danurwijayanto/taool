@@ -56,7 +56,9 @@
                   </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                <?php if (empty($bandbrd1[0]['id_rrd'])) {echo "Data Belum Terbentuk";} else { ?>
                  <img src="<?php echo base_url();?>/etc/rrdtools/gambar/<?php echo $bandbrd2[0]['id_rrd']?>_1d.gif" class="col-md-12">
+                <?php } ?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
@@ -70,7 +72,9 @@
                   </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                <?php if (empty($bandbrd1[0]['id_rrd'])) {echo "Data Belum Terbentuk";} else { ?>
                  <img src="<?php echo base_url();?>/etc/rrdtools/gambar/<?php echo $bandbrd1[0]['id_rrd']?>_1d.gif" class="col-md-12">
+                <?php } ?>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->

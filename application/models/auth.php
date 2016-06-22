@@ -22,22 +22,25 @@
 		}
 
 		public function read_user_information($data) {
+			// print_r($data);
 			$query = "SELECT * 
 				FROM user
 				WHERE email='$data[email]'";
+			
 			$result = $this->db->query($query);
 			
 	        if($result->num_rows() == 1){
 	            $query_result = array();
-			foreach ($result->result_array() as $row){
-				$query_result['id_user'] = $row['id_user'];
-				$query_result['username'] = $row['username'];
-				$query_result['email'] = $row['email'];
-				// $query_result['password'] = $row['password'];
-				// $query_result['id_kat'] = $row['id_kat'];
-				$query_result['role'] = $row['role'];
-			}
+				foreach ($result->result_array() as $row){
+					$query_result['id_user'] = $row['id_user'];
+					$query_result['username'] = $row['username'];
+					$query_result['email'] = $row['email'];
+					// $query_result['password'] = $row['password'];
+					// $query_result['id_kat'] = $row['id_kat'];
+					$query_result['role'] = $row['role'];
+				}
 	            return $query_result;
+	            // print_r($query_result);
 			}else {
 				return FALSE;
 			}	
@@ -118,7 +121,7 @@
 	        if($this->db->affected_rows() > 0){
 	            return "Data Berhasil dipdate";
 	        } else {
-	            return $this->db->error;
+	            return $this->db->_error_message();
 	        }
 		}
 	}

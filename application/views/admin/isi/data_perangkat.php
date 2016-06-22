@@ -42,16 +42,16 @@
                     <!-- <td><?php //echo $a['ver_snmp'];?></td> -->
                     <td><?php echo $a['status']; ?></td>
                     <td>
-                      <a class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $a['id_perangkat']; ?>">Edit</a>
+                      <a <?php if ($session['role']==2)echo 'disabled'; ?> class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $a['id_perangkat']; ?>">Edit</a>
                       <a href="<?php echo base_url();?>device/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>
-                      <a href="<?php echo base_url();?>device/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger">Hapus</a>
+                      <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>device/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger">Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} ?>
               </tbody>
             </table>
         </div>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#tambah_device">Tambah Perangkat</button>
+        <button <?php if ($session['role']==2)echo 'disabled'; ?> type="button" class="btn btn-warning" data-toggle="modal" data-target="#tambah_device">Tambah Perangkat</button>
       </div>
     </section>
 </div><!-- /.content-wrapper -->

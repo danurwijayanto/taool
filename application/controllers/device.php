@@ -23,24 +23,25 @@ class Device extends CI_Controller {
 				redirect(base_url('index.php/login_admin'));
 			}else{
 				$this->session_data = $this->session->userdata('logged_in');
-				$this->data_sesi = $this->auth->read_user_information($this->session_data);
+				// $this->data_sesi = $this->auth->read_user_information($this->session_data);
 			}
 	}
 
 	public function index()
 	{
-		#$this->load->view('snmp');
-		
+		// $data_sesi = $this->auth->read_user_information($this->session_data);
 		$data=array(
 			'title'=>'Network Management System UPPTI FSM UNDIP',
 			'isi' =>'admin/isi/home',
-			'session' => $this->data_sesi,
+			// 'session' => $this->data_sesi,
+			'session' => $this->auth->read_user_information($this->session_data),
 			'top_site' => $this->squid_model->get_namaif(),
 			'total_user' => $this->auth->get_all_user(),
 			'total_device' => $this->snmp_model->get_alldev(),
 			'bandbrd1' => $this->snmp_model->getbandwith(19),
 			'bandbrd2' => $this->snmp_model->getbandwith(20),
 		);
+		// print_r($this->session_data);
 		$this->load->view('admin/wrapper', $data);
 		// print_r($data['bandbrd1']);
 	}

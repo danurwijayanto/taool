@@ -90,7 +90,7 @@
               </tbody>
             </table>
         </div>
-        <a href="<?php echo base_url();?>device/scan_interface?id=<?php echo $id; ?>" class="btn btn-primary" id="<?php #echo $a['id_perangkat']; ?>">Scan Interface</a>
+        <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>device/scan_interface?id=<?php echo $id; ?>" class="btn btn-primary" id="<?php #echo $a['id_perangkat']; ?>">Scan Interface</a>
       </div>
     </section>
 </div><!-- /.content-wrapper -->
