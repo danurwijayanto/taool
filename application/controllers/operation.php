@@ -21,7 +21,7 @@ class Operation extends CI_Controller {
 		$this->load->view('admin/isi/login_admin');
 	}
 
-	public function kirim_email(){
+	public function cek_status(){
 		$this->load->library('email');
 		$this->load->library('fungsiku');
 		

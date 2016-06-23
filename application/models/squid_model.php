@@ -68,8 +68,12 @@
 				// TEST QUERY
 				$query = "SELECT domain_tujuan, user_ip FROM squid_history 
 						WHERE user_ip='$ip[user_ip]'";
+				// $query = "SELECT domain_tujuan, user_ip FROM squid_history as a , list_ip as b
+				// 		WHERE b.ip_squid=a.user_ip AND user_ip='$ip[user_ip]'";
 				$result = $this->db->query($query);
 				$result = $result->result_array();
+
+
 
 				foreach ($result as $pop) {  
 	                //Memasukkak ke array baru    
@@ -124,6 +128,7 @@
 
 		function get_namaif(){
 			$userip2 = $this->count_domaintuj();
+			// print_r($userip2);
 			$query_result = array();
 			
 			foreach ($userip2 as $ip) {
@@ -135,7 +140,7 @@
 						WHERE '$ip[1]'=c.ip_squid AND c.ip_interface=b.ip_address AND b.ip_addressindex=a.interface_index AND a.id_perangkat=d.id_perangkat";
 				$result = $this->db->query($query);
 				$result = $result->result_array();
-				#print_r ($result);
+				// print_r ($result);
 				foreach ($result as $row){
 					$query_result[] = array(
 										'domain' => $ip[0],
@@ -145,9 +150,50 @@
 										'nama_perangkat' => $row['nama_perangkat']
 									);
 				}
+				// print_r($result);
+				// $groups = array();
+			 //    $key = 0;
+			 //    foreach ($query_result as $item) {
+			 //        $key = $item['nama_if'];
+			 //        if (!array_key_exists($key, $groups)) {
+			 //            $groups[$key] = array(
+			 //                // 'id' => $item['evaluation_category_id'],
+			 //                'nama_if' => $item['nama_if'],
+			 //                'hit' => $item['hit'],
+			 //            );
+			 //        } else {
+			 //            $groups[$key]['hit'] = $groups[$key]['hit'] + $item['hit'];
+			 //            // $groups[$key]['itemMaxPoint'] = $groups[$key]['itemMaxPoint'] + $item['itemMaxPoint'];
+			 //        }
+			 //        $key++;
+			 //    }
+			 //    print_r($groups);
+
+				
 			}	
+			$result1 = array();
+			$test =  array();
+			foreach ($query_result as $row)
+				{
+				  $result1[$row['nama_if']]['domain'] = $row['domain'];
+				  $result1[$row['nama_if']]['ip_asal'] = $row['ip_asal'];
+				  $result1[$row['nama_if']]['nama_if'] = $row['nama_if'];
+				  @$result1[$row['nama_if']]['hit'] += $row['hit'];
+				  @$result1[$row['nama_if']]['nama_perangkat'] = $row['nama_perangkat'];
+				  // $result[$row['nama_if']]['hit'] += $row['hit'];
+				  // $result[$row['nama_if']]['earn'] += $row['earn'];
+				  // print_r(array($result1));
+					// array_push($test,$result1);
+
+				}
+				$test= array_values($result1);
+				// foreach ($test as $a) {
+				// 	print_r($a);
+				// 	# code...
+				// }
+				// print_r($test);
 			// print_r ($query_result);
-			return  $query_result;
+			return  $test;
 		}
 		# End Fungsi untuk menghitung statistik popular site
 
