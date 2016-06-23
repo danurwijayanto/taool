@@ -38,10 +38,15 @@ class Device extends CI_Controller {
 			'top_site' => $this->squid_model->get_namaif(),
 			'total_user' => $this->auth->get_all_user(),
 			'total_device' => $this->snmp_model->get_alldev(),
+			'total_if' => $this->snmp_model->get_allif(),
 			'bandbrd1' => $this->snmp_model->getbandwith(19),
 			'bandbrd2' => $this->snmp_model->getbandwith(20),
+			'statperup' => count($this->snmp_model->get_statusperangkat('Up')),
+			'ifperup' => count($this->snmp_model->get_statusif('up')),
+			'statperdown' => count($this->snmp_model->get_statusperangkat('Down')),
+			'ifperdown' => count($this->snmp_model->get_statusif('down')),
 		);
-		// print_r($this->session_data);
+		// print_r($data['top_site']);
 		$this->load->view('admin/wrapper', $data);
 		// print_r($data['bandbrd1']);
 	}

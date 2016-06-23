@@ -4,7 +4,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Perangkat 
+        Data Perangkat 
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -16,6 +16,7 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-12 col-xs-12">
+          <div class="box">
           <div class="box-body">
             <table id="dat_per" class="table table-bordered table-striped">
               <thead>
@@ -50,6 +51,7 @@
                 <?php $i++ ;} ?>
               </tbody>
             </table>
+        </div>
         </div>
         <button <?php if ($session['role']==2)echo 'disabled'; ?> type="button" class="btn btn-warning" data-toggle="modal" data-target="#tambah_device">Tambah Perangkat</button>
       </div>

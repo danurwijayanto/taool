@@ -201,8 +201,10 @@
 		function cari_statistik($data){
 			// print_r($data['tawal']);
 
-			$query = "SELECT domain_tujuan, nama_interface FROM data_interface as a, data_ipaddress as b, squid_history as c
-					WHERE a.interface_index=b.ip_addressindex and SUBSTRING_INDEX(c.user_ip, '.', 3)=SUBSTRING_INDEX(b.ip_address, '.', 3) and a.interface_index = $data[id_if] and (DATE(c.waktu) BETWEEN '$data[tawal]' AND '$data[takhir]')";
+			// $query = "SELECT domain_tujuan, nama_interface FROM data_interface as a, data_ipaddress as b, squid_history as c
+			// 		WHERE a.interface_index=b.ip_addressindex and SUBSTRING_INDEX(c.user_ip, '.', 3)=SUBSTRING_INDEX(b.ip_address, '.', 3) and a.interface_index = $data[id_if] and (DATE(c.waktu) BETWEEN '$data[tawal]' AND '$data[takhir]')";
+			$query = "SELECT domain_tujuan, nama_interface FROM data_interface as a, data_ipaddress as b, squid_history as c, list_ip as d
+					WHERE a.interface_index=b.ip_addressindex and c.user_ip=d.ip_squid and b.ip_address=d.ip_interface and a.interface_index = $data[id_if] and (DATE(c.waktu) BETWEEN '$data[tawal]' AND '$data[takhir]')";
 
 			$result = $this->db->query($query);
 			return $result->result_array();

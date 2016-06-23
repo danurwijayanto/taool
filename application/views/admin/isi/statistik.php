@@ -28,9 +28,13 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-12 col-xs-12">
+        <div class="box">
+          <div class="box-header">
+          
+          </div>
           <div class="box-body">
             <!-- Konten -->
-            <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>index.php/welcome/cari_statistik";>
+            <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>index.php/squid/cari_statistik";>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="if">Interface :</label>
                 <div class="col-sm-5">
@@ -57,7 +61,7 @@
                   <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir">
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="control-label col-sm-3" for="berdasar">Berdasarkan :</label>
                 <div class="col-sm-5"> 
                   <select class="form-control" name="berdasar" id="berdasar">
@@ -67,7 +71,7 @@
                     <option value="0">Tahun</option>
                   </select>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group"> 
                 <div class="col-sm-offset-3 col-sm-10">
                   <button type="submit" class="btn btn-default cari_statistik">Cari</button>
@@ -91,6 +95,7 @@
             <br>
             <!-- End Konten -->
           </div>
+          </div>
         </div>
       </div>
     </section>
@@ -104,7 +109,7 @@
             <!-- KONTEN -->  
             <div class="box box-success">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Statistik</h3>
+                  <h3 class="box-title">Statistik</h3><?php if (empty($statistik[0]['nama_interface'])){}else{echo " ".$statistik[0]['nama_interface'];}?>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>

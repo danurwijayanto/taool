@@ -78,6 +78,7 @@ class Squid extends CI_Controller {
 				'session' => $this->data_sesi
 		);
 		$this->load->view('admin/wrapper', $data);
+		// print_r($data['statistik']);
 	}
 	
 }

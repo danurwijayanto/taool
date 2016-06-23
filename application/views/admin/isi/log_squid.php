@@ -15,6 +15,7 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-12 col-xs-12">
+        <div class="box box-danger">
           <div class="box-body">
             <table id="log_squid" class="table table-bordered table-striped">
               <thead>
@@ -51,6 +52,7 @@
                 <?php $i++ ;} ?>
               </tbody>
             </table>
+        </div>
         </div>
       </div>
     </section>

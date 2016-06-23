@@ -10,6 +10,13 @@
 			return $result->result_array();
 		}
 
+		function get_allif(){
+			$query = "SELECT * FROM data_interface";
+			$result = $this->db->query($query);
+
+			return $result->result_array();
+		}
+
 		function simpan_perangkat($data) {
 			$query = $this->db->insert('data_perangkat',$data);
 			if ($this->db->affected_rows() > 0) {
@@ -31,6 +38,18 @@
 
 		function get_perangkat($data){
 			$query = "SELECT * FROM data_perangkat WHERE id_perangkat=$data";
+	        $result = $this->db->query($query);
+	        return $result->result_array();
+		}
+
+		function get_statusperangkat($data){
+			$query = "SELECT * FROM data_perangkat WHERE status='$data'";
+	        $result = $this->db->query($query);
+	        return $result->result_array();
+		}
+
+		function get_statusif($data){
+			$query = "SELECT * FROM data_interface WHERE status='$data'";
 	        $result = $this->db->query($query);
 	        return $result->result_array();
 		}
