@@ -36,6 +36,7 @@ class Device extends CI_Controller {
 			// 'session' => $this->data_sesi,
 			'session' => $this->auth->read_user_information($this->session_data),
 			'top_site' => $this->squid_model->get_namaif(),
+			'pop_site' => $this->squid_model->popular_site(),
 			'total_user' => $this->auth->get_all_user(),
 			'total_device' => $this->snmp_model->get_alldev(),
 			'total_if' => $this->snmp_model->get_allif(),

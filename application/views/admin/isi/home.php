@@ -1,4 +1,15 @@
- 
+ <?php 
+  function url_view($data){
+    //GETTING DOMAIN USING PREG MATCH
+    // get host name from URL
+    preg_match('@^(?:http://)?([^/]+)@i', $data, $matches); $host = $matches[1];
+
+    // get last two segments of host name
+    preg_match('/[^.]+\.[^.]+$/', $host, $matches); 
+    return $domain = $matches[0];
+
+  }
+?>
  <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -117,6 +128,30 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
+      <?php 
+        $domhit = array();
+        foreach ($pop_site as $pop) {  
+          //Memasukkak ke array baru    
+          array_push($domhit,url_view($pop['domain_tujuan']));
+        } 
+        //Menghitung Jumlah Value Array yang Sama
+        $domhit = array_count_values($domhit);
+        //Sort Array (Descending Order), According to Value - arsort()
+        arsort($domhit);
+
+        // foreach ($domhit as $domhit1 => $value) { 
+          
+        //     // echo $i;
+        //     echo $domhit1; 
+        //     echo $value; 
+        // } 
+
+        ?>   
+
+        <!-- <?php print_r($domhit);?> -->
+
+
+
 <script>
   $(function () {
     $('#highchart').highcharts({
@@ -200,8 +235,8 @@
         xAxis: {
             categories: [
                 
-                <?php foreach ($top_site as $dom) {
-                    echo "'".$dom['nama_if']."',";
+                <?php foreach ($domhit as $domhit1 => $value) {
+                    echo "'".$domhit1."',";
                 }?>
               
             ],
@@ -230,26 +265,16 @@
         series: [
         {
             data: [
-            <?php 
-              foreach ($top_site as $dom1) {
-                echo "
-                  {
-                    name: '".$dom1['domain']."',
-                    // color: '',
-                    y: ".$dom1['hit']."
-                  },
-                ";
-              }
-            ?>
-            // {
-            //     name: 'Point 1',
-            //     color: '',
-            //     y: 1
-            // }, {
-            //     name: 'Point 2',
-            //     color: '',
-            //     y: 5
-            // }
+
+            <?php foreach ($domhit as $domhit2 => $value1) {
+                    echo "
+                      {
+                        name: '".$domhit2."',
+                        // color: '',
+                        y: ".$value1."
+                      },
+                    ";
+            }?>
             ]
 
         }]
