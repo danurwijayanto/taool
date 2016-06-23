@@ -85,6 +85,7 @@
               <thead>
               <tr>
                 <th>No</th>
+                <th>Perangkat</th>
                 <th>Interface</th>
                 <th>Situs</th>
                 <th>Hit</th>
@@ -97,6 +98,7 @@
               
               <tr>
                   <th><?php echo $i; ?></th>
+                  <th><?php echo $stats['nama_perangkat']; ?></th>
                   <th><?php echo $stats['nama_if']; ?></th>
                   <th><?php echo $domain; ?></th>
                   <th><?php echo $stats['hit']; ?></th>

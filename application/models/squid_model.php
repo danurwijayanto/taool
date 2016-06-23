@@ -127,8 +127,12 @@
 			$query_result = array();
 			
 			foreach ($userip2 as $ip) {
-				$query = "SELECT a.nama_interface FROM data_interface  as a , data_ipaddress as b
-						WHERE SUBSTRING_INDEX('$ip[1]', '.', 3)=SUBSTRING_INDEX(b.ip_address, '.', 3) AND b.ip_addressindex=a.interface_index";
+				// $query = "SELECT a.nama_interface 
+				// 		FROM data_interface  as a , data_ipaddress as b
+				// 		WHERE SUBSTRING_INDEX('$ip[1]', '.', 3)=SUBSTRING_INDEX(b.ip_address, '.', 3) AND b.ip_addressindex=a.interface_index";
+				$query = "SELECT a.nama_interface , d.nama_perangkat
+						FROM data_interface  as a , data_ipaddress as b, list_ip as c, data_perangkat as d
+						WHERE '$ip[1]'=c.ip_squid AND c.ip_interface=b.ip_address AND b.ip_addressindex=a.interface_index AND a.id_perangkat=d.id_perangkat";
 				$result = $this->db->query($query);
 				$result = $result->result_array();
 				#print_r ($result);
@@ -137,7 +141,8 @@
 										'domain' => $ip[0],
 										'ip_asal' => $ip[1],
 										'hit' => $ip[2],
-										'nama_if' => $row['nama_interface']
+										'nama_if' => $row['nama_interface'],
+										'nama_perangkat' => $row['nama_perangkat']
 									);
 				}
 			}	
