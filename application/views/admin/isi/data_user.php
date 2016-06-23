@@ -3,17 +3,18 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Daftar User 
+        Daftar Pengguna
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> User</a></li>
-        <li class="active">Daftar User</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Pengguna</a></li>
+        <li class="active">Daftar Pengguna</li>
       </ol>
     </section>
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-12 col-xs-12">
+        <div class="box box-info">
           <div class="box-body">
             <table id="log_squid" class="table table-bordered table-striped">
               <thead>
@@ -45,6 +46,7 @@
             </table>
         </div>
         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#tambah_user">Tambah</button>
+      </div>
       </div>
     </section>
 
