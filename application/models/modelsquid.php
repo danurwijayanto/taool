@@ -77,10 +77,14 @@
 
 				foreach ($result as $pop) {  
 	                //Memasukkak ke array baru    
-	                array_push($domhit,url($pop['domain_tujuan']));
+	                // $host = parse_url($log['domain_tujuan']);
+                 //                echo @$host['host'];
+	                // array_push($domhit,url($pop['domain_tujuan']));
+	                array_push($domhit,parse_url($pop['domain_tujuan'],PHP_URL_HOST));
               	}
               	//Menghitung Jumlah Value Array yang Sama
-              	$domhit = array_count_values($domhit);
+              	// print_r($domhit);
+              	$domhit = @array_count_values($domhit);
 				
 				//Sort Array (Descending Order), According to Value - arsort()
               	arsort($domhit);

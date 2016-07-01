@@ -6,7 +6,7 @@
 
     // get last two segments of host name
     preg_match('/[^.]+\.[^.]+$/', $host, $matches); 
-    return $domain = $matches[0];
+    // return $domain = $matches[0];
 
   }
 ?>
@@ -132,10 +132,12 @@
         $domhit = array();
         foreach ($pop_site as $pop) {  
           //Memasukkak ke array baru    
-          array_push($domhit,url_view($pop['domain_tujuan']));
+
+          // array_push($domhit,url_view($pop['domain_tujuan']));
+            array_push($domhit,parse_url($pop['domain_tujuan'],PHP_URL_HOST));
         } 
         //Menghitung Jumlah Value Array yang Sama
-        $domhit = array_count_values($domhit);
+        $domhit = @array_count_values($domhit);
         //Sort Array (Descending Order), According to Value - arsort()
         arsort($domhit);
 

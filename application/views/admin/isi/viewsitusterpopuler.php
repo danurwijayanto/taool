@@ -51,10 +51,12 @@
                       $domhit = array();
                       foreach ($pop_site as $pop) {  
                         //Memasukkak ke array baru    
-                        array_push($domhit,url_view($pop['domain_tujuan']));
+                        // array_push($domhit,url_view($pop['domain_tujuan']));
+                        array_push($domhit,parse_url($pop['domain_tujuan'],PHP_URL_HOST));
+
                       } 
                       //Menghitung Jumlah Value Array yang Sama
-                      $domhit = array_count_values($domhit);
+                      $domhit = @array_count_values($domhit);
                       //Sort Array (Descending Order), According to Value - arsort()
                       arsort($domhit);
                       $i=1;
@@ -92,7 +94,7 @@
                     <th><?php echo $i; ?></th>
                     <th><?php echo $stats['nama_perangkat']; ?></th>
                     <th><?php echo $stats['nama_if']; ?></th>
-                    <th><?php echo $domain; ?></th>
+                    <th><?php echo $stats['domain']; ?></th>
                     <th><?php echo $stats['hit']; ?></th>
                 </tr>
               

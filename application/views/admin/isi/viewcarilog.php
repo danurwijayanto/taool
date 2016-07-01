@@ -84,11 +84,12 @@
             }  else {
                 $domainhit = array();
                 foreach ($statistik as $stat) { 
-                  array_push($domainhit,url($stat['domain_tujuan']));
+                  array_push($domainhit,parse_url($stat['domain_tujuan'],PHP_URL_HOST));
+                  // array_push($domainhit,url($stat['domain_tujuan']));
                 }
 
                 //Menghitung Jumlah Value Array yang Sama
-                $domainhit = array_count_values($domainhit);
+                $domainhit = @array_count_values($domainhit);
                 #foreach ($domainhit as $key => $value) {
                   #echo $key." || ".$value."<br>"; 
             } #} ?>

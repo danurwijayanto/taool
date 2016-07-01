@@ -45,7 +45,7 @@ class Controllogin extends CI_Controller {
 					);
 					// Add user data in session
 					$this->session->set_userdata('logged_in', $sess_array);
-					redirect('device', 'refresh');
+					redirect('controlperangkat', 'refresh');
 					
 				}else{
 					$data = array(

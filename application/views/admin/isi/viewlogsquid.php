@@ -33,18 +33,24 @@
                 <?php $i=1;foreach ($log_squid as $log) { 
                     //GETTING DOMAIN USING PREG MATCH
                     // get host name from URL
-                    preg_match('@^(?:http://)?([^/]+)@i', $log['domain_tujuan'], $matches); $host = $matches[1];
+                    // preg_match('@^(?:http://)?([^/]+)@i', $log['domain_tujuan'], $matches); $host = $matches[1];
 
                     // get last two segments of host name
-                    preg_match('/[^.]+\.[^.]+$/', $host, $matches); 
-                    $domain = $matches[0];
+                    // preg_match('/[^.]+\.[^.]+$/', $host, $matches); 
+                    // $domain = $matches[0];
 
                   ?>
                   <tr>
                     <td><?php echo $i;?></td>
                     <td><?php echo $log['waktu'];?></td>
                     <td><?php echo $log['user_ip'];?></td>
-                    <td><?php echo $domain;?></td>
+                  
+                    <td>
+                     <?php 
+                                $host = parse_url($log['domain_tujuan']);
+                                echo @$host['host'];
+                      ?>
+                    </td>
                     <td><?php echo $log['ip_tujuan'];?></td>
                     <td><?php echo $log['nama_interface'];?></td>
                     <td><?php echo $log['nama_perangkat'];?></td>

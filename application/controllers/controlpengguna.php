@@ -20,7 +20,7 @@ class Controlpengguna extends CI_Controller {
 	public function __construct() {
 		parent::__construct();			
 			if ($this->session->userdata('logged_in')==NULL) {
-				redirect(base_url('login_admin'));
+				redirect(base_url('controllogin'));
 			}else{
 				$this->session_data = $this->session->userdata('logged_in');
 				$this->data_sesi = $this->modelpengguna->read_user_information($this->session_data);
