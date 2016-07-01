@@ -73,7 +73,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>device/data_perangkat"><i class="fa fa-circle-o"></i> Data Perangkat</a></li>
+                <li><a href="<?php echo base_url();?>controlperangkat/data_perangkat"><i class="fa fa-circle-o"></i> Data Perangkat</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -83,9 +83,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>squid/log_squid"><i class="fa fa-circle-o"></i> Log</a></li>
-                <li><a href="<?php echo base_url();?>squid/popular_site"><i class="fa fa-circle-o"></i> Popular Site</a></li>
-                <li><a href="<?php echo base_url();?>squid/statistik"><i class="fa fa-circle-o"></i> Statistik</a></li>
+                <li><a href="<?php echo base_url();?>controllogsquid/log_squid"><i class="fa fa-circle-o"></i> Log</a></li>
+                <li><a href="<?php echo base_url();?>controllogsquid/popular_site"><i class="fa fa-circle-o"></i> Popular Site</a></li>
+                <li><a href="<?php echo base_url();?>controllogsquid/statistik"><i class="fa fa-circle-o"></i> Statistik</a></li>
               </ul>
             </li>
             <?php if ($session['role']==1){ ?>
@@ -96,7 +96,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>user/data_user"><i class="fa fa-circle-o"></i> Daftar Pengguna</a></li>
+                <li><a href="<?php echo base_url();?>controlpengguna/data_user"><i class="fa fa-circle-o"></i> Daftar Pengguna</a></li>
               </ul>
             </li>
             <?php } ?>
@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>user/simpan_profile" id="form_ganti" onsubmit="return validatepassword()">
+        <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>controlpengguna/simpan_profile" id="form_ganti" onsubmit="return validatepassword()">
           <div class="form-group">
             <input type="hidden" name="id2" id="id2" hidden>
             <label class="control-label col-sm-2" for="username">Username</label>
@@ -201,7 +201,7 @@ $(document).ready(function(){
       id = element.attr("id");
      
       $.ajax({
-        url:"../user/get_user?id="+id,              
+        url:"../controlpengguna/get_user?id="+id,              
         dataType : "json",
         type: "POST",
 
@@ -228,7 +228,7 @@ $(document).ready(function(){
                     + '&password=' + document.getElementById("password2").value ;
       
       $.ajax({
-        url:"../user/simpan_profile?id="+id,              
+        url:"../controlpengguna/simpan_profile?id="+id,              
         dataType : "json",
         data : myData,
         type: "POST",
@@ -239,7 +239,8 @@ $(document).ready(function(){
     // on success...
     function success(){
       alert('Perubahan Berhasil');
-      redirect(site_url("device/data_user"));
+      // redirect(site_url("device/data_user"));
+      redirect(site_url("controlpengguna/data_user"));
       //location.reload(); 
     }
 

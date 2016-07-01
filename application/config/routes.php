@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "device";
+$route['default_controller'] = "controlPerangkat";
 $route['404_override'] = '';
 
 
