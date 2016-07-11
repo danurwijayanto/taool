@@ -115,14 +115,14 @@
 		}
 
 		function simpan_edit_user($data){
-			$query = "UPDATE dataPengguna SET username='$data[username]', email='$data[email]', password='$data[password]', role='$data[role]'
+			$query = "UPDATE dataPengguna SET username='$data[username]', email='$data[email]', password='$data[password]', role='$data[role]', notif=$data[notif]
 				WHERE id_user=$data[id]";
-	        $result = $this->db->query($query);
-	        if($this->db->affected_rows() > 0){
-	            return "Data Berhasil dipdate";
-	        } else {
-	            return $this->db->_error_message();
-	        }
+	        $this->db->query($query);
+	        // if($this->db->affected_rows() > 0){
+	        //     return "Data Berhasil dipdate";
+	        // } else {
+	        //     return $this->db->_error_message();
+	        // }
 		}
 	}
 	/* End of file modelpengguna.php */

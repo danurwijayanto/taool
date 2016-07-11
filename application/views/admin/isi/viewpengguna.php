@@ -45,8 +45,8 @@
               </tbody>
             </table>
         </div>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#tambah_user">Tambah</button>
       </div>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#tambah_user">Tambah Pengguna</button>
       </div>
     </section>
 
@@ -98,6 +98,16 @@
             <label class="control-label col-sm-2" for="cpassword">Confirm Password</label>
             <div class="col-sm-10"> 
               <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="Confirm Password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="role"></label>
+            <div class="col-sm-10"> 
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="notif" id="notif" class="notif"> Kirim notifikasi via email
+                </label>
+              </div>
             </div>
           </div>
           <div class="form-group"> 
@@ -165,6 +175,16 @@
               <input type="password" class="form-control" name="cpassword" id="cpassword1" placeholder="Confirm Password" required>
             </div>
           </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="role"></label>
+            <div class="col-sm-10"> 
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="notif1" id="notif1" class="notif1" > Kirim notifikasi via email
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="form-group"> 
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-default simpan_edit_user" >Rubah</button>
@@ -225,37 +245,63 @@ $(document).ready(function(){
           document.getElementById("username1").value = data[0].username;
           document.getElementById("email1").value = data[0].email;
           document.getElementById("role1").value = data[0].role;
+          // Pengecekan notifikasi
+          if(data[0].notif == 1){
+            document.getElementById("notif1").checked = true;
+          } else {
+            document.getElementById("notif1").checked = false;
+          }
        }
       });
       if(id == 1){
          document.getElementById("role1").disabled = true;
       } else {
         document.getElementById("role1").disabled = false;
-      }                       
+      }
     });
 
     //Menyimpan user
     $(".simpan_edit_user").click(function(){
+      // notif = document.getElementById("notif1").checked;
+      if (document.getElementById("notif1").checked == true) {
+        notif1 = 1;
+      } else {
+        notif1 = 0;
+      }
       var myData = 'username=' + document.getElementById("username1").value 
                     + '&email=' + document.getElementById("email1").value
                     + '&role=' + document.getElementById("role1").value
-                    + '&password=' + document.getElementById("password1").value ;
+                    + '&password=' + document.getElementById("password1").value 
+                    + '&notif=' + notif1 ;
       
       $.ajax({
         url:"../controlpengguna/simpan_edit_user?id="+id,              
         dataType : "json",
         data : myData,
-        type: "POST",
-        // success: success()       
+        type : "POST",
+        // success :  function(data){
+        //       alert(data[0]);
+        // }   
+        // success: success()   
       });                        
     });
 
+    // $("#notif1").click(function(){
+    //   // notif = document.getElementById("notif1").checked;
+    //   if (document.getElementById("notif1").checked == true) {
+    //     alert(1);
+    //   } else {
+    //     alert(0);
+    //   }
+                       
+    // });
+
     // on success...
-    function success(){
-      alert('Perubahan Berhasil');
+    // function success(){
+      // alert('Perubahan Berhasil');
       // redirect(site_url("device/data_user"));
-      redirect(site_url("controlpengguna/data_user"));
+      // redirect(site_url("controlpengguna/data_user"));
       //location.reload(); 
-    }    
+    // }    
 });
 </script>>

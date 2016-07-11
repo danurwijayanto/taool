@@ -38,16 +38,23 @@ class Controlpengguna extends CI_Controller {
 	}
 
 	public function tambah_user(){
+		// $notif = $this->input->post('notif');
+		if ($this->input->post('notif') == 'on') {
+			$notif = 1;
+		}else{
+			$notif = 0;
+		}
 		$data = array(
 				'username' => $this->input->post('username'),
 				'email' => $this->input->post('email'),
 				'password' => md5($this->input->post('password')),
-				'role' => $this->input->post('role')
+				'role' => $this->input->post('role'),
+				'notif' => $notif
 		);
-
+		// print_r($notif);
 		$result = $this->modelpengguna->tambah_user($data);
 		echo "<script type='text/javascript'>alert('".$result."')</script>";
-		redirect('welcome/data_user', 'refresh');
+		redirect('controlpengguna/data_user', 'refresh');
 	}
 
 	public function hapus_user(){
@@ -55,7 +62,7 @@ class Controlpengguna extends CI_Controller {
 		$result=$this->modelpengguna->hapus_user($data);
 		echo "<script type='text/javascript'>alert('".$result."')</script>";
 		#redirect($this->agent->referrer(), 'refresh');
-		redirect('welcome/data_user', 'refresh');
+		redirect('controlpengguna/data_user', 'refresh');
 	}
 
 	public function get_user(){
@@ -65,12 +72,19 @@ class Controlpengguna extends CI_Controller {
 	}
 	
 	public function simpan_edit_user(){
+		// $notif = $this->input->post('notif');
+		// if ($_POST['notif'] == true) {
+		// 	$notif = 1;
+		// }else{
+		// 	$notif = 0;
+		// }
 		$data = array(
 				'id' => $_GET['id'],
 				'username' => $_POST['username'],
 				'email' => $_POST['email'],
 				'password' => md5($_POST['password']),
 				'role' => $_POST['role'],
+				'notif' => $_POST['notif'],
 			);
 		$sess_array = array(
 			'email' => $data['email']
@@ -78,6 +92,8 @@ class Controlpengguna extends CI_Controller {
 		// Add user data in session
 		$this->session->set_userdata('logged_in', $sess_array);
 		$result=$this->modelpengguna->simpan_edit_user($data);
+		// print_r($data['notif']);
+		// echo json_encode($notif);
 	}
 
 	public function simpan_profile(){
