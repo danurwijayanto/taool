@@ -63,17 +63,21 @@ class Controlperangkat extends CI_Controller {
 	}
 
 	public function tambah_perangkat(){
+		$this->load->library('fungsiku');
 		$data = array(
 					'id_perangkat'=> '',
 					'nama_perangkat' => $this->input->post('nama_perangkat'),
 					'ip_address' => $this->input->post('ip'),
 					'lokasi' => $this->input->post('lokasi'),
 					'community' => $this->input->post('community'),
-					'ver_snmp' => $this->input->post('ver')
+					'ver_snmp' => $this->input->post('ver'),
+					'os' => $this->input->post('os'),
+					'status' => $this->fungsiku->ping($a['ip_address'])
+
 				);
 		$result=$this->modelperangkat->simpan_perangkat($data);
 		echo "<script type='text/javascript'>alert('".$result."')</script>";
-		redirect('welcome/data_perangkat', 'refresh');
+		redirect('controlperangkat/data_perangkat', 'refresh');
 	}
 
 	public function hapus_perangkat(){
@@ -81,7 +85,7 @@ class Controlperangkat extends CI_Controller {
 		$result=$this->modelperangkat->hapus_perangkat($data);
 		echo "<script type='text/javascript'>alert('".$result."')</script>";
 		#redirect($this->agent->referrer(), 'refresh');
-		redirect('welcome/data_perangkat', 'refresh');
+		redirect('controlperangkat/data_perangkat', 'refresh');
 	}
 
 	public function get_perangkat(){
@@ -98,6 +102,7 @@ class Controlperangkat extends CI_Controller {
 				'lokasi' => $_POST['lokasi'],
 				'community' => $_POST['community'],
 				'os' => $_POST['os'],
+				'ver_snmp' => $_POST['ver_snmp'],
 			);
 		$result=$this->modelperangkat->simpan_edit_perangkat($data);
 	}
@@ -108,22 +113,22 @@ class Controlperangkat extends CI_Controller {
 		$this->load->library('fungsiku');
 		$db = array(
 				'id' => $id,
-				'id_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.1"),
-				'nama_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.2"),
-				'status_if' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.2.2.1.7"),
+				'id_if' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.1"),
+				'nama_if' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.2"),
+				'status_if' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.7"),
 				// 'status_if' => explode(' ',exec('/usr/local/bin/snmpwalk -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus')),
-				'list_ip' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.1"),
-				'ip_index' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.2"),
-				'netmask' => snmpwalk($sess1['ip'], "public", ".1.3.6.1.2.1.4.20.1.3"),
+				'list_ip' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.1"),
+				'ip_index' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.2"),
+				'netmask' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.3"),
 			);
-		print_r($db['status_if']);
-		$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus');
+		// print_r($db['status_if']);
+		// $status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus');
 		$result=$this->modelperangkat->simpan_scan_if($db);
 		$result1=$this->modelperangkat->simpan_scan_ip($db);
 		echo "<script type='text/javascript'>alert('Perubahan Berhasil')</script>";
 		redirect($this->agent->referrer());
 
-		// print_r($db['netmask']);
+		// print_r($status_if);
 	}
 
 
@@ -140,6 +145,7 @@ class Controlperangkat extends CI_Controller {
 		foreach ($data['detail'] as $det) {
 			$ip = $det["ip_address"];
 			$os = $det["os"];
+			$comm = $det["community"];
 		}
 		if ($os=="mikrotik"){
 			$data['snmp'] = array(
@@ -154,7 +160,8 @@ class Controlperangkat extends CI_Controller {
 		//Session untuk menyimpan data ip untuk digunakan di ajax
 		$session_data = array(
 				'ip'=> $ip,
-				'os' => $os
+				'os' => $os,
+				'comm' => $comm
 		);
 		//Mengeset nama session sebagai sess dengan data session_data
 		$this->session->set_userdata('sess', $session_data);

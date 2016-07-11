@@ -44,8 +44,8 @@
                     <td><?php echo $a['status']; ?></td>
                     <td>
                       <a <?php if ($session['role']==2)echo 'disabled'; ?> class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $a['id_perangkat']; ?>">Edit</a>
-                      <a href="<?php echo base_url();?>device/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>
-                      <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>device/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger">Hapus</a>
+                      <a href="<?php echo base_url();?>controlperangkat/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>
+                      <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger">Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} ?>
@@ -68,7 +68,7 @@
         <h4 class="modal-title">Tambah Perangkat</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>index.php/welcome/tambah_perangkat">
+        <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>index.php/controlperangkat/tambah_perangkat">
           <div class="form-group">
             <label class="control-label col-sm-2" for="nama_perangkat">Nama Perangkat:</label>
             <div class="col-sm-10">
@@ -223,6 +223,7 @@
                     + '&ip_address=' + document.getElementById("ip1").value
                     + '&lokasi=' + document.getElementById("lokasi1").value
                     + '&community=' + document.getElementById("community1").value 
+                    + '&ver_snmp=' + document.getElementById("ver1").value 
                     + '&os=' + document.getElementById("os1").value ;
       
       $.ajax({

@@ -22,7 +22,7 @@ class Controloperasi extends CI_Controller {
 		$this->load->library('fungsiku');
 		
 
-		$semua_perangkat = $this->modelPerangkat->get_alldev();
+		$semua_perangkat = $this->modelperangkat->get_alldev();
 		foreach ($semua_perangkat as $a) {
 			# code...
 			$status_per = $this->fungsiku->ping($a['ip_address']);
@@ -41,7 +41,7 @@ class Controloperasi extends CI_Controller {
 			// }
 
 			if (($a['status'] == "Up") && ($status_per == "Up")){
-				$data_if = $this->modelPerangkat->cek_interface($a['id_perangkat']);
+				$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
 				if ($data_if != 0){
 					foreach ($data_if as $if) {
 						// echo $if['interface_index']."<br>";
@@ -54,7 +54,7 @@ class Controloperasi extends CI_Controller {
 							'if_index' => $if['interface_index']
 						);
 						if ($status_if != $if['status']){
-							$this->modelPerangkat->rubah_statperangkat($data, 0);
+							$this->modelperangkat->rubah_statperangkat($data, 0);
 						}
 					}
 				}
@@ -67,10 +67,10 @@ class Controloperasi extends CI_Controller {
 					);
 				// print_r($data['id']."<br>");
 				// echo "beda <br>";
-				$this->modelPerangkat->rubah_statperangkat($data,1);
+				$this->modelperangkat->rubah_statperangkat($data,1);
 
 			}else if (($a['status'] == "Down") && ($status_per == "Up")){
-				$data_if = $this->modelPerangkat->cek_interface($a['id_perangkat']);
+				$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
 				if ($data_if != 0){
 					foreach ($data_if as $if) {
 						// echo $if['interface_index']."<br>";
@@ -84,13 +84,13 @@ class Controloperasi extends CI_Controller {
 							'if_index' => $if['interface_index']
 						);
 						if ($status_if != $if['status']){
-							$this->modelPerangkat->rubah_statperangkat($data, 2);
+							$this->modelperangkat->rubah_statperangkat($data, 2);
 						}
 					}
 				}
 				// print_r($data['id']."<br>");
 				// echo "beda <br>";
-				$this->modelPerangkat->rubah_statperangkat($data, 1);
+				$this->modelperangkat->rubah_statperangkat($data, 1);
 			}else if (($a['status'] == "Down") && ($status_per == "Down")){
 				// print_r("sesudah");
 			}
@@ -99,7 +99,7 @@ class Controloperasi extends CI_Controller {
 			
 		}
 
-		$data_perubahan = $this->modelPerangkat->cek_perubahan();
+		$data_perubahan = $this->modelperangkat->cek_perubahan();
 
 		if ($data_perubahan == 0){
 			print_r("database_kosong");
@@ -182,7 +182,7 @@ class Controloperasi extends CI_Controller {
 					
 				// $data['submitSukses'] = "Password anda berhasil di-reset. <br>Silahkan periksa email Anda untuk melakukan tahap berikutnya";
 				print_r( "Terjadi perubahan status Perangkat dan Interface. <br>Silahkan periksa email Anda");
-				$this->modelPerangkat->drop_perubahan();
+				$this->modelperangkat->drop_perubahan();
 
 			} 
 		}
@@ -190,7 +190,7 @@ class Controloperasi extends CI_Controller {
 
 	//Fungsi untuk update berkala rrd database
 	public function update_rrd(){
-		$data_rrd = $this->modelPerangkat->get_rrd_details();
+		$data_rrd = $this->modelperangkat->get_rrd_details();
 		// echo getcwd();
 		foreach ($data_rrd as $data) {
 			$in = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$data['ip_address'].' IF-MIB::ifInOctets.'.$data['ip_addressindex'].'');
