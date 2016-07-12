@@ -59,7 +59,7 @@ class Controloperasi extends CI_Controller {
 						'status_per_baru' => $status_per
 					);
 				// print_r($data['id']."<br>");
-				print_r( $data." <br>");
+				// print_r( $data." <br>");
 
 				// Merubah status perangkat
 
