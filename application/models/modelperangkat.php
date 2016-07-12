@@ -82,7 +82,7 @@
 	               'status' => $data['status_per_baru']
 	            );
 				$this->db->where('id_perangkat', $data['id']);
-				$this->db->update('dataInterface', $status_per_baru); 
+				$this->db->update('dataPerangkat', $status_per_baru); 
 			}else {
 				//update status perangkat
 				$status_per_baru = array(

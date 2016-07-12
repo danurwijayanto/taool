@@ -72,7 +72,7 @@ class Controlperangkat extends CI_Controller {
 					'community' => $this->input->post('community'),
 					'ver_snmp' => $this->input->post('ver'),
 					'os' => $this->input->post('os'),
-					'status' => $this->fungsiku->ping($a['ip_address'])
+					'status' => $this->fungsiku->ping($this->input->post('ip'))
 
 				);
 		$result=$this->modelperangkat->simpan_perangkat($data);

@@ -96,7 +96,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="lokasi">Lokasi Perangkat:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Nama Community SNMP">
+              <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi Perangkat">
             </div>
           </div>
           <div class="form-group">

@@ -26,70 +26,83 @@ class Controloperasi extends CI_Controller {
 		foreach ($semua_perangkat as $a) {
 			# code...
 			$status_per = $this->fungsiku->ping($a['ip_address']);
-			// echo $a['status']." || ".$status."<br>";
-			// if ($a['status'] == $status){
-			// 	// echo "sama <br>";
-
-			// }else{
-			// 	$data = array(
-			// 			'id' => $a['id_perangkat'],
-			// 			'status_baru' => $status
-			// 		);
-			// 	// print_r($data['id']."<br>");
-			// 	// echo "beda <br>";
-			// 	$this->modelPerangkat->rubah_statperangkat($data);
-			// }
+			// print_r($status_per."||".$a['status']."<br>");
+			// print_r($a['status']."<br>");
 
 			if (($a['status'] == "Up") && ($status_per == "Up")){
+				// Mencari interface sesuai dengan perangkat itu 
 				$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
 				if ($data_if != 0){
 					foreach ($data_if as $if) {
-						// echo $if['interface_index']."<br>";
+						// mencari status interface berdasarkan $data_if['interface_index'] dan $status_per['ip_address']
 						$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.'.$if['interface_index'].'');
-						// echo $status_baru. "||" .$if['status']."<br>";
 
+						// Menyimpan ke dalam array baru yaitu array $data
 						$data = array(
 							'id' => $a['id_perangkat'],
 							'status_if_baru' => $status_if,
 							'if_index' => $if['interface_index']
 						);
+
+						// print_r("sama");
+						// Membandingkan status interface lama dengan yang baru kemudian
+						// menyimpannya dalam database
 						if ($status_if != $if['status']){
 							$this->modelperangkat->rubah_statperangkat($data, 0);
 						}
 					}
 				}
-
-		
 			}else if (($a['status'] == "Up") && ($status_per == "Down")){
+				// Jika status perangkat dari up menjadi down maka tidak dilakukan pengeceka interface
 				$data = array(
 						'id' => $a['id_perangkat'],
 						'status_per_baru' => $status_per
 					);
 				// print_r($data['id']."<br>");
-				// echo "beda <br>";
+				print_r( $data." <br>");
+
+				// Merubah status perangkat
+
 				$this->modelperangkat->rubah_statperangkat($data,1);
 
 			}else if (($a['status'] == "Down") && ($status_per == "Up")){
+				// Mencari interface sesuai dengan perangkat itu 
+				// $status_per = $this->fungsiku->ping($a['ip_address']);
+
 				$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
+
+				//Melakukan pengecekan apakan mempunyai interface atau tidak
 				if ($data_if != 0){
 					foreach ($data_if as $if) {
 						// echo $if['interface_index']."<br>";
+
+						// mencari status interface berdasarkan $data_if['interface_index'] dan $status_per['ip_address']
 						$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.'.$if['interface_index'].'');
 						// echo $status_baru. "||" .$if['status']."<br>";
 
+						// Menyimpan ke dalam array baru yaitu array $data
 						$data = array(
 							'id' => $a['id_perangkat'],
 							'status_if_baru' => $status_if,
 							'status_per_baru' => $status_per,
 							'if_index' => $if['interface_index']
 						);
+
+						// Membandingkan status interface lama dengan yang baru kemudian
+						// menyimpannya dalam database
 						if ($status_if != $if['status']){
 							$this->modelperangkat->rubah_statperangkat($data, 2);
 						}
 					}
+				}else {
+					$data = array(
+							'id' => $a['id_perangkat'],
+							'status_per_baru' => $status_per,
+						);
 				}
-				// print_r($data['id']."<br>");
-				// echo "beda <br>";
+				// print_r($a['id_perangkat']);
+				// echo "beda 2 <br>";
+				// print_r("<br>".$a['id_perangkat']." || ".$status_per. "||" . $data['status_per_baru']. "<br>");
 				$this->modelperangkat->rubah_statperangkat($data, 1);
 			}else if (($a['status'] == "Down") && ($status_per == "Down")){
 				// print_r("sesudah");
@@ -99,8 +112,9 @@ class Controloperasi extends CI_Controller {
 			
 		}
 
+		// Proses pengiriman Email
 		$data_perubahan = $this->modelperangkat->cek_perubahan();
-
+		$data_notif = $this->modelpengguna->cek_notif();
 		if ($data_perubahan == 0){
 			print_r("database_kosong");
 		}else{
@@ -154,20 +168,15 @@ class Controloperasi extends CI_Controller {
 			};
 			$konten .= '</table>';
 
-
-
-
-			$this->email->from('mobinity.fx@gmail.com', 'NMS FSM UNDIP');
-			$this->email->to('mobinity.fx@gmail.com'); 
-			$this->email->subject('Notifikasi Status Perangkat dan Interface ');
-			$this->email->message($konten);	
-
-
-			
-			$berhasil = $this->email->send();
-
+			foreach ($data_notif as $data_notif) {
+				$this->email->from('mobinity.fx@gmail.com', 'NMS FSM UNDIP');
+				$this->email->to($data_notif['email']); 
+				$this->email->subject('Notifikasi Status Perangkat dan Interface ');
+				$this->email->message($konten);
+				$berhasil = $this->email->send();	 
+			}
 			$reportToLog = "\r\n[".date('j F Y, H:i:s')."]\t\t: ";
-					
+				
 			if (!$berhasil) {
 				$reportToLog .= "Mailer Error!";
 				// $data['submitErrors'] = "Maaf, gagal mengirim email";
@@ -184,7 +193,7 @@ class Controloperasi extends CI_Controller {
 				print_r( "Terjadi perubahan status Perangkat dan Interface. <br>Silahkan periksa email Anda");
 				$this->modelperangkat->drop_perubahan();
 
-			} 
+			}
 		}
 	}
 

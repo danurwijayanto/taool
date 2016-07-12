@@ -21,6 +21,13 @@
 			}
 		}
 
+		function cek_notif(){
+			$query = "SELECT * FROM dataPengguna
+					WHERE notif=1";
+			$result = $this->db->query($query);
+	        return $result->result_array();
+		}
+
 		public function read_user_information($data) {
 			// print_r($data);
 			$query = "SELECT * 
