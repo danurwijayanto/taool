@@ -66,31 +66,31 @@
                 <span>Home</span>
               </a>
             </li>
-            <li class="treeview">
+            <li class="treeview <?php if($this->uri->segment(2) == "data_perangkat" || $this->uri->segment(2) == "detail_perangkat" || $this->uri->segment(2) == "detail_if") {echo "active";}  ?>">
               <a href="#">
                 <i class="fa fa-files-o"></i>
                 <span>Perangkat</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>controlperangkat/data_perangkat"><i class="fa fa-circle-o"></i> Data Perangkat</a></li>
+                <li class="<?php if($this->uri->segment(2) == "data_perangkat" || $this->uri->segment(2) == "detail_perangkat" || $this->uri->segment(2) == "detail_if") {echo "active";}  ?>"><a href="<?php echo base_url();?>controlperangkat/data_perangkat"><i class="fa fa-circle-o"></i> Data Perangkat</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview <?php if($this->uri->segment(2) == "log_squid" || $this->uri->segment(2) == "popular_site" || $this->uri->segment(2) == "statistik") {echo "active";}  ?>">
               <a href="#">
                 <i class="fa fa-pie-chart"></i>
                 <span>Squid Proxy</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url();?>controllogsquid/log_squid"><i class="fa fa-circle-o"></i> Log</a></li>
-                <li><a href="<?php echo base_url();?>controllogsquid/popular_site"><i class="fa fa-circle-o"></i> Popular Site</a></li>
-                <li><a href="<?php echo base_url();?>controllogsquid/statistik"><i class="fa fa-circle-o"></i> Statistik</a></li>
+                <li <?php if($this->uri->segment(2) == "log_squid") {echo "class='active'";}?> ><a href="<?php echo base_url();?>controllogsquid/log_squid"><i class="fa fa-circle-o"></i> Log</a></li>
+                <li <?php if($this->uri->segment(2) == "popular_site") {echo "class='active'";}?>><a href="<?php echo base_url();?>controllogsquid/popular_site"><i class="fa fa-circle-o"></i> Popular Site</a></li>
+                <li <?php if($this->uri->segment(2) == "statistik" || $this->uri->segment(2) == "cari_statistik" ) {echo "class='active'";}?>><a href="<?php echo base_url();?>controllogsquid/statistik"><i class="fa fa-circle-o"></i> Statistik</a></li>
               </ul>
             </li>
             <?php if ($session['role']==1){ ?>
-            <li class="treeview">
-              <a href="#">
+            <li class="treeview <?php if($this->uri->segment(2) == "data_user") {echo "active";}  ?>">
+              <a <?php if($this->uri->segment(2) == "data_user") {echo "class='active'";}  ?> href="#">
                 <i class="fa fa-laptop"></i>
                 <span>Pengguna</span>
                 <i class="fa fa-angle-left pull-right"></i>

@@ -50,10 +50,10 @@
                 // echo "<img src='".base_url()."etc/rrdtools/gambar/".$nama_gambar."_1y.gif' alt='Generated RRD image'><br>";
 
                 //Tombol untuk Reset Database RRD Tools
-                echo "<br><a href='".base_url()."index.php/welcome/create_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-danger'>Reset Database</a>";
+                echo "<br><a href='".base_url()."index.php/controlperangkat/create_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-danger'>Reset Database</a>";
               } else {
                 //Tombol untuk Membuat Database RRD Tools
-                echo "<br><a href='".base_url()."index.php/welcome/create_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-primary'>Create Database</a>";
+                echo "<br><a href='".base_url()."index.php/controlperangkat/create_rrd?id_if=".$id['id_if']."&id_per=".$id['id_per']."' class='btn btn-primary'>Create Database</a>";
               }
             ?>
             <!-- -->
