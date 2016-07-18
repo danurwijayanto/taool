@@ -45,7 +45,7 @@
                     <td>
                       <a <?php if ($session['role']==2)echo 'disabled'; ?> class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $a['id_perangkat']; ?>">Edit</a>
                       <a href="<?php echo base_url();?>controlperangkat/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>
-                      <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger">Hapus</a>
+                      <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger" onclick="konfirmasihapus()">Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} ?>
@@ -72,7 +72,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="nama_perangkat">Nama Perangkat:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="nama_perangkat" id="nama_perangkat" placeholder="Nama Perangkat" required maxlength="100">
+              <input type="text" class="form-control" name="nama_perangkat" id="nama_perangkat" placeholder="Nama Perangkat" required maxlength="30">
             </div>
           </div>
           <div class="form-group">
@@ -96,7 +96,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="lokasi">Lokasi Perangkat:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi Perangkat" required maxlength="100">
+              <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi Perangkat" required maxlength="30">
             </div>
           </div>
           <div class="form-group">
@@ -193,18 +193,72 @@
 <!-- Fungsi Ajax -->
 <script>    
   function validatetambahperangkat() {
-    var x = document.forms["perangkat"]["os"].value;
-    if (x == null || x == "0") {
+    var namaperangkat = document.forms["perangkat"]["nama_perangkat"].value;
+    var community = document.forms["perangkat"]["community"].value;
+    var lokasi = document.forms["perangkat"]["lokasi"].value;
+    var os = document.forms["perangkat"]["os"].value;
+    if (namaperangkat.length>30){
+        alert("Nama perangkat tidak boleh dari 30 karakter")
+        return false
+    }if (community>15){
+        alert("Community tidak boleh dari 30 karakter")
+        return false
+    }if (lokasi>30){
+        alert("Lokasi tidak boleh dari 30 karakter")
+        return false
+    }
+    if (os == null || os == "0") {
         alert("Periksa pilihan OS");
         return false;
     }
-    
   }
+
+  function konfirmasihapus() {
+        var txt;
+        var r = confirm("Ingin Menghapus ?");
+        if (r == true) {
+            document.getElementById("hapus").href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>"; 
+            return false;
+        } else {
+           return;
+        }
+        // document.getElementById("demo").innerHTML = txt;
+    }
   //Menampilkan kategori di modal sebelum dirubah 
   $(document).ready(function(){
     var id;
 
-    // Validasi IP Address
+    // Validasi 
+    // $("#nama_perangkat").change(function(){
+    //        var namaperangkat   = $("#nama_perangkat").val();
+    //        if(namaperangkat.length>30)  
+    //        {  
+    //           alert("Nama perangkat tidak boleh dari 30 karakter")
+    //           document.getElementById("button").disabled = true;
+    //           document.getElementById("button1").disabled = true;  
+    //           return false;  
+    //        }  else {
+    //           document.getElementById("button").disabled = false;
+    //           document.getElementById("button1").disabled = false; 
+    //           return true
+    //        }
+    // });
+    // $("#community").change(function(){
+    //        var community   = $("#community").val();
+    //        if(community.length>30)  
+    //        {  
+    //           alert("Community tidak boleh dari 30 karakter")
+    //           document.getElementById("button").disabled = true;
+    //           document.getElementById("button1").disabled = true;  
+    //           return false;  
+    //        }  else {
+    //           document.getElementById("button").disabled = false;
+    //           document.getElementById("button1").disabled = false; 
+    //           return true
+    //        }
+    // });
+
+    // Validasi IP ADDRESS
     $("#ip, #ip1").change(function(){
            var ip   = $("#ip").val();
            var ip1   = $("#ip1").val();
@@ -217,7 +271,7 @@
              document.getElementById("button1").disabled = false;  
              return true;  
            }  
-            else  
+           else  
            {  
              alert("Alamat ip salah");  
              document.perangkat.ip.focus();
