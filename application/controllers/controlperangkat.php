@@ -123,7 +123,8 @@ class Controlperangkat extends CI_Controller {
 		$sess1 = $this->session->userdata('sess');
 		$this->load->library('fungsiku');
 		// print_r($sess1);
-		$db = array(
+		if ($sess1['ver_snmp'] == 1){
+			$db = array(
 				'id' => $id,
 				'id_if' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.1"),
 				'nama_if' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.2"),
@@ -133,6 +134,30 @@ class Controlperangkat extends CI_Controller {
 				'ip_index' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.2"),
 				'netmask' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.3"),
 			);
+		}else if ($sess1['ver_snmp'] == 2){
+			$db = array(
+				'id' => $id,
+				'id_if' => snmp2_walk($sess1['ip'], $sess1['comm'],  ".1.3.6.1.2.1.2.2.1.1"),
+				'nama_if' => snmp2_walk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.2"),
+				'status_if' => snmp2_walk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.7"),
+				// 'status_if' => explode(' ',exec('/usr/local/bin/snmpwalk -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus')),
+				'list_ip' => snmp2_walk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.1"),
+				'ip_index' => snmp2_walk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.2"),
+				'netmask' => snmp2_walk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.4.20.1.3"),
+			);
+		}else{
+			$db = array(
+				'id' => $id,
+				'id_if' => snmp3_walk($sess1['ip'], $sess1['comm'], $sess1['type'], $sess1['authprot'], $sess1['authpass'], $sess1['encryptprot'], $sess1['encryptpass'], ".1.3.6.1.2.1.2.2.1.1"),
+				'nama_if' => snmp3_walk($sess1['ip'], $sess1['comm'], $sess1['type'], $sess1['authprot'], $sess1['authpass'], $sess1['encryptprot'], $sess1['encryptpass'], ".1.3.6.1.2.1.2.2.1.2"),
+				'status_if' => snmp3_walk($sess1['ip'], $sess1['comm'], $sess1['type'], $sess1['authprot'], $sess1['authpass'], $sess1['encryptprot'], $sess1['encryptpass'],  ".1.3.6.1.2.1.2.2.1.7"),
+				// 'status_if' => explode(' ',exec('/usr/local/bin/snmpwalk -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus')),
+				'list_ip' => snmp3_walk($sess1['ip'], $sess1['comm'], $sess1['type'], $sess1['authprot'], $sess1['authpass'], $sess1['encryptprot'], $sess1['encryptpass'], ".1.3.6.1.2.1.4.20.1.1"),
+				'ip_index' => snmp3_walk($sess1['ip'], $sess1['comm'], $sess1['type'], $sess1['authprot'], $sess1['authpass'], $sess1['encryptprot'], $sess1['encryptpass'],".1.3.6.1.2.1.4.20.1.2"),
+				'netmask' => snmp3_walk($sess1['ip'], $sess1['comm'], $sess1['type'], $sess1['authprot'], $sess1['authpass'], $sess1['encryptprot'], $sess1['encryptpass'], ".1.3.6.1.2.1.4.20.1.3"),
+			);
+		}
+		
 		// print_r($db['status_if']);
 		// $status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus');
 		$result=$this->modelperangkat->simpan_scan_if($db);
@@ -195,7 +220,10 @@ class Controlperangkat extends CI_Controller {
 		// print_r($cek);
 		if (empty($cek)){
         	// echo "kosong";
-        	alert("Konfigurasi SNMP salah, silahkan cek konfigurasi SNMP");
+        	// redirect($this->agent->referrer());
+        	echo "<script type='text/javascript'>alert('Konfigurasi SNMP salah, silahkan cek konfigurasi SNMP')</script>";
+   			redirect('controlperangkat/data_perangkat', 'refresh');
+        	// alert("Konfigurasi SNMP salah, silahkan cek konfigurasi SNMP");
         }else {
 	       	// echo "isi";
         	if ($os=="mikrotik"){

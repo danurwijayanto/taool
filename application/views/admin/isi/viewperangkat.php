@@ -390,6 +390,14 @@
          document.getElementById("versi3").style.display="block";
       }
     });
+    $("#ver1").change(function(){
+      ver = document.forms["editperangkat"]["ver1"].value;
+      if (ver == 1 || ver == 2){
+         document.getElementById("versi31").style.display="none";
+      }else {
+         document.getElementById("versi31").style.display="block";
+      }
+    });
     // // Validasi options
     // document.getElementsByName('os')[0].onchange = function() {
     //  if (this.value=='0') alert('Pilih OS yang digunakan');

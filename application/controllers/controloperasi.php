@@ -219,38 +219,73 @@ class Controloperasi extends CI_Controller {
 	public function uptime(){
 		$sess = $this->session->userdata('sess');
 		if ($sess['os']=="mikrotik") {
-			if ($ver_snmp == '1'){
+			if ($sess['ver_snmp'] == '1'){
 				$data = array(
 					//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
 					// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
-					'uptime' => exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
-					'usedmem' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.2.3.1.6.65536"),
-					'cpuload' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.3.3.1.2.1")
+					'uptime' => exec('/usr/local/bin/snmpget -v '.$sess['ver_snmp'].' -c '.$sess['comm'].' -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+					'usedmem' => snmpget($sess['ip'], $sess['comm'], ".1.3.6.1.2.1.25.2.3.1.6.65536"),
+					'cpuload' => snmpget($sess['ip'], $sess['comm'], ".1.3.6.1.2.1.25.3.3.1.2.1")
 				);
-			}else if ($ver_snmp == '2'){
-				$data['snmp'] = array(
-					'totmem' => preg_replace("/[INTEGER:]/","",snmp2_get($ip, $comm, ".1.3.6.1.2.1.25.2.3.1.5.65536"))
-				);	
+			}else if ($sess['ver_snmp'] == '2'){
+				$data = array(
+					//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
+					// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+					'uptime' => exec('/usr/local/bin/snmpget -v '.$sess['ver_snmp'].'c -c '.$sess['comm'].' -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+					'usedmem' => snmp2_get($sess['ip'], $sess['comm'], ".1.3.6.1.2.1.25.2.3.1.6.65536"),
+					'cpuload' => snmp2_get($sess['ip'], $sess['comm'], ".1.3.6.1.2.1.25.3.3.1.2.1")
+				);
 			}else{
-				$data['snmp'] = array(
-					'totmem' => preg_replace("/[INTEGER:]/","",snmp3_get($ip, $comm, $type, $authprot, $authpass, $encryptprot, $encryptpass,  ".1.3.6.1.2.1.25.2.3.1.5.65536"))
-				);	
+				$data = array(
+					//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
+					// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+					'uptime' => exec('/usr/local/bin/snmpget -v3 -l '.$sess['type'].' -u '.$sess['comm'].' -Oqv -a '.$sess['authprot'].' -A '.$sess['authpass'].'  -x '.$sess['encryptprot'].' -X '.$sess['encryptpass'].' '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+					'usedmem' => snmp3_get($sess['ip'], $sess['comm'], $sess['type'], $sess['authprot'], $sess['authpass'], $sess['encryptprot'], $sess['encryptpass'],".1.3.6.1.2.1.25.2.3.1.6.65536"),
+					'cpuload' => snmp3_get($sess['ip'], $sess['comm'],$sess['type'], $sess['authprot'], $sess['authpass'], $sess['encryptprot'], $sess['encryptpass'], ".1.3.6.1.2.1.25.3.3.1.2.1")
+				);
 			}
-			$data = array(
-				//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
-				// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
-				'uptime' => exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
-				'usedmem' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.2.3.1.6.65536"),
-				'cpuload' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.3.3.1.2.1")
-			);
+			// $data = array(
+			// 	//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
+			// 	// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+			// 	'uptime' => exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+			// 	'usedmem' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.2.3.1.6.65536"),
+			// 	'cpuload' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.25.3.3.1.2.1")
+			// );
 		}else{
-			$data = array(
-				//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
-				// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
-				'uptime' => exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
-				'usedmem' => snmpget($sess['ip'], "public", ".1.3.6.1.4.1.2021.4.6.0"),
-				'cpuload' => snmpget($sess['ip'], "public", ".1.3.6.1.4.1.2021.11.9.0")
-			);
+			if ($sess['ver_snmp'] == '1'){
+				$data = array(
+					//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
+					// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+					'uptime' => exec('/usr/local/bin/snmpget -v '.$sess['ver_snmp'].' -c '.$sess['comm'].' -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+					'usedmem' => snmpget($sess['ip'], $sess['comm'], ".1.3.6.1.4.1.2021.4.6.0"),
+					'cpuload' => snmpget($sess['ip'], $sess['comm'], ".1.3.6.1.4.1.2021.11.9.0")
+				);
+			}else if ($sess['ver_snmp'] == '2'){
+				$data = array(
+					//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
+					// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+					'uptime' => exec('/usr/local/bin/snmpget -v '.$sess['ver_snmp'].'c -c '.$sess['comm'].' -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+					'usedmem' => snmp2_get($sess['ip'], $sess['comm'], ".1.3.6.1.4.1.2021.4.6.0"),
+					'cpuload' => snmp2_get($sess['ip'], $sess['comm'], ".1.3.6.1.4.1.2021.11.9.0")
+				);
+			}else{
+				$data = array(
+					//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
+					// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+					'uptime' => exec('/usr/local/bin/snmpget -v3 -l '.$sess['type'].' -u '.$sess['comm'].' -a '.$sess['authprot'].' -A '.$sess['authpass'].'  -x '.$sess['encryptprot'].' -X '.$sess['encryptpass'].' '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+
+					'usedmem' => snmp3_get($sess['ip'], $sess['comm'], $sess['type'], $sess['authprot'], $sess['authpass'], $sess['encryptprot'], $sess['encryptpass'], ".1.3.6.1.4.1.2021.4.6.0"),
+
+					'cpuload' => snmp3_get($sess['ip'], $sess['comm'],$sess['type'], $sess['authprot'], $sess['authpass'], $sess['encryptprot'], $sess['encryptpass'], ".1.3.6.1.4.1.2021.11.9.0")
+				);
+			}
+			// $data = array(
+			// 	//'nama_perangkat' => snmpget("182.255.0.34", "public", ".1.3.6.1.2.1.1.1.0"),
+			// 	// 'uptime' => snmpget($sess['ip'], "public", ".1.3.6.1.2.1.1.3.0"),
+			// 	'uptime' => exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess['ip'].' .1.3.6.1.2.1.1.3.0'),
+			// 	'usedmem' => snmpget($sess['ip'], "public", ".1.3.6.1.4.1.2021.4.6.0"),
+			// 	'cpuload' => snmpget($sess['ip'], "public", ".1.3.6.1.4.1.2021.11.9.0")
+			// );
 		}
 		
 		echo json_encode($data);
