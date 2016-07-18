@@ -71,6 +71,11 @@ class Controlperangkat extends CI_Controller {
 					'lokasi' => $this->input->post('lokasi'),
 					'community' => $this->input->post('community'),
 					'ver_snmp' => $this->input->post('ver'),
+					'type' => $this->input->post('type'),
+					'authprot' => $this->input->post('authprot'),
+					'encryptprot' => $this->input->post('enprot'),
+					'authpass' => $this->input->post('authpass'),
+					'encryptpass' => $this->input->post('encryptpass'),
 					'os' => $this->input->post('os'),
 					'status' => $this->fungsiku->ping($this->input->post('ip'))
 
@@ -78,6 +83,7 @@ class Controlperangkat extends CI_Controller {
 		$result=$this->modelperangkat->simpan_perangkat($data);
 		echo "<script type='text/javascript'>alert('".$result."')</script>";
 		redirect('controlperangkat/data_perangkat', 'refresh');
+		// print_r($data);
 	}
 
 	public function hapus_perangkat(){
@@ -103,6 +109,11 @@ class Controlperangkat extends CI_Controller {
 				'community' => $_POST['community'],
 				'os' => $_POST['os'],
 				'ver_snmp' => $_POST['ver_snmp'],
+				'type' => $_POST['type'],
+				'authprot' => $_POST['authprot'],
+				'encryptprot' => $_POST['encryptprot'],
+				'authpass' => $_POST['authpass'],
+				'encryptpass' => $_POST['encryptpass'],
 			);
 		$result=$this->modelperangkat->simpan_edit_perangkat($data);
 	}
@@ -111,6 +122,7 @@ class Controlperangkat extends CI_Controller {
 		$id = $_GET['id'];
 		$sess1 = $this->session->userdata('sess');
 		$this->load->library('fungsiku');
+		// print_r($sess1);
 		$db = array(
 				'id' => $id,
 				'id_if' => snmpwalk($sess1['ip'], $sess1['comm'], ".1.3.6.1.2.1.2.2.1.1"),
@@ -128,7 +140,7 @@ class Controlperangkat extends CI_Controller {
 		echo "<script type='text/javascript'>alert('Perubahan Berhasil')</script>";
 		redirect($this->agent->referrer());
 
-		// print_r($status_if);
+		print_r($status_if);
 	}
 
 
@@ -146,28 +158,77 @@ class Controlperangkat extends CI_Controller {
 			$ip = $det["ip_address"];
 			$os = $det["os"];
 			$comm = $det["community"];
+			$ver_snmp = $det['ver_snmp'];
+			$type = $det["type"];
+			$authprot = $det["authprot"];
+			$encryptprot = $det["encryptprot"];
+			$authpass = $det["authpass"];
+			$encryptpass = $det["encryptpass"];
 		}
-		if ($os=="mikrotik"){
-			$data['snmp'] = array(
-				'totmem' => preg_replace("/[INTEGER:]/","",snmpget($ip, "public", ".1.3.6.1.2.1.25.2.3.1.5.65536"))
-			);		
-		}else{
-			$data['snmp'] = array(
-				'totmem' => preg_replace("/[INTEGER:]/","",snmpget($ip, "public", ".1.3.6.1.4.1.2021.4.5.0"))
-			);
-		}
-		
+				
 		//Session untuk menyimpan data ip untuk digunakan di ajax
 		$session_data = array(
 				'ip'=> $ip,
 				'os' => $os,
-				'comm' => $comm
+				'comm' => $comm,
+				'type' => $type,
+				'authprot' => $authprot,
+				'encryptprot' => $encryptprot,
+				'authpass' => $authpass,
+				'encryptpass' => $encryptpass,
+				'ver_snmp' => $ver_snmp
 		);
 		//Mengeset nama session sebagai sess dengan data session_data
 		$this->session->set_userdata('sess', $session_data);
 		//End Session
 
-
+		if ($ver_snmp == '1'){
+			@$cek = snmpwalk($ip, $comm, ".1.3.6.1.2.1.2.2.1.1");
+			// $cek = 'satu';
+		}else if ($ver_snmp == '2'){
+			@$cek = snmp2_walk($ip, $comm, ".1.3.6.1.2.1.2.2.1.1");
+			// $cek = 'dua';
+		}else{
+			@$cek = snmp3_walk($ip, $comm, $type, $authprot, $authpass, $encryptprot, $encryptpass, ".1.3.6.1.2.1.2.2.1.1");
+			// $cek = 'tiga';
+		}
+		// print_r($cek);
+		if (empty($cek)){
+        	// echo "kosong";
+        	alert("Konfigurasi SNMP salah, silahkan cek konfigurasi SNMP");
+        }else {
+	       	// echo "isi";
+        	if ($os=="mikrotik"){
+        		if ($ver_snmp == '1'){
+					$data['snmp'] = array(
+						'totmem' => preg_replace("/[INTEGER:]/","",snmpget($ip, $comm, ".1.3.6.1.2.1.25.2.3.1.5.65536"))
+					);	
+				}else if ($ver_snmp == '2'){
+					$data['snmp'] = array(
+						'totmem' => preg_replace("/[INTEGER:]/","",snmp2_get($ip, $comm, ".1.3.6.1.2.1.25.2.3.1.5.65536"))
+					);	
+				}else{
+					$data['snmp'] = array(
+						'totmem' => preg_replace("/[INTEGER:]/","",snmp3_get($ip, $comm, $type, $authprot, $authpass, $encryptprot, $encryptpass,  ".1.3.6.1.2.1.25.2.3.1.5.65536"))
+					);	
+				}	
+			}else{
+				if ($ver_snmp == '1'){
+					$data['snmp'] = array(
+						'totmem' => preg_replace("/[INTEGER:]/","",snmpget($ip, $comm, ".1.3.6.1.4.1.2021.4.5.0"))
+					);	
+				}else if ($ver_snmp == '2'){
+					$data['snmp'] = array(
+						'totmem' => preg_replace("/[INTEGER:]/","",snmp2_get($ip, $comm, ".1.3.6.1.4.1.2021.4.5.0"))
+					);	
+				}else{
+					$data['snmp'] = array(
+						'totmem' => preg_replace("/[INTEGER:]/","",snmp3_get($ip, $comm, $type, $authprot, $authpass, $encryptprot, $encryptpass,  ".1.3.6.1.4.1.2021.4.5.0"))
+					);	
+				}	
+			}
+        }
+        // print_r($data);
 		$this->load->view('admin/wrapper', $data);
 	}
 

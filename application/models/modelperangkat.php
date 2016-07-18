@@ -56,7 +56,7 @@
 
 		function simpan_edit_perangkat($data){
 
-			$query = "UPDATE dataPerangkat SET nama_perangkat='$data[nama_perangkat]', ip_address='$data[ip_address]', lokasi='$data[lokasi]', community='$data[community]', ver_snmp='$data[ver_snmp]',os='$data[os]'
+			$query = "UPDATE dataPerangkat SET nama_perangkat='$data[nama_perangkat]', ip_address='$data[ip_address]', lokasi='$data[lokasi]', community='$data[community]', ver_snmp='$data[ver_snmp]',os='$data[os]', type='$data[type]', authprot='$data[authprot]', encryptprot='$data[encryptprot]', authpass='$data[authpass]', encryptpass='$data[encryptpass]'
 				WHERE id_perangkat=$data[id]";
 	        $result = $this->db->query($query);
 	        if($this->db->affected_rows() > 0){

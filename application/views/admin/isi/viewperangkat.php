@@ -126,13 +126,13 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="authpass">Auth Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="authpass" id="authpass" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter">
+              <input type="text" class="form-control" name="authpass" id="authpass" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="encryptpass">Encrypt Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="encryptpass" id="encryptpass" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter">
+              <input type="text" class="form-control" name="encryptpass" id="encryptpass" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
         </div>
@@ -223,7 +223,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="authprot">Auth Protocol:</label>
             <div class="col-sm-10"> 
-              <select class="form-control" class="authprot" name="authprot1" id="authprot1">
+              <select class="form-control" class="authprot1" name="authprot1" id="authprot1">
                 <option value="MD5">MD5</option>
                 <option value="SHA1">SHA1</option>
               </select>
@@ -232,22 +232,22 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="enprot">Encrypt Protocol:</label>
             <div class="col-sm-10"> 
-              <select class="form-control" class="enprot" name="enprot1" id="enprot1">
+              <select class="form-control" class="enprot1" name="enprot1" id="enprot1">
                 <option value="MD5">AES</option>
-                <option value="SHA1">DES</option>
+                <option value="DES">DES</option>
               </select>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="authpass">Auth Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="authpass1" id="authpass1" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter">
+              <input type="text" class="form-control" name="authpass1" id="authpass1" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="encryptpass">Encrypt Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="encryptpass1" id="encryptpass1" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter">
+              <input type="text" class="form-control" name="encryptpass1" id="encryptpass1" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
         </div>
@@ -412,6 +412,11 @@
           document.getElementById("nama_perangkat1").value = data[0].nama_perangkat;
           document.getElementById("ip1").value = data[0].ip_address;
           document.getElementById("ver1").value = data[0].ver_snmp;
+          document.getElementById("type1").value = data[0].type;
+          document.getElementById("authprot1").value = data[0].authprot;
+          document.getElementById("enprot1").value = data[0].encryptprot;
+          document.getElementById("authpass1").value = data[0].authpass;
+          document.getElementById("encryptpass1").value = data[0].encryptpass;
           document.getElementById("community1").value = data[0].community;
           document.getElementById("lokasi1").value = data[0].lokasi;
           document.getElementById("os1").value = data[0].os;
@@ -438,6 +443,11 @@
                     + '&lokasi=' + document.getElementById("lokasi1").value
                     + '&community=' + document.getElementById("community1").value 
                     + '&ver_snmp=' + document.getElementById("ver1").value 
+                    + '&type=' + document.getElementById("type1").value 
+                    + '&authprot=' + document.getElementById("authprot1").value 
+                    + '&encryptprot=' + document.getElementById("enprot1").value 
+                    + '&authpass=' + document.getElementById("authpass1").value 
+                    + '&encryptpass=' + document.getElementById("encryptpass1").value 
                     + '&os=' + document.getElementById("os1").value ;
       
         $.ajax({
