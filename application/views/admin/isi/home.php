@@ -38,7 +38,7 @@
                 <div class="icon">
                   <i class="ion ion-ios-person"></i>
                 </div>
-                <a href="<?php echo base_url()?>user/data_user" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url()?>controlpengguna/data_user" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
             <div class="col-lg-4 col-xs-6">
@@ -51,7 +51,7 @@
                 <div class="icon">
                   <i class="ion ion-monitor"></i>
                 </div>
-                <a href="<?php echo base_url()?>device/data_perangkat" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url()?>controlperangkat/data_perangkat" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
             <div class="col-lg-4 col-xs-6">
@@ -64,7 +64,7 @@
                 <div class="icon">
                   <i class="ion ion-monitor"></i>
                 </div>
-                <a href="<?php echo base_url()?>device/data_perangkat" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url()?>controlperangkat/data_perangkat" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
            

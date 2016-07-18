@@ -84,9 +84,58 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="ver">Versi SNMP:</label>
             <div class="col-sm-10"> 
+              <select class="form-control" class="ver" name="ver" id="ver">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <!-- <div class="col-sm-10"> 
               <input type="text" class="form-control" name="ver" id="ver" value="v1" readonly>
+            </div> -->
+          </div>
+        <div id="versi3">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="auth">Type:</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" class="type" name="type" id="type">
+                <option value="authPriv">authPriv</option>
+                <option value="authNoPriv">authNoPriv</option>
+                <option value="noAuthNoPriv">noAuthNoPriv</option>
+              </select>
             </div>
           </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="authprot">Auth Protocol:</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" class="authprot" name="authprot" id="authprot">
+                <option value="MD5">MD5</option>
+                <option value="SHA1">SHA1</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="enprot">Encrypt Protocol:</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" class="enprot" name="enprot" id="enprot">
+                <option value="MD5">AES</option>
+                <option value="SHA1">DES</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="authpass">Auth Password:</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" name="authpass" id="authpass" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="encryptpass">Encrypt Password:</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" name="encryptpass" id="encryptpass" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter">
+            </div>
+          </div>
+        </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="community">Community:</label>
             <div class="col-sm-10"> 
@@ -150,9 +199,58 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="ver">Versi SNMP:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="ver1" id="ver1" readonly>
+              <select class="form-control" class="ver1" name="ver1" id="ver1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <!-- <div class="col-sm-10"> 
+              <input type="text" class="form-control" name="ver1" id="ver1" >
+            </div> -->
+          </div>
+        <div id="versi31">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="auth">Type:</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" class="type1" name="type1" id="type1">
+                <option value="authPriv">authPriv</option>
+                <option value="authNoPriv">authNoPriv</option>
+                <option value="noAuthNoPriv">noAuthNoPriv</option>
+              </select>
             </div>
           </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="authprot">Auth Protocol:</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" class="authprot" name="authprot1" id="authprot1">
+                <option value="MD5">MD5</option>
+                <option value="SHA1">SHA1</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="enprot">Encrypt Protocol:</label>
+            <div class="col-sm-10"> 
+              <select class="form-control" class="enprot" name="enprot1" id="enprot1">
+                <option value="MD5">AES</option>
+                <option value="SHA1">DES</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="authpass">Auth Password:</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" name="authpass1" id="authpass1" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="encryptpass">Encrypt Password:</label>
+            <div class="col-sm-10"> 
+              <input type="text" class="form-control" name="encryptpass1" id="encryptpass1" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter">
+            </div>
+          </div>
+        </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="community">Community:</label>
             <div class="col-sm-10"> 
@@ -227,7 +325,8 @@
   //Menampilkan kategori di modal sebelum dirubah 
   $(document).ready(function(){
     var id;
-
+    document.getElementById("versi3").style.display="none";
+    // document.getElementById("versi31").style.display="none";
     // Validasi 
     // $("#nama_perangkat").change(function(){
     //        var namaperangkat   = $("#nama_perangkat").val();
@@ -282,6 +381,15 @@
            }  
     });
 
+    // Pemilihan Versi SNMP
+    $("#ver").change(function(){
+      ver = document.forms["perangkat"]["ver"].value;
+      if (ver == 1 || ver == 2){
+         document.getElementById("versi3").style.display="none";
+      }else {
+         document.getElementById("versi3").style.display="block";
+      }
+    });
     // // Validasi options
     // document.getElementsByName('os')[0].onchange = function() {
     //  if (this.value=='0') alert('Pilih OS yang digunakan');
@@ -307,9 +415,14 @@
           document.getElementById("community1").value = data[0].community;
           document.getElementById("lokasi1").value = data[0].lokasi;
           document.getElementById("os1").value = data[0].os;
+          if (data[0].ver_snmp == 1 || data[0].ver_snmp == 2){
+           document.getElementById("versi31").style.display="none";
+          }else {
+             document.getElementById("versi31").style.display="block";
+          }
           //document.form_ganti_kat.action = "../operation/ganti_kategori?id="+id;   
        }
-      });                        
+      });                      
     });
 
     //Menyimpan kategori baru telah dirubah
