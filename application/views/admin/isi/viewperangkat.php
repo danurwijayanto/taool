@@ -68,17 +68,17 @@
         <h4 class="modal-title">Tambah Perangkat</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" method="post" action="<?php echo base_url();?>index.php/controlperangkat/tambah_perangkat">
+        <form class="form-horizontal" id="perangkat" name="perangkat" role="form" method="post" action="<?php echo base_url();?>index.php/controlperangkat/tambah_perangkat" onsubmit="return validatetambahperangkat()">
           <div class="form-group">
             <label class="control-label col-sm-2" for="nama_perangkat">Nama Perangkat:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="nama_perangkat" id="nama_perangkat" placeholder="Nama Perangkat">
+              <input type="text" class="form-control" name="nama_perangkat" id="nama_perangkat" placeholder="Nama Perangkat" required maxlength="100">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="ip">Alamat IP:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="ip" id="ip" placeholder="Alamat IP Perangkat">
+              <input type="text" class="form-control ip" name="ip" id="ip" placeholder="Alamat IP Perangkat" required maxlength="15">
             </div>
           </div>
           <div class="form-group">
@@ -90,19 +90,19 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="community">Community:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="community" id="community" placeholder="Nama Community SNMP">
+              <input type="text" class="form-control" name="community" id="community" placeholder="Nama Community SNMP" required maxlength="15">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="lokasi">Lokasi Perangkat:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi Perangkat">
+              <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi Perangkat" required maxlength="100">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="os">OS :</label>
             <div class="col-sm-10"> 
-              <select class="form-control" name="os" id="os">
+              <select class="form-control" class="os" name="os" id="os">
                 <option value="0">-- Pilih OS --</option>
                 <option value="mikrotik">Mikrotik OS</option>
                 <option value="linux">Linux</option>
@@ -111,7 +111,7 @@
           </div>
           <div class="form-group"> 
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="submit" class="btn btn-primary" id="button" >Submit</button>
             </div>
           </div>
         </form>
@@ -134,17 +134,17 @@
         <h4 class="modal-title">Edit Perangkat</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" method="post">
+        <form class="form-horizontal" role="form" method="post" name="editperangkat">
           <div class="form-group">
             <label class="control-label col-sm-2" for="nama_perangkat">Nama Perangkat:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="nama_perangkat1" id="nama_perangkat1" >
+              <input type="text" class="form-control" name="nama_perangkat1" id="nama_perangkat1" required>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="ip">Alamat IP:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="ip1" id="ip1" >
+              <input type="text" class="form-control ip" name="ip1" id="ip1" required>
             </div>
           </div>
           <div class="form-group">
@@ -156,19 +156,19 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="community">Community:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="community1" id="community1" >
+              <input type="text" class="form-control" name="community1" id="community1" required>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="lokasi">Lokasi Perangkat:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="lokasi1" id="lokasi1" >
+              <input type="text" class="form-control" name="lokasi1" id="lokasi1" required>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="os1">OS :</label>
             <div class="col-sm-10"> 
-              <select class="form-control" name="os1" id="os1">
+              <select class="form-control" class="os" name="os1" id="os1">
                 <option value="0">-- Pilih OS --</option>
                 <option value="mikrotik">Mikrotik OS</option>
                 <option value="linux">Linux</option>
@@ -177,7 +177,7 @@
           </div>
           <div class="form-group"> 
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default simpan_edit_device">Rubah</button>
+              <button type="submit" class="btn btn-primary simpan_edit_device" id="button1">Rubah</button>
             </div>
           </div>
         </form>
@@ -191,11 +191,52 @@
 <!-- End Modal Edit Device -->
 
 <!-- Fungsi Ajax -->
-<script>
-            
+<script>    
+  function validatetambahperangkat() {
+    var x = document.forms["perangkat"]["os"].value;
+    if (x == null || x == "0") {
+        alert("Periksa pilihan OS");
+        return false;
+    }
+    
+  }
   //Menampilkan kategori di modal sebelum dirubah 
   $(document).ready(function(){
     var id;
+
+    // Validasi IP Address
+    $("#ip, #ip1").change(function(){
+           var ip   = $("#ip").val();
+           var ip1   = $("#ip1").val();
+           var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;  
+           if(ip.match(ipformat) || ip1.match(ipformat))  
+           {  
+             document.perangkat.ip.focus();
+             document.editperangkat.ip1.focus();
+             document.getElementById("button").disabled = false;
+             document.getElementById("button1").disabled = false;  
+             return true;  
+           }  
+            else  
+           {  
+             alert("Alamat ip salah");  
+             document.perangkat.ip.focus();
+             document.editperangkat.ip1.focus();
+             document.getElementById("button").disabled = true;
+             document.getElementById("button1").disabled = true;
+             return false;  
+           }  
+    });
+
+    // // Validasi options
+    // document.getElementsByName('os')[0].onchange = function() {
+    //  if (this.value=='0') alert('Pilih OS yang digunakan');
+    // }
+
+    // document.getElementsByName('os1')[0].onchange = function() {
+    //  if (this.value=='0') alert('Pilih OS yang digunakan');
+    // }
+
     $(".edit_device").click(function(){
       var element = $(this);
       id = element.attr("id");
@@ -219,20 +260,27 @@
 
     //Menyimpan kategori baru telah dirubah
     $(".simpan_edit_device").click(function(){
-      var myData = 'nama_perangkat=' + document.getElementById("nama_perangkat1").value 
+      var x = document.forms["editperangkat"]["os1"].value;
+      if (x == null || x == "0") {
+        alert("Periksa pilihan OS");
+        return false;
+
+      }else {
+        var myData = 'nama_perangkat=' + document.getElementById("nama_perangkat1").value 
                     + '&ip_address=' + document.getElementById("ip1").value
                     + '&lokasi=' + document.getElementById("lokasi1").value
                     + '&community=' + document.getElementById("community1").value 
                     + '&ver_snmp=' + document.getElementById("ver1").value 
                     + '&os=' + document.getElementById("os1").value ;
       
-      $.ajax({
-        url:"../controlperangkat/simpan_edit_perangkat?id="+id,              
-        dataType : "json",
-        data : myData,
-        type: "POST",
-        // success: success()       
-      });                        
+        $.ajax({
+          url:"../controlperangkat/simpan_edit_perangkat?id="+id,              
+          dataType : "json",
+          data : myData,
+          type: "POST",
+          // success: success()       
+        }); 
+      }                       
     });
 
     // on success...
@@ -242,7 +290,6 @@
       //location.reload(); 
     }
   });
-
   </script>
 <!-- End Fungsi Ajax-->
 
