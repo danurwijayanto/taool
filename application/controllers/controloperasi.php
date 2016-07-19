@@ -18,6 +18,7 @@ class Controloperasi extends CI_Controller {
 	 */
 
 	public function cek_status(){
+
 		$this->load->library('email');
 		$this->load->library('fungsiku');
 		
@@ -26,29 +27,47 @@ class Controloperasi extends CI_Controller {
 		foreach ($semua_perangkat as $a) {
 			# code...
 			$status_per = $this->fungsiku->ping($a['ip_address']);
-			// print_r($status_per."||".$a['status']."<br>");
-			// print_r($a['status']."<br>");
 
+			// Jika status perangkat up dan status perangkat database up 
 			if (($a['status'] == "Up") && ($status_per == "Up")){
-				// Mencari interface sesuai dengan perangkat itu 
-				$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
-				if ($data_if != 0){
-					foreach ($data_if as $if) {
-						// mencari status interface berdasarkan $data_if['interface_index'] dan $status_per['ip_address']
-						$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.'.$if['interface_index'].'');
+				// Cek Protocol SNMP pada perangkat
+				if ($a['ver_snmp'] == '1'){
+					// @$cek = snmpwalk($a['ip_address'], $a['community'], ".1.3.6.1.2.1.2.2.1.1");
+					@$cek = exec('/usr/local/bin/snmpget -v 1 -c '.$a['community'].' -Oqv '.$a['ip_address'].' .1.3.6.1.2.1.1.3.0');
+					$snmp_query = '/usr/local/bin/snmpget -v '.$a['ver_snmp'].' -c '.$a['community'].' -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.';
+				}else if ($a['ver_snmp'] == '2'){
+					// @$cek = snmp2_walk($a['ip_address'], $a['community'], ".1.3.6.1.2.1.2.2.1.1");
+					@$cek = exec('/usr/local/bin/snmpget -v 2c -c '.$a['community'].' -Oqv '.$a['ip_address'].' .1.3.6.1.2.1.1.3.0');
+					$snmp_query = '/usr/local/bin/snmpget -v '.$a['ver_snmp'].'c -c '.$a['community'].' -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.';
+				}else{
+					// @$cek = snmp3_walk($a['ip_address'], $a['community'], $a['type'], $a['authprot'], $a['authpass'], $a['encryptprot'], $a['encryptpass'], ".1.3.6.1.2.1.2.2.1.1");
+					@$cek = exec('/usr/local/bin/snmpget -v3 -l '.$a['type'].' -u '.$a['community'].' -a '.$a['authprot'].' -A '.$a['authpass'].'  -x '.$a['encryptprot'].' -X '.$a['encryptpass'].' '.$a['ip_address'].' .1.3.6.1.2.1.1.3.0');
+					$snmp_query = '/usr/local/bin/snmpget -v3 -l '.$a['type'].' -u '.$a['community'].' -Oqv -a '.$a['authprot'].' -A '.$a['authpass'].'  -x '.$a['encryptprot'].' -X '.$a['encryptpass'].' '.$a['ip_address'].' IF-MIB::ifAdminStatus.';
+				}
+				if (empty($cek)){
+					$konten =  "Peringatan !! SNMP perangkat ".$a['nama_perangkat']." tidak bisa diakses <br><br>";
+				}else {
+					// Mencari interface sesuai dengan perangkat itu 
+					$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
+					if ($data_if != 0){
+						foreach ($data_if as $if) {
+							// mencari status interface berdasarkan $data_if['interface_index'] dan $status_per['ip_address']
+							$status_if = exec($snmp_query.$if['interface_index']);
 
-						// Menyimpan ke dalam array baru yaitu array $data
-						$data = array(
-							'id' => $a['id_perangkat'],
-							'status_if_baru' => $status_if,
-							'if_index' => $if['interface_index']
-						);
+							// print_r($status_if);
+							// Menyimpan ke dalam array baru yaitu array $data
+							$data = array(
+								'id' => $a['id_perangkat'],
+								'status_if_baru' => $status_if,
+								'if_index' => $if['interface_index']
+							);
 
-						// print_r("sama");
-						// Membandingkan status interface lama dengan yang baru kemudian
-						// menyimpannya dalam database
-						if ($status_if != $if['status']){
-							$this->modelperangkat->rubah_statperangkat($data, 0);
+							 // print_r($data);
+							// Membandingkan status interface lama dengan yang baru kemudian
+							// menyimpannya dalam database
+							if ($status_if != $if['status']){
+								$this->modelperangkat->rubah_statperangkat($data, 0);
+							}
 						}
 					}
 				}
@@ -67,39 +86,90 @@ class Controloperasi extends CI_Controller {
 
 			}else if (($a['status'] == "Down") && ($status_per == "Up")){
 				// Mencari interface sesuai dengan perangkat itu 
-				// $status_per = $this->fungsiku->ping($a['ip_address']);
+				$status_per = $this->fungsiku->ping($a['ip_address']);
+				if ($a['ver_snmp'] == '1'){
+					// @$cek = snmpwalk($a['ip_address'], $a['community'], ".1.3.6.1.2.1.2.2.1.1");
+					@$cek = exec('/usr/local/bin/snmpget -v 1 -c '.$a['community'].' -Oqv '.$a['ip_address'].' .1.3.6.1.2.1.1.3.0');
+					$snmp_query = '/usr/local/bin/snmpget -v '.$a['ver_snmp'].' -c '.$a['community'].' -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.';
+				}else if ($a['ver_snmp'] == '2'){
+					// @$cek = snmp2_walk($a['ip_address'], $a['community'], ".1.3.6.1.2.1.2.2.1.1");
+					@$cek = exec('/usr/local/bin/snmpget -v 2c -c '.$a['community'].' -Oqv '.$a['ip_address'].' .1.3.6.1.2.1.1.3.0');
+					$snmp_query = '/usr/local/bin/snmpget -v '.$a['ver_snmp'].'c -c '.$a['community'].' -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.';
+				}else{
+					// @$cek = snmp3_walk($a['ip_address'], $a['community'], $a['type'], $a['authprot'], $a['authpass'], $a['encryptprot'], $a['encryptpass'], ".1.3.6.1.2.1.2.2.1.1");
+					@$cek = exec('/usr/local/bin/snmpget -v3 -l '.$a['type'].' -u '.$a['community'].' -a '.$a['authprot'].' -A '.$a['authpass'].'  -x '.$a['encryptprot'].' -X '.$a['encryptpass'].' '.$a['ip_address'].' .1.3.6.1.2.1.1.3.0');
+					$snmp_query = '/usr/local/bin/snmpget -v3 -l '.$a['type'].' -u '.$a['community'].' -Oqv -a '.$a['authprot'].' -A '.$a['authpass'].'  -x '.$a['encryptprot'].' -X '.$a['encryptpass'].' '.$a['ip_address'].' IF-MIB::ifAdminStatus.';
+				}
+				if (empty($cek)){
+					echo "SNMP perangkat".$a['id_perangkat']." tidak bisa diakses <br>";
+				}else {
+					// Mencari interface sesuai dengan perangkat itu 
+					$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
+					if ($data_if != 0){
+						foreach ($data_if as $if) {
+							// mencari status interface berdasarkan $data_if['interface_index'] dan $status_per['ip_address']
+							$status_if = exec($snmp_query.$if['interface_index']);
 
-				$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
+							// print_r($status_if);
+							// Menyimpan ke dalam array baru yaitu array $data
+							$data = array(
+								'id' => $a['id_perangkat'],
+								'status_if_baru' => $status_if,
+								'status_per_baru' => $status_per,
+								'if_index' => $if['interface_index']
+							);
 
-				//Melakukan pengecekan apakan mempunyai interface atau tidak
-				if ($data_if != 0){
-					foreach ($data_if as $if) {
-						// echo $if['interface_index']."<br>";
-
-						// mencari status interface berdasarkan $data_if['interface_index'] dan $status_per['ip_address']
-						$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.'.$if['interface_index'].'');
-						// echo $status_baru. "||" .$if['status']."<br>";
-
-						// Menyimpan ke dalam array baru yaitu array $data
-						$data = array(
-							'id' => $a['id_perangkat'],
-							'status_if_baru' => $status_if,
-							'status_per_baru' => $status_per,
-							'if_index' => $if['interface_index']
-						);
-
-						// Membandingkan status interface lama dengan yang baru kemudian
-						// menyimpannya dalam database
-						if ($status_if != $if['status']){
-							$this->modelperangkat->rubah_statperangkat($data, 2);
+							 // print_r($data);
+							// Membandingkan status interface lama dengan yang baru kemudian
+							// menyimpannya dalam database
+							if ($status_if != $if['status']){
+								$this->modelperangkat->rubah_statperangkat($data, 2);
+							}else {
+								$data = array(
+										'id' => $a['id_perangkat'],
+										'status_per_baru' => $status_per,
+									);
+							}
 						}
 					}
-				}else {
-					$data = array(
-							'id' => $a['id_perangkat'],
-							'status_per_baru' => $status_per,
-						);
 				}
+
+
+
+
+
+
+				// $data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
+				// //Melakukan pengecekan apakan mempunyai interface atau tidak
+				// if ($data_if != 0){
+				// 	foreach ($data_if as $if) {
+				// 		// echo $if['interface_index']."<br>";
+
+				// 		// mencari status interface berdasarkan $data_if['interface_index'] dan $status_per['ip_address']
+				// 		$status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$a['ip_address'].' IF-MIB::ifAdminStatus.'.$if['interface_index'].'');
+				// 		// echo $status_baru. "||" .$if['status']."<br>";
+
+				// 		// Menyimpan ke dalam array baru yaitu array $data
+				// 		$data = array(
+				// 			'id' => $a['id_perangkat'],
+				// 			'status_if_baru' => $status_if,
+				// 			'status_per_baru' => $status_per,
+				// 			'if_index' => $if['interface_index']
+				// 		);
+
+				// 		// Membandingkan status interface lama dengan yang baru kemudian
+				// 		// menyimpannya dalam database
+				// 		if ($status_if != $if['status']){
+				// 			$this->modelperangkat->rubah_statperangkat($data, 2);
+				// 		}
+				// 	}
+
+				// }else {
+				// 	$data = array(
+				// 			'id' => $a['id_perangkat'],
+				// 			'status_per_baru' => $status_per,
+				// 		);
+				// }
 				// print_r($a['id_perangkat']);
 				// echo "beda 2 <br>";
 				// print_r("<br>".$a['id_perangkat']." || ".$status_per. "||" . $data['status_per_baru']. "<br>");
@@ -109,8 +179,9 @@ class Controloperasi extends CI_Controller {
 			}
 
 
-			
-		}
+			// }
+		} 
+		//End Foreach
 
 		// Proses pengiriman Email
 		$data_perubahan = $this->modelperangkat->cek_perubahan();
@@ -118,7 +189,7 @@ class Controloperasi extends CI_Controller {
 		if ($data_perubahan == 0){
 			print_r("database_kosong");
 		}else{
-			$konten = " 	
+			$konten .= " 	
 					Terjadi Perubahan Status Perangkat Pada : <br><br>
 					<table border='1'>
 						<tr>
@@ -175,6 +246,8 @@ class Controloperasi extends CI_Controller {
 				$this->email->message($konten);
 				$berhasil = $this->email->send();	 
 			}
+
+			print_r($konten);
 			$reportToLog = "\r\n[".date('j F Y, H:i:s')."]\t\t: ";
 				
 			if (!$berhasil) {
@@ -194,24 +267,66 @@ class Controloperasi extends CI_Controller {
 				$this->modelperangkat->drop_perubahan();
 
 			}
+			// end if
 		}
+		// end else if
 	}
+	// End function
 
 	//Fungsi untuk update berkala rrd database
 	public function update_rrd(){
 		$data_rrd = $this->modelperangkat->get_rrd_details();
+		// $sess = $this->session->userdata('sess');
+
 		// echo getcwd();
 		foreach ($data_rrd as $data) {
-			$in = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$data['ip_address'].' IF-MIB::ifInOctets.'.$data['ip_addressindex'].'');
-	  		$out = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$data['ip_address'].' IF-MIB::ifOutOctets.'.$data['ip_addressindex'].'');
-	  		// echo $in." || ".$out." || ".time()."<br>" ;
-	  		$ret = rrd_update("etc/rrdtools/rra/".$data['id_rrd'].".rrd", array("N:".$in.":".$out));
-		    if ( $ret == 0 )
-			{
-			    $err = rrd_error();
-			    print_r($now."ERROR occurred:".$err) ;
+			if ($data['ver_snmp'] == '1'){
+				$in = exec('/usr/local/bin/snmpget -v '.$data['ver_snmp'].' -c '.$data['community'].' -Oqv '.$data['ip_address'].' IF-MIB::ifInOctets.'.$data['ip_addressindex'].'');
+		  		$out = exec('/usr/local/bin/snmpget -v '.$data['ver_snmp'].' -c '.$data['community'].' -Oqv '.$data['ip_address'].' IF-MIB::ifOutOctets.'.$data['ip_addressindex'].'');
+		  		// echo $in." || ".$out." || ".time()."<br>" ;
+		  		$ret = rrd_update("etc/rrdtools/rra/".$data['id_rrd'].".rrd", array("N:".$in.":".$out));
+			    if ( $ret == 0 )
+				{
+				    $err = rrd_error();
+				    print_r($now."ERROR occurred:".$err) ;
+				}
+			}else if ($data['ver_snmp'] == '2'){
+				$in = exec('/usr/local/bin/snmpget -v '.$data['ver_snmp'].'c -c '.$data['community'].' -Oqv '.$data['ip_address'].' IF-MIB::ifInOctets.'.$data['ip_addressindex'].'');
+		  		$out = exec('/usr/local/bin/snmpget -v '.$data['ver_snmp'].'c -c '.$data['community'].' -Oqv '.$data['ip_address'].' IF-MIB::ifOutOctets.'.$data['ip_addressindex'].'');
+		  		// echo $in." || ".$out." || ".time()."<br>" ;
+		  		$ret = rrd_update("etc/rrdtools/rra/".$data['id_rrd'].".rrd", array("N:".$in.":".$out));
+			    if ( $ret == 0 )
+				{
+				    $err = rrd_error();
+				    print_r($now."ERROR occurred:".$err) ;
+				}
+			}else{
+				$in = exec('/usr/local/bin/snmpget -v'.$data['ver_snmp'].' -l '.$data['type'].' -u '.$data['community'].' -Oqv -a '.$data['authprot'].' -A '.$data['authpass'].'  -x '.$data['encryptprot'].' -X '.$data['encryptpass'].' '.$data['ip_address'].' IF-MIB::ifInOctets.'.$data['ip_addressindex'].'');
+		  		$out = exec('/usr/local/bin/snmpget -v'.$data['ver_snmp'].' -l '.$data['type'].' -u '.$data['community'].' -Oqv -a '.$data['authprot'].' -A '.$data['authpass'].'  -x '.$data['encryptprot'].' -X '.$data['encryptpass'].' '.$data['ip_address'].' IF-MIB::ifOutOctets.'.$data['ip_addressindex'].'');
+		  		// echo $in." || ".$out." || ".time()."<br>" ;
+		  		$ret = rrd_update("etc/rrdtools/rra/".$data['id_rrd'].".rrd", array("N:".$in.":".$out));
+			    if ( $ret == 0 )
+				{
+				    $err = rrd_error();
+				    print_r($now."ERROR occurred:".$err) ;
+				}
 			}
-			// print_r($in);
+
+
+
+
+
+
+			// $in = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$data['ip_address'].' IF-MIB::ifInOctets.'.$data['ip_addressindex'].'');
+	  // 		$out = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$data['ip_address'].' IF-MIB::ifOutOctets.'.$data['ip_addressindex'].'');
+	  // 		// echo $in." || ".$out." || ".time()."<br>" ;
+	  // 		$ret = rrd_update("etc/rrdtools/rra/".$data['id_rrd'].".rrd", array("N:".$in.":".$out));
+		 //    if ( $ret == 0 )
+			// {
+			//     $err = rrd_error();
+			//     print_r($now."ERROR occurred:".$err) ;
+			// }
+			print_r($in ." || ". $out. "<br>");
 		}
 	}
 
