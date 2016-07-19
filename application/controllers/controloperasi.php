@@ -47,6 +47,7 @@ class Controloperasi extends CI_Controller {
 				if (empty($cek)){
 					$konten =  "Peringatan !! SNMP perangkat ".$a['nama_perangkat']." tidak bisa diakses <br><br>";
 				}else {
+					$konten =  " ";
 					// Mencari interface sesuai dengan perangkat itu 
 					$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
 					if ($data_if != 0){
@@ -101,9 +102,10 @@ class Controloperasi extends CI_Controller {
 					$snmp_query = '/usr/local/bin/snmpget -v3 -l '.$a['type'].' -u '.$a['community'].' -Oqv -a '.$a['authprot'].' -A '.$a['authpass'].'  -x '.$a['encryptprot'].' -X '.$a['encryptpass'].' '.$a['ip_address'].' IF-MIB::ifAdminStatus.';
 				}
 				if (empty($cek)){
-					echo "SNMP perangkat".$a['id_perangkat']." tidak bisa diakses <br>";
+					$konten =  "Peringatan !! SNMP perangkat ".$a['nama_perangkat']." tidak bisa diakses <br><br>";
 				}else {
 					// Mencari interface sesuai dengan perangkat itu 
+					$konten =  " ";
 					$data_if = $this->modelperangkat->cek_interface($a['id_perangkat']);
 					if ($data_if != 0){
 						foreach ($data_if as $if) {
@@ -247,7 +249,7 @@ class Controloperasi extends CI_Controller {
 				$berhasil = $this->email->send();	 
 			}
 
-			print_r($konten);
+			// print_r($konten);
 			$reportToLog = "\r\n[".date('j F Y, H:i:s')."]\t\t: ";
 				
 			if (!$berhasil) {
