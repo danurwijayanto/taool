@@ -170,7 +170,7 @@
             categories: [
                 
                 <?php foreach ($top_site as $dom) {
-                    echo "'".$dom['nama_if']."',";
+                    echo "'".$dom['interface']."',";
                 }?>
               
             ],
@@ -205,7 +205,7 @@
               foreach ($top_site as $dom1) {
                 echo "
                   {
-                    name: '".$dom1['domain']."',
+                    name: '".$dom1['nama_domain']."',
                     // color: '',
                     y: ".$dom1['hit']."
                   },

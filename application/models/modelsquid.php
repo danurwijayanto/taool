@@ -19,6 +19,7 @@
 			 			LEFT JOIN dataPerangkat as d on c.id_perangkat = d.id_perangkat";
 	        $result = $this->db->query($query);
 			return $result->result_array();
+			// print_r($result->result_array());
 		}
 
 		function popular_site(){
@@ -26,6 +27,7 @@
 	        $query = "SELECT domain_tujuan FROM dataLogSquid";
 	        $result = $this->db->query($query);
 			return $result->result_array();
+			// print_r($result->result_array());
 		}
 
 		# Start Fungsi untuk menghitung statistik popular site
@@ -171,33 +173,82 @@
 			 //        }
 			 //        $key++;
 			 //    }
-			 //    print_r($groups);
-
-				
+			 //    print_r($groups);			
 			}	
+			// print_r($query_result);
+			// Makasih NUR, u so pro la
 			$result1 = array();
 			$test =  array();
-			foreach ($query_result as $row)
-				{
-				  $result1[$row['nama_if']]['domain'] = $row['domain'];
-				  $result1[$row['nama_if']]['ip_asal'] = $row['ip_asal'];
-				  $result1[$row['nama_if']]['nama_if'] = $row['nama_if'];
-				  @$result1[$row['nama_if']]['hit'] += $row['hit'];
-				  @$result1[$row['nama_if']]['nama_perangkat'] = $row['nama_perangkat'];
-				  // $result[$row['nama_if']]['hit'] += $row['hit'];
-				  // $result[$row['nama_if']]['earn'] += $row['earn'];
-				  // print_r(array($result1));
-					// array_push($test,$result1);
-
+			$hitung = array();
+			$final = array();
+			foreach ($query_result as $item) {
+				if (!key_exists($item['nama_if'], $hitung)){
+					$hitung[$item['nama_if']] = array();
 				}
-				$test= array_values($result1);
-				// foreach ($test as $a) {
-				// 	print_r($a);
-				// 	# code...
-				// }
-				// print_r($test);
-			// print_r ($query_result);
-			return  $test;
+				if (!key_exists($item['domain'], $hitung[$item['nama_if']])){
+					$hitung[$item['nama_if']][$item['domain']] = intval($item['hit']);
+					$hitung[$item['nama_if']]['nama_perangkat'] = $item['nama_perangkat'];
+				}else{
+					$hitung[$item['nama_if']][$item['domain']] += intval($item['hit']);
+					$hitung[$item['nama_if']]['nama_perangkat'] = $item['nama_perangkat'];
+				}
+			}
+			// End fungsi by NUR
+			foreach ($hitung as $key => $value) {
+				arsort($hitung[$key]);
+				// echo $key."<br>";
+				$i = 0;
+				foreach ( $hitung[$key] as $domain => $value1) {
+					
+					if ($i==1) {
+						break;
+					}else{
+						$final[] = array(
+							'interface' => $key,
+							'nama_domain' => $domain,
+							'hit' => $value1,
+							'nama_perangkat' => $hitung[$key]['nama_perangkat']
+							
+						);
+						$i++;
+					}
+				}
+			}
+
+			// print_r($final);
+			
+
+
+			// print_r(array_column($query_result, 'nama_if'));
+			// print_r(array_unique(array_column($query_result, 'nama_if')));
+			// print_r(array_column($query_result, 'nama_if'));
+			// print_r(array_column($query_result, 'domain'));
+			// $domain = array_column($query_result, 'domain', 'nama_if');
+			// print_r($domain);
+			// $kelompok_if = array();
+			// foreach ($query_result as $a) {
+			// 	$id = $a['nama_if'];
+			//   	if (isset($a['nama_if'])) {
+			//     	$kelompok_if[$id][] = $a;
+			//   	} else {
+			//      	$kelompok_if[$id] = array($a);
+			//   	}
+			// }
+
+			// Bye me gagal
+			// foreach ($query_result as $row)
+			// {
+			//   $result1[$row['nama_if']]['domain'] = $row['domain'];
+			//   $result1[$row['nama_if']]['ip_asal'] = $row['ip_asal'];
+			//   $result1[$row['nama_if']]['nama_if'] = $row['nama_if'];
+			//   @$result1[$row['nama_if']]['hit'] += $row['hit'];
+			//   @$result1[$row['nama_if']]['nama_perangkat'] = $row['nama_perangkat'];
+
+			// }
+			// $test= array_values($result1);
+			//End bye me
+
+			return  $final;//431
 		}
 		# End Fungsi untuk menghitung statistik popular site
 

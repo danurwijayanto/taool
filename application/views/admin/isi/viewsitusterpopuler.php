@@ -86,15 +86,17 @@
                 </tr>
               </thead>
               <tbody>
-              <?php $i=1;foreach ($stats as $stats) {  
-                $domain = url_view($stats['domain']);    
-              ?>
+
+                <?php $i=1;
+                  foreach ($stats as $stats) {  
+                  // $domain = url_view($stats['domain']);    
+                ?>
                 
                 <tr>
                     <th><?php echo $i; ?></th>
                     <th><?php echo $stats['nama_perangkat']; ?></th>
-                    <th><?php echo $stats['nama_if']; ?></th>
-                    <th><?php echo $stats['domain']; ?></th>
+                    <th><?php echo $stats['interface']; ?></th>
+                    <th><?php echo $stats['nama_domain']; ?></th>
                     <th><?php echo $stats['hit']; ?></th>
                 </tr>
               

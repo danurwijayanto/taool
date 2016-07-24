@@ -27,7 +27,11 @@
 		}
 
 		function hapus_perangkat($data){
-			$query = "DELETE FROM dataPerangkat WHERE id_perangkat=$data";
+			$query = "DELETE FROM a , b, c
+						USING dataPerangkat as a INNER JOIN dataIpAddress as b INNER JOIN dataInterface as c
+						WHERE a.id_perangkat=$data
+							AND a.id_perangkat = b.id_perangkat
+							AND a.id_perangkat = c.id_perangkat";
 	        $result = $this->db->query($query);
 	        if($this->db->affected_rows() > 0){
 	            return "Perangkat Berhasil dihapus";

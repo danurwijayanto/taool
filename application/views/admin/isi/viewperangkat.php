@@ -32,7 +32,15 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $i=1;foreach ($data_perangkat as $a) { 
+
+                <?php 
+                  if (empty($data_perangkat)) { ?>
+                    <tr>
+                      <td colspan="5"> Tidak ada data</td>
+                    </tr>
+                  <?php } else { 
+                  $i=1;
+                  foreach ($data_perangkat as $a) { 
                   ?>
                   <tr>
                     <td><?php echo $i;?></td>
@@ -48,7 +56,7 @@
                       <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger" onclick="konfirmasihapus()">Hapus</a>
                     </td>
                   </tr>
-                <?php $i++ ;} ?>
+                <?php $i++ ;} } ?>
               </tbody>
             </table>
         </div>
@@ -118,8 +126,8 @@
             <label class="control-label col-sm-2" for="enprot">Encrypt Protocol:</label>
             <div class="col-sm-10"> 
               <select class="form-control" class="enprot" name="enprot" id="enprot">
-                <option value="MD5">AES</option>
-                <option value="SHA1">DES</option>
+                <option value="AES">AES</option>
+                <option value="DES">DES</option>
               </select>
             </div>
           </div>
@@ -315,7 +323,8 @@
         var txt;
         var r = confirm("Ingin Menghapus ?");
         if (r == true) {
-            document.getElementById("hapus").href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>"; 
+
+            document.getElementById("hapus").href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo @$a['id_perangkat']; ?>"; 
             return false;
         } else {
            return;
