@@ -176,6 +176,9 @@
             ],
             crosshair: true
         },
+        legend: {
+            enabled: false
+        },
         yAxis: {
             min: 0,
             title: {
@@ -183,12 +186,11 @@
             }
         },
         tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0"> </td>' +
-                '<td style="padding:0"><b>{point.y: 1f} hit</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
+
+
+
+            headerFormat: '<span style="font-size:11px">Domain {point.key}</span><br>',
+            pointFormat: '<span style="color:{point.color}"></span> <b>{point.y}</b> Hit<br/>'
         },
         plotOptions: {
             column: {
@@ -235,14 +237,7 @@
         //     text: 'Source: WorldClimate.com'
         // },
         xAxis: {
-            categories: [
-                
-                <?php foreach ($domhit as $domhit1 => $value) {
-                    echo "'".$domhit1."',";
-                }?>
-              
-            ],
-            crosshair: true
+            type: 'category'
         },
         yAxis: {
             min: 0,
@@ -250,36 +245,48 @@
                 text: 'Hit (kali)'
             }
         },
+        legend: {
+            enabled: false
+        },
         tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0"> </td>' +
-                '<td style="padding:0"><b>{point.y: 1f} hit</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> Hit<br/>'
         },
         plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
+             series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y}'
+                },
+                events:{
+                  click: function (event, i) {
+                     // alert(event.point.name);
+                     window.open("http://"+event.point.name);
+                  }
+              }
             }
         },
-        series: [
-        {
-            data: [
-
-            <?php foreach ($domhit as $domhit2 => $value1) {
-                    echo "
-                      {
-                        name: '".$domhit2."',
-                        // color: '',
-                        y: ".$value1."
-                      },
-                    ";
-            }?>
-            ]
-
-        }]
+        series: [{
+              name: 'Domain',
+              colorByPoint: true,
+              data: [
+               <?php 
+               $i = 0;
+               foreach ($domhit as $domhit1 => $value1) { ?>
+                {
+                  name: <?php echo "'".$domhit1."'"; ?>,
+                  y: <?php echo $value1; ?>,
+                  drilldown: <?php echo "'".$domhit1."'"; ?>
+                },
+                <?php 
+                  if ($i == 10) break;
+                  $i++;
+                  }
+                ?>
+                ]
+            }
+        ]
     });
 });
 </script>
