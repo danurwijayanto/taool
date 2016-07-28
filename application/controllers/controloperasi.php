@@ -27,7 +27,7 @@ class Controloperasi extends CI_Controller {
 		foreach ($semua_perangkat as $a) {
 			# code...
 			$status_per = $this->fungsiku->ping($a['ip_address']);
-
+			// print_r($status_per."<br>");
 			// Jika status perangkat up dan status perangkat database up 
 			if (($a['status'] == "Up") && ($status_per == "Up")){
 				// Cek Protocol SNMP pada perangkat
@@ -126,13 +126,19 @@ class Controloperasi extends CI_Controller {
 							// menyimpannya dalam database
 							if ($status_if != $if['status']){
 								$this->modelperangkat->rubah_statperangkat($data, 2);
-							}else {
-								$data = array(
-										'id' => $a['id_perangkat'],
-										'status_per_baru' => $status_per,
-									);
 							}
+							// else {
+							// 	$data = array(
+							// 			'id' => $a['id_perangkat'],
+							// 			'status_per_baru' => $status_per,
+							// 		);
+							// }
 						}
+					}else {
+						$data = array(
+							'id' => $a['id_perangkat'],
+							'status_per_baru' => $status_per,
+						);
 					}
 				}
 
@@ -174,10 +180,11 @@ class Controloperasi extends CI_Controller {
 				// }
 				// print_r($a['id_perangkat']);
 				// echo "beda 2 <br>";
-				// print_r("<br>".$a['id_perangkat']." || ".$status_per. "||" . $data['status_per_baru']. "<br>");
+				// print_r("<br>".$a['id_perangkat']." || ".$a['status']."||" . $status_per. "<br>");
+				// print_r($data);
 				$this->modelperangkat->rubah_statperangkat($data, 1);
 			}else if (($a['status'] == "Down") && ($status_per == "Down")){
-				// print_r("sesudah");
+				// print_r("down<br>");
 			}
 
 

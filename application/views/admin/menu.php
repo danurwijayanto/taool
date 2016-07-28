@@ -37,7 +37,7 @@
                     <a class="btn btn-primary profilku" data-toggle="modal" data-target="#profilku" id="<?php echo $session['id_user']; ?>">Profile</a>
                     </div>
                     <div class="pull-right">
-                      <a href="<?php echo base_url();?>index.php/login_admin/logout" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="<?php echo base_url();?>index.php/controllogin/logout" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>

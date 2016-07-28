@@ -134,13 +134,13 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="authpass">Auth Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="authpass" id="authpass" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
+              <input type="text" class="form-control" name="authpass" id="authpass" placeholder="Authentication Password" pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="encryptpass">Encrypt Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="encryptpass" id="encryptpass" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter" maxlength="15">
+              <input type="text" class="form-control" name="encryptpass" id="encryptpass" placeholder="Encryption Password" pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
         </div>
@@ -193,19 +193,19 @@
       <div class="modal-body">
         <form class="form-horizontal" role="form" method="post" name="editperangkat">
           <div class="form-group">
-            <label class="control-label col-sm-2" for="nama_perangkat">Nama Perangkat:</label>
+            <label class="control-label col-sm-2" for="nama_perangkat1">Nama Perangkat:</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" name="nama_perangkat1" id="nama_perangkat1" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="ip">Alamat IP:</label>
+            <label class="control-label col-sm-2" for="ip1">Alamat IP:</label>
             <div class="col-sm-10"> 
               <input type="text" class="form-control ip" name="ip1" id="ip1" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="ver">Versi SNMP:</label>
+            <label class="control-label col-sm-2" for="ver1">Versi SNMP:</label>
             <div class="col-sm-10"> 
               <select class="form-control" class="ver1" name="ver1" id="ver1">
                 <option value="1">1</option>
@@ -219,7 +219,7 @@
           </div>
         <div id="versi31">
           <div class="form-group">
-            <label class="control-label col-sm-2" for="auth">Type:</label>
+            <label class="control-label col-sm-2" for="type1">Type:</label>
             <div class="col-sm-10"> 
               <select class="form-control" class="type1" name="type1" id="type1">
                 <option value="authPriv">authPriv</option>
@@ -229,7 +229,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="authprot">Auth Protocol:</label>
+            <label class="control-label col-sm-2" for="authprot1">Auth Protocol:</label>
             <div class="col-sm-10"> 
               <select class="form-control" class="authprot1" name="authprot1" id="authprot1">
                 <option value="MD5">MD5</option>
@@ -238,7 +238,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="enprot">Encrypt Protocol:</label>
+            <label class="control-label col-sm-2" for="enprot1">Encrypt Protocol:</label>
             <div class="col-sm-10"> 
               <select class="form-control" class="enprot1" name="enprot1" id="enprot1">
                 <option value="MD5">AES</option>
@@ -247,26 +247,26 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="authpass">Auth Password:</label>
+            <label class="control-label col-sm-2" for="authpass1">Auth Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="authpass1" id="authpass1" placeholder="Authentication Password" required pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
+              <input type="text" class="form-control" name="authpass1" id="authpass1" placeholder="Authentication Password"  pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="encryptpass">Encrypt Password:</label>
+            <label class="control-label col-sm-2" for="encryptpass1">Encrypt Password:</label>
             <div class="col-sm-10"> 
-              <input type="text" class="form-control" name="encryptpass1" id="encryptpass1" placeholder="Encryption Password" required pattern=".{8,}" required title="Minimum 8 karakter" maxlength="15">
+              <input type="text" class="form-control" name="encryptpass1" id="encryptpass1" placeholder="Encryption Password" pattern=".{8,}" title="Minimum 8 karakter" maxlength="15">
             </div>
           </div>
         </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="community">Community:</label>
+            <label class="control-label col-sm-2" for="community1">Community:</label>
             <div class="col-sm-10"> 
               <input type="text" class="form-control" name="community1" id="community1" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-2" for="lokasi">Lokasi Perangkat:</label>
+            <label class="control-label col-sm-2" for="lokasi1">Lokasi Perangkat:</label>
             <div class="col-sm-10"> 
               <input type="text" class="form-control" name="lokasi1" id="lokasi1" required>
             </div>
