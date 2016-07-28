@@ -268,7 +268,7 @@
 
 		function sinkron_ip(){
 			$query1 = "SELECT *
-				FROM `dataIpAddress`
+				FROM `dataIpAddress` WHERE id_perangkat=1
 				GROUP BY ip_address";
 			$query2 = "SELECT * 
 				FROM `dataLogSquid` 
@@ -281,7 +281,7 @@
 			$this->db->truncate('list_ip');
 
 			// print_r($dataip);
-			echo $this->fungsiku->IPisWithinCIDR('10.10.13.1','10.10.8.1/22');
+			// echo $this->fungsiku->IPisWithinCIDR('10.10.13.1','10.10.8.1/22');
 			foreach ($squid as $squid) {
 				foreach ($dataip as $dataip1) {
 					if ($this->fungsiku->IPisWithinCIDR($squid['user_ip'],$dataip1['ip_address']."/".$dataip1['cidrr']) == TRUE){
