@@ -103,6 +103,10 @@ class Controloperasi extends CI_Controller {
 				}
 				if (empty($cek)){
 					$konten =  "Peringatan !! SNMP perangkat ".$a['nama_perangkat']." tidak bisa diakses <br><br>";
+					$data = array(
+							'id' => $a['id_perangkat'],
+							'status_per_baru' => $status_per,
+						);
 				}else {
 					// Mencari interface sesuai dengan perangkat itu 
 					$konten =  " ";

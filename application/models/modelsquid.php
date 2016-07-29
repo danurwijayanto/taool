@@ -16,7 +16,8 @@
 			 			on e.ip_squid = b.user_ip
 			 			LEFT JOIN dataIpAddress as a on e.ip_interface = a.ip_address
 			 			LEFT JOIN dataInterface as c on a.ip_addressindex = c.interface_index 
-			 			LEFT JOIN dataPerangkat as d on c.id_perangkat = d.id_perangkat";
+			 			LEFT JOIN dataPerangkat as d on c.id_perangkat = d.id_perangkat
+			 			WHERE a.id_perangkat = c.id_perangkat";
 	        $result = $this->db->query($query);
 			return $result->result_array();
 			// print_r($result->result_array());
@@ -143,7 +144,11 @@
 				// 		WHERE SUBSTRING_INDEX('$ip[1]', '.', 3)=SUBSTRING_INDEX(b.ip_address, '.', 3) AND b.ip_addressindex=a.interface_index";
 				$query = "SELECT a.nama_interface , d.nama_perangkat
 						FROM dataInterface  as a , dataIpAddress as b, list_ip as c, dataPerangkat as d
-						WHERE '$ip[1]'=c.ip_squid AND c.ip_interface=b.ip_address AND b.ip_addressindex=a.interface_index AND a.id_perangkat=d.id_perangkat";
+						WHERE '$ip[1]'=c.ip_squid 
+						AND c.ip_interface=b.ip_address 
+						AND b.ip_addressindex=a.interface_index 
+						AND a.id_perangkat=d.id_perangkat
+						AND b.id_perangkat=d.id_perangkat";
 				$result = $this->db->query($query);
 				$result = $result->result_array();
 				// print_r ($result);
