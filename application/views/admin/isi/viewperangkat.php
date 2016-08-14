@@ -53,7 +53,7 @@
                     <td>
                       <a <?php if ($session['role']==2)echo 'disabled'; ?> class="btn btn-primary edit_device" data-toggle="modal" data-target="#edit_device" id="<?php echo $a['id_perangkat']; ?>">Edit</a>
                       <a href="<?php echo base_url();?>controlperangkat/detail_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-success">Detail</a>
-                      <a <?php if ($session['role']==2)echo 'disabled'; ?> href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger" onclick="konfirmasihapus()">Hapus</a>
+                      <a <?php if ($session['role']==2 || $a['id_perangkat']==1)echo 'disabled'; ?> href="<?php echo base_url();?>controlperangkat/hapus_perangkat?id=<?php echo $a['id_perangkat']; ?>" class="btn btn-danger" onclick="konfirmasihapus()">Hapus</a>
                     </td>
                   </tr>
                 <?php $i++ ;} } ?>

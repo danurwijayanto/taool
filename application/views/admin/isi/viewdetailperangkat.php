@@ -36,6 +36,18 @@
                   </td>
                 </tr>
                 <tr>
+                  <td>IP Address</td>
+                  <td>:
+                  <b><?php echo $detail['ip_address']."<br>";?><b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Lokasi</td>
+                  <td>:
+                  <b><?php echo $detail['lokasi']."<br>";?><b>
+                  </td>
+                </tr>
+                <tr>
                   <td>Uptime</td>
                   <td>: <span id="uptime" style="font-weight:bold"></span></td>
                 </tr>

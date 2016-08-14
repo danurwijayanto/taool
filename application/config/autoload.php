@@ -110,7 +110,7 @@ $autoload['language'] = array();
 */
 
 #$autoload['model'] = array('squid_model', 'snmp_model', 'auth');
-$autoload['model'] = array('modelsquid', 'modelperangkat', 'modelpengguna');
+$autoload['model'] = array('modelsquid', 'modelperangkat', 'modelpengguna', 'modelinterface', 'modelipaddress');
 
 
 /* End of file autoload.php */

@@ -24,11 +24,11 @@
 			echo validation_errors(); 
 			?> 
 				<form method="post" action="<?php echo base_url();?>controllogin/user_login_process" role="login">
-					<p>Login NMS FSM Undip</p>
-					<img src="<?php echo base_url();?>etc/login/styles.css" class="img-responsive" alt="" />
+					<p style="margin: 0; text-align: center;"><b>Silahkan Melakukan Login</b></p>
+					<!-- <img src="<?php echo base_url();?>etc/login/styles.css" class="img-responsive" alt="" /> -->
 			<input type="email" name="email" placeholder="Email" required class="form-control input-lg" value="<?php echo set_value('email'); ?>" />
 					<input type="password" name="password" placeholder="Password" required class="form-control input-lg" value="<?php echo set_value('password'); ?>" />
-					<button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Sign in</button>
+					<button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Masuk</button>
 					<div>
 						<!-- <a href="#">reset password</a> -->
 					</div>

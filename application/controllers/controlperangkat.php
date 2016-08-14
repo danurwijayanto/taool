@@ -36,16 +36,17 @@ class Controlperangkat extends CI_Controller {
 			// 'session' => $this->data_sesi,
 			'session' => $this->modelpengguna->read_user_information($this->session_data),
 			'top_site' => $this->modelsquid->get_namaif(),
+			// 'top_site' => arsort($this->modelsquid->get_namaif()),
 			'pop_site' => $this->modelsquid->popular_site(),
 			'total_user' => $this->modelpengguna->get_all_user(),
 			'total_device' => $this->modelperangkat->get_alldev(),
-			'total_if' => $this->modelperangkat->get_allif(),
-			'bandbrd1' => $this->modelperangkat->getbandwith(19),
-			'bandbrd2' => $this->modelperangkat->getbandwith(20),
+			'total_if' => $this->modelinterface->get_allif(),
+			'bandbrd1' => $this->modelinterface->getbandwith(19),
+			'bandbrd2' => $this->modelinterface->getbandwith(20),
 			'statperup' => count($this->modelperangkat->get_statusperangkat('Up')),
-			'ifperup' => count($this->modelperangkat->get_statusif('up')),
+			'ifperup' => count($this->modelinterface->get_statusif('up')),
 			'statperdown' => count($this->modelperangkat->get_statusperangkat('Down')),
-			'ifperdown' => count($this->modelperangkat->get_statusif('down')),
+			'ifperdown' => count($this->modelinterface->get_statusif('down')),
 		);
 		// print_r($data['top_site']);
 		$this->load->view('admin/wrapper', $data);
@@ -160,8 +161,8 @@ class Controlperangkat extends CI_Controller {
 		
 		// print_r($db['status_if']);
 		// $status_if = exec('/usr/local/bin/snmpget -v 1 -c public -Oqv '.$sess1['ip'].' IF-MIB::ifAdminStatus');
-		$result=$this->modelperangkat->simpan_scan_if($db);
-		$result1=$this->modelperangkat->simpan_scan_ip($db);
+		$result=$this->modelinterface->simpan_scan_if($db);
+		$result1=$this->modelipaddress->simpan_scan_ip($db);
 		echo "<script type='text/javascript'>alert('Perubahan Berhasil')</script>";
 		redirect($this->agent->referrer());
 
@@ -270,7 +271,7 @@ class Controlperangkat extends CI_Controller {
 				'isi' =>'admin/isi/viewdetailinterface',
 				'det_if' => $this->modelperangkat->get_detail_if($id),
 				'session' => $this->data_sesi,
-				'cek_rrd' => $this->modelperangkat->cek_rrd($id),
+				'cek_rrd' => $this->modelinterface->cek_rrd($id),
 				'id' => $id
 				#'statistik' => $this->modelsquid->cari_statistik($id_if)
 		);
@@ -292,7 +293,7 @@ class Controlperangkat extends CI_Controller {
 		$nama = $id['id_if']."_".$id['id_per'];
 
 		// Simpan nama database rrd dalam mysql database
-		$this->modelperangkat->simpan_rrd($id);
+		$this->modelinterface->simpan_rrd($id);
 
 		// Membuat rrd database
 		$options = array(
